@@ -10,7 +10,7 @@
 #Class 			: 	TE-11	
 #Roll. No.		: 	33364
 
-#!bin/sh
+#!bin/bash
 
 #function to create a database files
 createdb()
@@ -195,11 +195,11 @@ search()
 				fi
 				;;
 			#case 2 is used to search a record by name
-			2)	read -p "Enter the name, city, pincode or phone number  you want to search: " sname
+			2)	read -p "Enter the name, city, pincode or phone number  you want to search: " search_param
 				echo -e "\n--------------------------------------------------------------------"
 				echo -e "ID\tNAME\tADDRESS\t\tCITY\tPINCODE\tPHONE NUMBER"
 				echo -e "\n--------------------------------------------------------------------"
-				grep -i -w $sname addressbook_database.lst 
+				grep -i -w $search_param addressbook_database.lst 
 				;;
 			3)break;;
 			*)echo -e "WARNING: PLEASE ENTER A VALID CHOICE!!!"
@@ -232,18 +232,24 @@ modify()
 	
 	if [ $status -eq 0 ]
 	then
-		echo -e "Enter new Details : \n"
+		alpha_valid='^[a-zA-Z]+$'
 		while(true)
 		do
-			echo -e "\nName: \c"
+		echo -e "\nName: \c"		
 			read nname
 			if [ -z $nname ]
 			then
-				echo -e "WARNING: PLEASE ENTER VALID NAME!"
-			else
-				break;
+				echo -e "\nWARNING: PLEASE ENTER A VALID NAME!"
+			else 
+				if ! [[ $nname =~ $alpha_valid ]]
+				then
+					echo -e "\nWARNING: PLEASE ONLY CHARACTERS!"
+				else
+					break
+				fi
 			fi
 		done
+		
 		while(true)
 		do
 		echo -e "\nAddress: \c"
