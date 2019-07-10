@@ -1,0 +1,5 @@
+For parameter passing through execv first create object file of the code on which you want to recieve the parameters 
+using following Steps:-
+1.gcc filename.c -o objectfilename
+2.Then pass the objectfilename into the execv as first parameter and the argument vector variable as second parameter
+3.Then while running the code pass the commandline parameters
