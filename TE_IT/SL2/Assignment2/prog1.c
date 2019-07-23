@@ -1,3 +1,19 @@
+/*
+Name		 : Sahil A. Shaikh
+Class		 : TE-11
+Roll.no.	 : 33364
+Problem Statement: 1. Implement the C program in which main program accepts the integers to be sorted.
+		     Main program uses the FORK system call to create a new process called a child
+		     process. Parent process sorts the integers using sorting algorithm and waits for child
+		     process using WAIT system call to sort the integers using any sorting algorithm.
+		     Also demonstrate zombie and orphan states.
+		   2. Implement the C program in which main program accepts an integer array. Main
+		     program uses the FORK system call to create a new process called a child process.
+		     Parent process sorts an integer array and passes the sorted array to child process
+		     through the command line arguments of EXECVE system call. The child process
+		     uses EXECVE system call to load new program that uses this sorted array for
+		     performing the binary search to search the particular item in the array.	
+*/
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -122,8 +138,3 @@ int main()
 	
 	return 0;
 }
-
-/*
-
-	
-*/
