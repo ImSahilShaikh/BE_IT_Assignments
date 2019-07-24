@@ -1,0 +1,1207 @@
+mllab-14@mllab14:~$ mysql -u tanvi -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.11-0ubuntu6 (Ubuntu)
+
+Copyright (c) 2000, 2016, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| abc                |
+| courses            |
+| employee           |
+| food               |
+| hotel              |
+| hotelmanagement    |
+| medical            |
+| music              |
+| musician           |
+| mysql              |
+| ol_order           |
+| online_order       |
+| order_manage       |
+| order_management   |
+| performance_schema |
+| sys                |
+| vinayordermanage   |
++--------------------+
+18 rows in set (0.08 sec)
+
+mysql> use order_manage;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++------------------------+
+| Tables_in_order_manage |
++------------------------+
+| categories             |
+| contains               |
+| customer               |
+| place_order            |
+| products               |
++------------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer;
++---------+-----------+--------------+--------------------+--------------------+-----------+
+| cust_id | cust_name | cust_surname | email              | address            | mobile_no |
++---------+-----------+--------------+--------------------+--------------------+-----------+
+|       1 | Priya     | Dubhe        | priya12@gmail.com  | Katraj, Pune       | 845189654 |
+|       2 | Shraddha  | Sonekar      | shraddha@gmail.com | Hadapsar,Pune      | 941236485 |
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com    | Pragati Nagar,Wani | 842007562 |
+|       4 | Rohini    | Tule         | rohini@gmail.com   | Daund, Pune        | 954036774 |
+|       5 | Sonali    | Khadaskar    | sonali@gmail.com   | Ambegao, Pune      | 805674564 |
++---------+-----------+--------------+--------------------+--------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> mysql> select * from place_order;
++----------+------------+--------+---------+
+| order_id | order_date | amount | cust_id |
++----------+------------+--------+---------+
+|        1 | 2019-07-18 |    400 |       1 |
+|        2 | 2019-07-18 |    300 |       2 |
+|        3 | 2019-07-18 |     44 |       3 |
+|        4 | 2019-07-18 |    980 |       4 |
+|        5 | 2019-07-22 |    900 |       1 |
++----------+------------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from products;
++------------+-------------------------+-------+-------+--------+
+| product_id | product_name            | stock | price | cat_id |
++------------+-------------------------+-------+-------+--------+
+|          1 | Jesus Calling           |    20 |   300 |      1 |
+|          2 | Veedu Thorum            |    20 |  4000 |      1 |
+|          3 | Mahabharat              |    20 |  2999 |      1 |
+|          4 | 2 Vols-Vayu             |    20 |  1600 |      1 |
+|          5 | Gita Govinda            |    20 |   980 |      1 |
+|          6 | Man search for meaning  |    20 |   144 |      2 |
+|          7 | 1984 George Orwell      |    20 |    95 |      2 |
+|          8 | The Secret Rhonda Byrne |    20 |   300 |      2 |
+|          9 | The great Gatsby        |    20 |    44 |      2 |
+|         10 | Antheme                 |    20 |    84 |      2 |
+|         11 | Coloring Book           |    20 |   360 |      3 |
+|         12 | Book of patterns        |    20 |    99 |      3 |
+|         13 | Shape coloring book     |    20 |    49 |      3 |
+|         14 | First Library           |    20 |   499 |      3 |
+|         15 | Wonder house book       |    20 |   899 |      3 |
+|         16 | Tinkle Digest 9         |    20 |    55 |      4 |
+|         17 | Akbar and birble        |    20 |    90 |      4 |
+|         18 | Batman                  |    20 |   486 |      4 |
+|         19 | Spiderman               |    20 |   966 |      4 |
+|         20 | Tintin                  |    20 |   445 |      4 |
++------------+-------------------------+-------+-------+--------+
+20 rows in set (0.00 sec)
+
+mysql> select * from contains;
++----------+----------+------------+-------------+
+| order_id | quantity | product_id | total_price |
++----------+----------+------------+-------------+
+|        1 |        1 |          1 |         400 |
+|        2 |        1 |          1 |         400 |
+|        3 |        1 |          9 |          44 |
+|        4 |        1 |          5 |         980 |
+|        5 |        3 |         11 |         900 |
++----------+----------+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from categories;
++--------+-------------+
+| cat_id | cat_name    |
++--------+-------------+
+|      1 | Devotional  |
+|      2 | Fiction     |
+|      3 | Kids        |
+|      4 | Comics      |
+|      5 | Historicals |
+|      6 | Literature  |
+|      7 | Biographics |
++--------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> show tables like 'c%';
++-----------------------------+
+| Tables_in_order_manage (c%) |
++-----------------------------+
+| categories                  |
+| contains                    |
+| customer                    |
++-----------------------------+
+3 rows in set (0.00 sec)
+
+mysql> update contains set total_price=0;
+Query OK, 5 rows affected (0.06 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> update place_order set amount=0;
+Query OK, 5 rows affected (0.04 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from customer;
++---------+-----------+--------------+--------------------+--------------------+-----------+
+| cust_id | cust_name | cust_surname | email              | address            | mobile_no |
++---------+-----------+--------------+--------------------+--------------------+-----------+
+|       1 | Priya     | Dubhe        | priya12@gmail.com  | Katraj, Pune       | 845189654 |
+|       2 | Shraddha  | Sonekar      | shraddha@gmail.com | Hadapsar,Pune      | 941236485 |
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com    | Pragati Nagar,Wani | 842007562 |
+|       4 | Rohini    | Tule         | rohini@gmail.com   | Daund, Pune        | 954036774 |
+|       5 | Sonali    | Khadaskar    | sonali@gmail.com   | Ambegao, Pune      | 805674564 |
++---------+-----------+--------------+--------------------+--------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from products;
++------------+-------------------------+-------+-------+--------+
+| product_id | product_name            | stock | price | cat_id |
++------------+-------------------------+-------+-------+--------+
+|          1 | Jesus Calling           |    20 |   300 |      1 |
+|          2 | Veedu Thorum            |    20 |  4000 |      1 |
+|          3 | Mahabharat              |    20 |  2999 |      1 |
+|          4 | 2 Vols-Vayu             |    20 |  1600 |      1 |
+|          5 | Gita Govinda            |    20 |   980 |      1 |
+|          6 | Man search for meaning  |    20 |   144 |      2 |
+|          7 | 1984 George Orwell      |    20 |    95 |      2 |
+|          8 | The Secret Rhonda Byrne |    20 |   300 |      2 |
+|          9 | The great Gatsby        |    20 |    44 |      2 |
+|         10 | Antheme                 |    20 |    84 |      2 |
+|         11 | Coloring Book           |    20 |   360 |      3 |
+|         12 | Book of patterns        |    20 |    99 |      3 |
+|         13 | Shape coloring book     |    20 |    49 |      3 |
+|         14 | First Library           |    20 |   499 |      3 |
+|         15 | Wonder house book       |    20 |   899 |      3 |
+|         16 | Tinkle Digest 9         |    20 |    55 |      4 |
+|         17 | Akbar and birble        |    20 |    90 |      4 |
+|         18 | Batman                  |    20 |   486 |      4 |
+|         19 | Spiderman               |    20 |   966 |      4 |
+|         20 | Tintin                  |    20 |   445 |      4 |
++------------+-------------------------+-------+-------+--------+
+20 rows in set (0.00 sec)
+
+mysql> select * from categories;
++--------+-------------+
+| cat_id | cat_name    |
++--------+-------------+
+|      1 | Devotional  |
+|      2 | Fiction     |
+|      3 | Kids        |
+|      4 | Comics      |
+|      5 | Historicals |
+|      6 | Literature  |
+|      7 | Biographics |
++--------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from place_order;
++----------+------------+--------+---------+
+| order_id | order_date | amount | cust_id |
++----------+------------+--------+---------+
+|        1 | 2019-07-18 |      0 |       1 |
+|        2 | 2019-07-18 |      0 |       2 |
+|        3 | 2019-07-18 |      0 |       3 |
+|        4 | 2019-07-18 |      0 |       4 |
+|        5 | 2019-07-22 |      0 |       1 |
++----------+------------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from contains;
++----------+----------+------------+-------------+
+| order_id | quantity | product_id | total_price |
++----------+----------+------------+-------------+
+|        1 |        1 |          1 |           0 |
+|        2 |        1 |          1 |           0 |
+|        3 |        1 |          9 |           0 |
+|        4 |        1 |          5 |           0 |
+|        5 |        3 |         11 |           0 |
++----------+----------+------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into contains values(1,3,2,0),(1,4,4,0),(2,3,1,0),(2,2,5,0);
+ERROR 1062 (23000): Duplicate entry '2-1' for key 'PRIMARY'
+mysql> insert into contains values(1,3,2,0),(1,4,4,0),(2,3,4,0),(2,2,5,0);
+Query OK, 4 rows affected (0.05 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from contains;
++----------+----------+------------+-------------+
+| order_id | quantity | product_id | total_price |
++----------+----------+------------+-------------+
+|        1 |        1 |          1 |           0 |
+|        1 |        3 |          2 |           0 |
+|        1 |        4 |          4 |           0 |
+|        2 |        1 |          1 |           0 |
+|        2 |        3 |          4 |           0 |
+|        2 |        2 |          5 |           0 |
+|        3 |        1 |          9 |           0 |
+|        4 |        1 |          5 |           0 |
+|        5 |        3 |         11 |           0 |
++----------+----------+------------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> update contains set total_price=(select price from products where product_id=contains.product_id)*quantity;
+Query OK, 9 rows affected (0.05 sec)
+Rows matched: 9  Changed: 9  Warnings: 0
+
+mysql> select * from contains;
++----------+----------+------------+-------------+
+| order_id | quantity | product_id | total_price |
++----------+----------+------------+-------------+
+|        1 |        1 |          1 |         300 |
+|        1 |        3 |          2 |       12000 |
+|        1 |        4 |          4 |        6400 |
+|        2 |        1 |          1 |         300 |
+|        2 |        3 |          4 |        4800 |
+|        2 |        2 |          5 |        1960 |
+|        3 |        1 |          9 |          44 |
+|        4 |        1 |          5 |         980 |
+|        5 |        3 |         11 |        1080 |
++----------+----------+------------+-------------+
+9 rows in set (0.00 sec)
+
+mysql> update contains set total_price=(select price from products where product_id=product_id)*quantity;
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> select * from categories,products;
++--------+-------------+------------+-------------------------+-------+-------+--------+
+| cat_id | cat_name    | product_id | product_name            | stock | price | cat_id |
++--------+-------------+------------+-------------------------+-------+-------+--------+
+|      1 | Devotional  |          1 | Jesus Calling           |    20 |   300 |      1 |
+|      2 | Fiction     |          1 | Jesus Calling           |    20 |   300 |      1 |
+|      3 | Kids        |          1 | Jesus Calling           |    20 |   300 |      1 |
+|      4 | Comics      |          1 | Jesus Calling           |    20 |   300 |      1 |
+|      5 | Historicals |          1 | Jesus Calling           |    20 |   300 |      1 |
+|      6 | Literature  |          1 | Jesus Calling           |    20 |   300 |      1 |
+|      7 | Biographics |          1 | Jesus Calling           |    20 |   300 |      1 |
+|      1 | Devotional  |          2 | Veedu Thorum            |    20 |  4000 |      1 |
+|      2 | Fiction     |          2 | Veedu Thorum            |    20 |  4000 |      1 |
+|      3 | Kids        |          2 | Veedu Thorum            |    20 |  4000 |      1 |
+|      4 | Comics      |          2 | Veedu Thorum            |    20 |  4000 |      1 |
+|      5 | Historicals |          2 | Veedu Thorum            |    20 |  4000 |      1 |
+|      6 | Literature  |          2 | Veedu Thorum            |    20 |  4000 |      1 |
+|      7 | Biographics |          2 | Veedu Thorum            |    20 |  4000 |      1 |
+|      1 | Devotional  |          3 | Mahabharat              |    20 |  2999 |      1 |
+|      2 | Fiction     |          3 | Mahabharat              |    20 |  2999 |      1 |
+|      3 | Kids        |          3 | Mahabharat              |    20 |  2999 |      1 |
+|      4 | Comics      |          3 | Mahabharat              |    20 |  2999 |      1 |
+|      5 | Historicals |          3 | Mahabharat              |    20 |  2999 |      1 |
+|      6 | Literature  |          3 | Mahabharat              |    20 |  2999 |      1 |
+|      7 | Biographics |          3 | Mahabharat              |    20 |  2999 |      1 |
+|      1 | Devotional  |          4 | 2 Vols-Vayu             |    20 |  1600 |      1 |
+|      2 | Fiction     |          4 | 2 Vols-Vayu             |    20 |  1600 |      1 |
+|      3 | Kids        |          4 | 2 Vols-Vayu             |    20 |  1600 |      1 |
+|      4 | Comics      |          4 | 2 Vols-Vayu             |    20 |  1600 |      1 |
+|      5 | Historicals |          4 | 2 Vols-Vayu             |    20 |  1600 |      1 |
+|      6 | Literature  |          4 | 2 Vols-Vayu             |    20 |  1600 |      1 |
+|      7 | Biographics |          4 | 2 Vols-Vayu             |    20 |  1600 |      1 |
+|      1 | Devotional  |          5 | Gita Govinda            |    20 |   980 |      1 |
+|      2 | Fiction     |          5 | Gita Govinda            |    20 |   980 |      1 |
+|      3 | Kids        |          5 | Gita Govinda            |    20 |   980 |      1 |
+|      4 | Comics      |          5 | Gita Govinda            |    20 |   980 |      1 |
+|      5 | Historicals |          5 | Gita Govinda            |    20 |   980 |      1 |
+|      6 | Literature  |          5 | Gita Govinda            |    20 |   980 |      1 |
+|      7 | Biographics |          5 | Gita Govinda            |    20 |   980 |      1 |
+|      1 | Devotional  |          6 | Man search for meaning  |    20 |   144 |      2 |
+|      2 | Fiction     |          6 | Man search for meaning  |    20 |   144 |      2 |
+|      3 | Kids        |          6 | Man search for meaning  |    20 |   144 |      2 |
+|      4 | Comics      |          6 | Man search for meaning  |    20 |   144 |      2 |
+|      5 | Historicals |          6 | Man search for meaning  |    20 |   144 |      2 |
+|      6 | Literature  |          6 | Man search for meaning  |    20 |   144 |      2 |
+|      7 | Biographics |          6 | Man search for meaning  |    20 |   144 |      2 |
+|      1 | Devotional  |          7 | 1984 George Orwell      |    20 |    95 |      2 |
+|      2 | Fiction     |          7 | 1984 George Orwell      |    20 |    95 |      2 |
+|      3 | Kids        |          7 | 1984 George Orwell      |    20 |    95 |      2 |
+|      4 | Comics      |          7 | 1984 George Orwell      |    20 |    95 |      2 |
+|      5 | Historicals |          7 | 1984 George Orwell      |    20 |    95 |      2 |
+|      6 | Literature  |          7 | 1984 George Orwell      |    20 |    95 |      2 |
+|      7 | Biographics |          7 | 1984 George Orwell      |    20 |    95 |      2 |
+|      1 | Devotional  |          8 | The Secret Rhonda Byrne |    20 |   300 |      2 |
+|      2 | Fiction     |          8 | The Secret Rhonda Byrne |    20 |   300 |      2 |
+|      3 | Kids        |          8 | The Secret Rhonda Byrne |    20 |   300 |      2 |
+|      4 | Comics      |          8 | The Secret Rhonda Byrne |    20 |   300 |      2 |
+|      5 | Historicals |          8 | The Secret Rhonda Byrne |    20 |   300 |      2 |
+|      6 | Literature  |          8 | The Secret Rhonda Byrne |    20 |   300 |      2 |
+|      7 | Biographics |          8 | The Secret Rhonda Byrne |    20 |   300 |      2 |
+|      1 | Devotional  |          9 | The great Gatsby        |    20 |    44 |      2 |
+|      2 | Fiction     |          9 | The great Gatsby        |    20 |    44 |      2 |
+|      3 | Kids        |          9 | The great Gatsby        |    20 |    44 |      2 |
+|      4 | Comics      |          9 | The great Gatsby        |    20 |    44 |      2 |
+|      5 | Historicals |          9 | The great Gatsby        |    20 |    44 |      2 |
+|      6 | Literature  |          9 | The great Gatsby        |    20 |    44 |      2 |
+|      7 | Biographics |          9 | The great Gatsby        |    20 |    44 |      2 |
+|      1 | Devotional  |         10 | Antheme                 |    20 |    84 |      2 |
+|      2 | Fiction     |         10 | Antheme                 |    20 |    84 |      2 |
+|      3 | Kids        |         10 | Antheme                 |    20 |    84 |      2 |
+|      4 | Comics      |         10 | Antheme                 |    20 |    84 |      2 |
+|      5 | Historicals |         10 | Antheme                 |    20 |    84 |      2 |
+|      6 | Literature  |         10 | Antheme                 |    20 |    84 |      2 |
+|      7 | Biographics |         10 | Antheme                 |    20 |    84 |      2 |
+|      1 | Devotional  |         11 | Coloring Book           |    20 |   360 |      3 |
+|      2 | Fiction     |         11 | Coloring Book           |    20 |   360 |      3 |
+|      3 | Kids        |         11 | Coloring Book           |    20 |   360 |      3 |
+|      4 | Comics      |         11 | Coloring Book           |    20 |   360 |      3 |
+|      5 | Historicals |         11 | Coloring Book           |    20 |   360 |      3 |
+|      6 | Literature  |         11 | Coloring Book           |    20 |   360 |      3 |
+|      7 | Biographics |         11 | Coloring Book           |    20 |   360 |      3 |
+|      1 | Devotional  |         12 | Book of patterns        |    20 |    99 |      3 |
+|      2 | Fiction     |         12 | Book of patterns        |    20 |    99 |      3 |
+|      3 | Kids        |         12 | Book of patterns        |    20 |    99 |      3 |
+|      4 | Comics      |         12 | Book of patterns        |    20 |    99 |      3 |
+|      5 | Historicals |         12 | Book of patterns        |    20 |    99 |      3 |
+|      6 | Literature  |         12 | Book of patterns        |    20 |    99 |      3 |
+|      7 | Biographics |         12 | Book of patterns        |    20 |    99 |      3 |
+|      1 | Devotional  |         13 | Shape coloring book     |    20 |    49 |      3 |
+|      2 | Fiction     |         13 | Shape coloring book     |    20 |    49 |      3 |
+|      3 | Kids        |         13 | Shape coloring book     |    20 |    49 |      3 |
+|      4 | Comics      |         13 | Shape coloring book     |    20 |    49 |      3 |
+|      5 | Historicals |         13 | Shape coloring book     |    20 |    49 |      3 |
+|      6 | Literature  |         13 | Shape coloring book     |    20 |    49 |      3 |
+|      7 | Biographics |         13 | Shape coloring book     |    20 |    49 |      3 |
+|      1 | Devotional  |         14 | First Library           |    20 |   499 |      3 |
+|      2 | Fiction     |         14 | First Library           |    20 |   499 |      3 |
+|      3 | Kids        |         14 | First Library           |    20 |   499 |      3 |
+|      4 | Comics      |         14 | First Library           |    20 |   499 |      3 |
+|      5 | Historicals |         14 | First Library           |    20 |   499 |      3 |
+|      6 | Literature  |         14 | First Library           |    20 |   499 |      3 |
+|      7 | Biographics |         14 | First Library           |    20 |   499 |      3 |
+|      1 | Devotional  |         15 | Wonder house book       |    20 |   899 |      3 |
+|      2 | Fiction     |         15 | Wonder house book       |    20 |   899 |      3 |
+|      3 | Kids        |         15 | Wonder house book       |    20 |   899 |      3 |
+|      4 | Comics      |         15 | Wonder house book       |    20 |   899 |      3 |
+|      5 | Historicals |         15 | Wonder house book       |    20 |   899 |      3 |
+|      6 | Literature  |         15 | Wonder house book       |    20 |   899 |      3 |
+|      7 | Biographics |         15 | Wonder house book       |    20 |   899 |      3 |
+|      1 | Devotional  |         16 | Tinkle Digest 9         |    20 |    55 |      4 |
+|      2 | Fiction     |         16 | Tinkle Digest 9         |    20 |    55 |      4 |
+|      3 | Kids        |         16 | Tinkle Digest 9         |    20 |    55 |      4 |
+|      4 | Comics      |         16 | Tinkle Digest 9         |    20 |    55 |      4 |
+|      5 | Historicals |         16 | Tinkle Digest 9         |    20 |    55 |      4 |
+|      6 | Literature  |         16 | Tinkle Digest 9         |    20 |    55 |      4 |
+|      7 | Biographics |         16 | Tinkle Digest 9         |    20 |    55 |      4 |
+|      1 | Devotional  |         17 | Akbar and birble        |    20 |    90 |      4 |
+|      2 | Fiction     |         17 | Akbar and birble        |    20 |    90 |      4 |
+|      3 | Kids        |         17 | Akbar and birble        |    20 |    90 |      4 |
+|      4 | Comics      |         17 | Akbar and birble        |    20 |    90 |      4 |
+|      5 | Historicals |         17 | Akbar and birble        |    20 |    90 |      4 |
+|      6 | Literature  |         17 | Akbar and birble        |    20 |    90 |      4 |
+|      7 | Biographics |         17 | Akbar and birble        |    20 |    90 |      4 |
+|      1 | Devotional  |         18 | Batman                  |    20 |   486 |      4 |
+|      2 | Fiction     |         18 | Batman                  |    20 |   486 |      4 |
+|      3 | Kids        |         18 | Batman                  |    20 |   486 |      4 |
+|      4 | Comics      |         18 | Batman                  |    20 |   486 |      4 |
+|      5 | Historicals |         18 | Batman                  |    20 |   486 |      4 |
+|      6 | Literature  |         18 | Batman                  |    20 |   486 |      4 |
+|      7 | Biographics |         18 | Batman                  |    20 |   486 |      4 |
+|      1 | Devotional  |         19 | Spiderman               |    20 |   966 |      4 |
+|      2 | Fiction     |         19 | Spiderman               |    20 |   966 |      4 |
+|      3 | Kids        |         19 | Spiderman               |    20 |   966 |      4 |
+|      4 | Comics      |         19 | Spiderman               |    20 |   966 |      4 |
+|      5 | Historicals |         19 | Spiderman               |    20 |   966 |      4 |
+|      6 | Literature  |         19 | Spiderman               |    20 |   966 |      4 |
+|      7 | Biographics |         19 | Spiderman               |    20 |   966 |      4 |
+|      1 | Devotional  |         20 | Tintin                  |    20 |   445 |      4 |
+|      2 | Fiction     |         20 | Tintin                  |    20 |   445 |      4 |
+|      3 | Kids        |         20 | Tintin                  |    20 |   445 |      4 |
+|      4 | Comics      |         20 | Tintin                  |    20 |   445 |      4 |
+|      5 | Historicals |         20 | Tintin                  |    20 |   445 |      4 |
+|      6 | Literature  |         20 | Tintin                  |    20 |   445 |      4 |
+|      7 | Biographics |         20 | Tintin                  |    20 |   445 |      4 |
++--------+-------------+------------+-------------------------+-------+-------+--------+
+140 rows in set (0.00 sec)
+
+mysql> select * from categories,products where categories.cat_id=products.cat_id;
++--------+------------+------------+-------------------------+-------+-------+--------+
+| cat_id | cat_name   | product_id | product_name            | stock | price | cat_id |
++--------+------------+------------+-------------------------+-------+-------+--------+
+|      1 | Devotional |          1 | Jesus Calling           |    20 |   300 |      1 |
+|      1 | Devotional |          2 | Veedu Thorum            |    20 |  4000 |      1 |
+|      1 | Devotional |          3 | Mahabharat              |    20 |  2999 |      1 |
+|      1 | Devotional |          4 | 2 Vols-Vayu             |    20 |  1600 |      1 |
+|      1 | Devotional |          5 | Gita Govinda            |    20 |   980 |      1 |
+|      2 | Fiction    |          6 | Man search for meaning  |    20 |   144 |      2 |
+|      2 | Fiction    |          7 | 1984 George Orwell      |    20 |    95 |      2 |
+|      2 | Fiction    |          8 | The Secret Rhonda Byrne |    20 |   300 |      2 |
+|      2 | Fiction    |          9 | The great Gatsby        |    20 |    44 |      2 |
+|      2 | Fiction    |         10 | Antheme                 |    20 |    84 |      2 |
+|      3 | Kids       |         11 | Coloring Book           |    20 |   360 |      3 |
+|      3 | Kids       |         12 | Book of patterns        |    20 |    99 |      3 |
+|      3 | Kids       |         13 | Shape coloring book     |    20 |    49 |      3 |
+|      3 | Kids       |         14 | First Library           |    20 |   499 |      3 |
+|      3 | Kids       |         15 | Wonder house book       |    20 |   899 |      3 |
+|      4 | Comics     |         16 | Tinkle Digest 9         |    20 |    55 |      4 |
+|      4 | Comics     |         17 | Akbar and birble        |    20 |    90 |      4 |
+|      4 | Comics     |         18 | Batman                  |    20 |   486 |      4 |
+|      4 | Comics     |         19 | Spiderman               |    20 |   966 |      4 |
+|      4 | Comics     |         20 | Tintin                  |    20 |   445 |      4 |
++--------+------------+------------+-------------------------+-------+-------+--------+
+20 rows in set (0.02 sec)
+
+mysql> select * from categories,products where categories.cat_id=products.cat_id and cat_name="Devotional";
++--------+------------+------------+---------------+-------+-------+--------+
+| cat_id | cat_name   | product_id | product_name  | stock | price | cat_id |
++--------+------------+------------+---------------+-------+-------+--------+
+|      1 | Devotional |          1 | Jesus Calling |    20 |   300 |      1 |
+|      1 | Devotional |          2 | Veedu Thorum  |    20 |  4000 |      1 |
+|      1 | Devotional |          3 | Mahabharat    |    20 |  2999 |      1 |
+|      1 | Devotional |          4 | 2 Vols-Vayu   |    20 |  1600 |      1 |
+|      1 | Devotional |          5 | Gita Govinda  |    20 |   980 |      1 |
++--------+------------+------------+---------------+-------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select product_name from categories,products where categories.cat_id=products.cat_id and cat_name="Devotional";
++---------------+
+| product_name  |
++---------------+
+| Jesus Calling |
+| Veedu Thorum  |
+| Mahabharat    |
+| 2 Vols-Vayu   |
+| Gita Govinda  |
++---------------+
+5 rows in set (0.00 sec)
+
+mysql> select product_name as books from categories,products where categories.cat_id=products.cat_id and cat_name="Devotional";
++---------------+
+| books         |
++---------------+
+| Jesus Calling |
+| Veedu Thorum  |
+| Mahabharat    |
+| 2 Vols-Vayu   |
+| Gita Govinda  |
++---------------+
+5 rows in set (0.00 sec)
+
+mysql> select product_name as books,price from categories,products where categories.cat_id=products.cat_id and cat_name="Devotional";
++---------------+-------+
+| books         | price |
++---------------+-------+
+| Jesus Calling |   300 |
+| Veedu Thorum  |  4000 |
+| Mahabharat    |  2999 |
+| 2 Vols-Vayu   |  1600 |
+| Gita Govinda  |   980 |
++---------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select product_name as books,price from categories,products where categories.cat_id=products.cat_id and cat_name="Devotional" or cat_name="Fiction" 
+    -> ;
++-------------------------+-------+
+| books                   | price |
++-------------------------+-------+
+| Jesus Calling           |   300 |
+| Jesus Calling           |   300 |
+| Veedu Thorum            |  4000 |
+| Veedu Thorum            |  4000 |
+| Mahabharat              |  2999 |
+| Mahabharat              |  2999 |
+| 2 Vols-Vayu             |  1600 |
+| 2 Vols-Vayu             |  1600 |
+| Gita Govinda            |   980 |
+| Gita Govinda            |   980 |
+| Man search for meaning  |   144 |
+| 1984 George Orwell      |    95 |
+| The Secret Rhonda Byrne |   300 |
+| The great Gatsby        |    44 |
+| Antheme                 |    84 |
+| Coloring Book           |   360 |
+| Book of patterns        |    99 |
+| Shape coloring book     |    49 |
+| First Library           |   499 |
+| Wonder house book       |   899 |
+| Tinkle Digest 9         |    55 |
+| Akbar and birble        |    90 |
+| Batman                  |   486 |
+| Spiderman               |   966 |
+| Tintin                  |   445 |
++-------------------------+-------+
+25 rows in set (0.00 sec)
+
+mysql> select product_name as books,price from categories,products where categories.cat_id=products.cat_id and (cat_name="Devotional" or cat_name="Fiction")
+    -> ;
++-------------------------+-------+
+| books                   | price |
++-------------------------+-------+
+| Jesus Calling           |   300 |
+| Veedu Thorum            |  4000 |
+| Mahabharat              |  2999 |
+| 2 Vols-Vayu             |  1600 |
+| Gita Govinda            |   980 |
+| Man search for meaning  |   144 |
+| 1984 George Orwell      |    95 |
+| The Secret Rhonda Byrne |   300 |
+| The great Gatsby        |    44 |
+| Antheme                 |    84 |
++-------------------------+-------+
+10 rows in set (0.00 sec)
+
+mysql> select product_name from products where product_name like 'a%';
++------------------+
+| product_name     |
++------------------+
+| Antheme          |
+| Akbar and birble |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> select product_name from products where product_name like 'a______';
++--------------+
+| product_name |
++--------------+
+| Antheme      |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select product_name from products where product_name not like 'a%';
++-------------------------+
+| product_name            |
++-------------------------+
+| Jesus Calling           |
+| Veedu Thorum            |
+| Mahabharat              |
+| 2 Vols-Vayu             |
+| Gita Govinda            |
+| Man search for meaning  |
+| 1984 George Orwell      |
+| The Secret Rhonda Byrne |
+| The great Gatsby        |
+| Coloring Book           |
+| Book of patterns        |
+| Shape coloring book     |
+| First Library           |
+| Wonder house book       |
+| Tinkle Digest 9         |
+| Batman                  |various retrieval queries on order management
+| Spiderman               |
+| Tintin                  |
++-------------------------+
+18 rows in set (0.00 sec)
+
+mysql> select product_name from products where price  between 100 and 500;
++-------------------------+
+| product_name            |
++-------------------------+
+| Jesus Calling           |
+| Man search for meaning  |
+| The Secret Rhonda Byrne |
+| Coloring Book           |
+| First Library           |
+| Batman                  |
+| Tintin                  |
++-------------------------+
+7 rows in set (0.00 sec)
+
+mysql> select product_name from products where price  < 100 ;
++---------------------+
+| product_name        |
++---------------------+
+| 1984 George Orwell  |
+| The great Gatsby    |
+| Antheme             |
+| Book of patterns    |
+| Shape coloring book |
+| Tinkle Digest 9     |
+| Akbar and birble    |
++---------------------+
+7 rows in set (0.00 sec)
+
+mysql> select product_name from products where price  <= 100 ;
++---------------------+
+| product_name        |
++---------------------+
+| 1984 George Orwell  |
+| The great Gatsby    |
+| Antheme             |
+| Book of patterns    |
+| Shape coloring book |
+| Tinkle Digest 9     |
+| Akbar and birble    |
++---------------------+
+7 rows in set (0.00 sec)
+
+mysql> select product_name from products where price  >= 100 ;
++-------------------------+
+| product_name            |
++-------------------------+
+| Jesus Calling           |
+| Veedu Thorum            |
+| Mahabharat              |
+| 2 Vols-Vayu             |
+| Gita Govinda            |
+| Man search for meaning  |
+| The Secret Rhonda Byrne |
+| Coloring Book           |
+| First Library           |
+| Wonder house book       |
+| Batman                  |
+| Spiderman               |
+| Tintin                  |
++-------------------------+
+13 rows in set (0.00 sec)
+
+mysql> select * from products group by cat_id;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'order_manage.products.product_id' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select count(*) from products group by cat_id;
++----------+
+| count(*) |
++----------+
+|        5 |
+|        5 |
+|        5 |
+|        5 |
++----------+
+4 rows in set (0.00 sec)
+
+mysql> select count(*),cat_id from products group by cat_id;
++----------+--------+
+| count(*) | cat_id |
++----------+--------+
+|        5 |      1 |
+|        5 |      2 |
+|        5 |      3 |
+|        5 |      4 |
++----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select avg(price),cat_id from products group by cat_id;
++------------+--------+
+| avg(price) | cat_id |
++------------+--------+
+|  1975.8000 |      1 |
+|   133.4000 |      2 |
+|   381.2000 |      3 |
+|   408.4000 |      4 |
++------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select avg(price) as avgrage,cat_id from products group by cat_id;
++-----------+--------+
+| avgrage   | cat_id |
++-----------+--------+
+|   18700 |       1 |
+|        2 | 2019-07-18 |   7060 |       2 |
+|        3 | 2019-07-18 |     44 |       3 |
+|        4 | 2019-07-18 |    980 |     1975.8000 |      1 |
+|  133.4000 |      2 |
+|  381.2000 |      3 |
+|  408.4000 |      4 |
++-----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select avg(price) 27864 |       1 |
+|        2 | 2019-07-18 |  27864 |       2 |
+|        3 | 2019-07-18 |  27864 |       3 |
+|        4 | 2019-07-18 |  27864 |       4 |
+|        5 | 2019-07-22 |  27864*10 as avgrage,cat_id from products group by cat_id;
++------------+--------+
+| avgrage    | cat_id |
++------------+--------+
+| 19758.0000 |      1 |
+|  1334.0000 |      2 |
+|  3812.0000 |      3 |
+|  4084.0000 |      4 |
++------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select avg(price) as avgrage,cat_id from products group by cat_id having avg(price) >200;
++-----------+--------+
+| avgrage   | cat_id |
++-----------+--------+
+| 1975.8000 |      1 |
+|  381.2000 |      3 |
+|  408.4000 |      4 |
++-----------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select avg(price) as avgrage,cat_id from products where avg(price)>200 group by cat_id;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select avg(price) as avgrage,cat_id from products where price>200 group by cat_id;
++-----------+--------+
+| avgrage   | cat_id |
++-  18700 |       1 |
+|        2 | 2019-07-18 |   7060 |       2 |
+|        3 | 2019-07-18 |     44 |       3 |
+|        4 | 2019-07-18 |    980 |     ----------+--------+
+| 1975.8000 |      1 |
+|  300.0000 |      2 |
+|  586.0000 |      3 |
+|  632.3333 |      4 |
++-----------+--------+
+4 rows in set (0.01 sec)
+
+mysql> select avg(price) as avgrage,cat_id from products where price>200 group by cat_id order by avg(price);
++-----------+--------+
+| avgrage   | cat_id |
++-----------+--------+
+|  300.0000 |      2 |
+|  586.0000 |      3 |
+|  632.3333 |      4 |
+| 1975.8000 |      1 |
++-----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select avg(price) as avgrage,cat_id from products where price>200 group by cat_id order by avg(price) desc;
++-----------+--------+
+| avgrage   | cat_id |
++-----------+--------+
+| 1975.8000 |      1 |
+|  632.3333 |      4 |
+|  586.0000 |      3 |
+|  300.0000 |      2 |
++-----------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select avg(price) as avgrage,cat_id from products where price>200 group by cat_id order by avg(price) desc limit 2;
++-----------+--------+
+| avgrage   | cat_id |
++-----------+--------+
+| 1975.8000 |      1 |
+|  632.3333 |      4 |
++-----------+--------+
+2 rows in set (0.00 sec)
+
+my  18700 |       1 |
+|        2 | 2019-07-18 |   7060 |       2 |
+|        3 | 2019-07-18 |     44 |       3 |
+|        4 | 2019-07-18 |    980 |     
+sql> select max(price) as max,cat_id from products group by cat_id order by max(price) desc limit 2;
++------+--------+
+| max  | cat_id |
++------+--------+
+| 4000 |      1 |
+|  966 |      4 |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select max(price) as max,cat_id from products group by cat_id order by max(price) desc ;
++------+--------+
+| max  | cat_id |
++------+--------+
+| 4000 |      1 |
+|  966 |      4 |
+|  899 |      3 |
+|  300 |      2 |
++------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select max(price) as max,cat_name from products,categories  where categories.cat_id=products.cat_id group by cat_id order by max(price) desc ;
+ERROR 1052 (23000): Column 'cat_id' in group statement is ambiguous
+mysql> select max(price) as max,cat_name from products,categories  where categories.cat_id=products.cat_id group by products.cat_id order by max(price) desc ;
++------+------------+
+| max  | cat_name   |
++------+------------+
+|   18700 |       1 |
+|        2 | 2019-07-18 |   7060 |       2 |
+|        3 | 2019-07-18 |     44 |       3 |
+|        4 | 2019-07-18 |    980 |     4000 | Devotional |
+|  966 | Comics     |
+|  899 | Kids       |
+|  300 | Fiction    |
++------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from place_order;
++----------+------------+--------+---------+
+| order_id | order_date | amount | cust_id |
++----------+------------+--------+---------+
+|        1 | 2019-07-18 |      0 |       1 |
+|        2 | 2019-07-18 |      0 |       2 |
+|        3 | 2019-07-18 |      0 |       3 |
+|        4 | 2019-07-18 |      0 |       4 |
+|        5 | 2019-07-22 |      0 |       1 |
++----------+------------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from place_order,customer where customer_name="rohini";
+ERROR 1054 (42S22): Unknown column 'customer_name' in 'where clause'
+mysql> select * from place_order,customer where cust_name="rohini";
++----------+------------+--------+---------+---------+-----------+--------------+------------------+-------------+-----------+
+| order_id | order_date | amount | cust_id | cust_id | cust_name | cust_surname | email            | address     | mobile_no |
++----------+------------+--------+---------+---------+-----------+--------------+------------------+-------------+-----------+
+|        1 | 2019-07-18 |      0 |       1 |       4 | Rohini    | Tule         | rohini@gmail.com | Daund, Pune | 954036774 |
+|        2 | 2019-07-18 |      0 |       2 |       4 | Rohini    | Tule         | rohini@gmail.com | Daund, Pune | 954036774 |
+|        3 | 2019-07-18 |      0 |       3 |       4 | Rohini    | Tule         | rohini@gmail.com | Daund, Pune | 954036774 |
+|        4 | 2019-07-18 |      0 |       4 |       4 | Rohini    | Tule         | rohini@gmail.com | Daund, Pune | 954036774 |
+|        5 | 2019-07-22 |      0 |       1 |       4 | Rohini    | Tule         | rohini@gmail.com | Daund, Pune | 954036774 |
++----------+------------+--------+---------+---------+-----------+--------------+------------------+-------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from place_order,customer where cust_name="rohini" and place_order.cust_id=customer.cust_id;
++----------+------------+--------+---------+---------+-----------+--------------+------------------+-------------+-----------+
+| order_id | order_date | amount | cust_id | cust_id | cust_name | cust_surname | email            | address     | mobile_no |
++----------+------------+--------+---------+---------+-----------+--------------+------------------+-------------+-----------+
+|        4 | 2019-07-18 |      0 |       4 |       4 | Rohini    | Tule         | rohini@gmail.com | Daund, Pune | 954036774 |
++----------+------------+--------+---------+---------+-----------+--------------+------------------+-------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> update place_order set amount= (select sum(total_price) from contains where order_id=place_order.order_id );
+Query OK, 5 rows affected (0.04 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from place_order;
++----------+------------+--------+---------+
+| order_id | order_date | amount | cust_id |
++----------+------------+--------+---------+
+|        1 | 2019-07-18 |  18700 |       1 |
+|        2 | 2019-07-18 |   7060 |       2 |
+|        3 | 2019-07-18 |     44 |       3 |
+|        4 | 2019-07-18 |    980 |       4 |
+|        5 | 2019-07-22 |   1080 |       1 |
++----------+------------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from categories,products where categories.cat_id=products.cat_id;
++--------+------------+------------+-------------------------+-------+-------+--------+
+| cat_id | cat_name   | product_id | product_name            | stock | price | cat_id |
++--------+------------+------------+-------------------------+-------+-------+--------+
+|      1 | Devotional |          1 | Jesus Calling           |    20 |   300 |      1 |
+|      1 | Devotional |          2 | Veedu Thorum            |    20 |  4000 |      1 |
+|      1 | Devotional |          3 | Mahabharat              |    20 |  2999 |      1 |
+|      1 | Devotional |          4 | 2 Vols-Vayu             |    20 |  1600 |      1 |
+|      1 | Devotional |          5 | Gita Govinda            |    20 |   980 |      1 |
+|      2 | Fiction    |          6 | Man search for meaning  |    20 |   144 |      2 |
+|      2 | Fiction    |          7 | 1984 George Orwell      |    20 |    95 |      2 |
+|      2 | Fiction    |          8 | The Secret Rhonda Byrne |    20 |   300 |      2 |
+|      2 | Fiction    |          9 | The great Gatsby        |    20 |    44 |      2 |
+|      2 | Fiction    |         10 | Antheme                 |    20 |    84 |      2 |
+|      3 | Kids       |         11 | Coloring Book           |    20 |   360 |      3 |
+|      3 | Kids       |         12 | Book of patterns        |    20 |    99 |      3 |
+|      3 | Kids       |         13 | Shape coloring book     |    20 |    49 |      3 |
+|      3 | Kids       |         14 | First Library           |    20 |   499 |      3 |
+|      3 | Kids       |         15 | Wonder house book       |    20 |   899 |      3 |
+|      4 | Comics     |         16 | Tinkle Digest 9         |    20 |    55 |      4 |
+|      4 | Comics     |         17 | Akbar and birble        |    20 |    90 |      4 |
+|      4 | Comics     |         18 | Batman                  |    20 |   486 |      4 |
+|      4 | Comics     |         19 | Spiderman               |    20 |   966 |      4 |
+|      4 | Comics     |         20 | Tintin                  |    20 |   445 |      4 |
++--------+------------+------------+-------------------------+-------+-------+--------+
+20 rows in set (0.00 sec)
+
+mysql> select * from categories,products where categories.cat_id=products.cat_id and cat_name="kids";
++--------+----------+------------+---------------------+-------+-------+--------+
+| cat_id | cat_name | product_id | product_name        | stock | price | cat_id |
++--------+----------+------------+---------------------+-------+-------+--------+
+|      3 | Kids     |         11 | Coloring Book       |    20 |   360 |      3 |
+|      3 | Kids     |         12 | Book of patterns    |    20 |    99 |      3 |
+|      3 | Kids     |         13 | Shape coloring book |    20 |    49 |      3 |
+|      3 | Kids     |         14 | First Library       |    20 |   499 |      3 |
+|      3 | Kids     |         15 | Wonder house book   |    20 |   899 |      3 |
++--------+----------+------------+---------------------+-------+-------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(price) from categories,products where categories.cat_id=products.cat_id and cat_name="kids";
++------------+
+| sum(price) |
++------------+
+|       1906 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(price) as Kids books from categories,products where categories.cat_id=products.cat_id and cat_name="kids";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'books from categories,products where categories.cat_id=products.cat_id and cat_n' at line 1
+mysql> select sum(price) as Kids_books from categories,products where categories.cat_id=products.cat_id and cat_name="kids";
++------------+
+| Kids_books |
++------------+
+|       1906 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select product_name from categories,products where categories.cat_id=products.cat_id and cat_name="kids";
++---------------------+
+| product_name        |
++---------------------+
+| Coloring Book       |
+| Book of patterns    |
+| Shape coloring book |
+| First Library       |
+| Wonder house book   |
++---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select product_name,price from categories,products where categories.cat_id=products.cat_id and cat_name="kids";
++---------------------+-------+
+| product_name        | price |
++---------------------+-------+
+| Coloring Book       |   360 |
+| Book of patterns    |    99 |
+| Shape coloring book |    49 |
+| First Library       |   499 |
+| Wonder house book   |   899 |
++---------------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select product_name,price from categories,products where categories.cat_id=products.cat_id and (cat_name="kids" or cat_name="Fiction");
++-------------------------+-------+
+| product_name            | price |
++-------------------------+-------+
+| Man search for meaning  |   144 |
+| 1984 George Orwell      |    95 |
+| The Secret Rhonda Byrne |   300 |
+| The great Gatsby        |    44 |
+| Antheme                 |    84 |
+| Coloring Book           |   360 |
+| Book of patterns        |    99 |
+| Shape coloring book     |    49 |
+| First Library           |   499 |
+| Wonder house book       |   899 |
++-------------------------+-------+
+10 rows in set (0.01 sec)
+
+mysql> select name from customer where cust_name="Tanvi";
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select cust_name from customer where cust_name="Tanvi";
++-----------+
+| cust_name |
++-----------+
+| Tanvi     |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select cust_name from customer,place_order where cust_id=place_order.cust_id;
+ERROR 1052 (23000): Column 'cust_id' in where clause is ambiguous
+mysql> select * from place_order;
++----------+------------+--------+---------+
+| order_id | order_date | amount | cust_id |
++----------+------------+--------+---------+
+|        1 | 2019-07-18 |  18700 |       1 |
+|        2 | 2019-07-18 |   7060 |       2 |
+|        3 | 2019-07-18 |     44 |       3 |
+|        4 | 2019-07-18 |    980 |       4 |
+|        5 | 2019-07-22 |   1080 |       1 |
++----------+------------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select cust_name from customer,place_order where customer.cust_id=place_order.cust_id;
++-----------+
+| cust_name |
++-----------+
+| Priya     |
+| Priya     |
+| Shraddha  |
+| Tanvi     |
+| Rohini    |
++-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer
+    -> ;
++---------+-----------+--------------+--------------------+--------------------+-----------+
+| cust_id | cust_name | cust_surname | email              | address            | mobile_no |
++---------+-----------+--------------+--------------------+--------------------+-----------+
+|       1 | Priya     | Dubhe        | priya12@gmail.com  | Katraj, Pune       | 845189654 |
+|       2 | Shraddha  | Sonekar      | shraddha@gmail.com | Hadapsar,Pune      | 941236485 |
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com    | Pragati Nagar,Wani | 842007562 |
+|       4 | Rohini    | Tule         | rohini@gmail.com   | Daund, Pune        | 954036774 |
+|       5 | Sonali    | Khadaskar    | sonali@gmail.com   | Ambegao, Pune      | 805674564 |
++---------+-----------+--------------+--------------------+--------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer,place_order where customer.cust_id=place_order.cust_id;
++---------+-----------+--------------+--------------------+--------------------+-----------+----------+------------+--------+---------+
+| cust_id | cust_name | cust_surname | email              | address            | mobile_no | order_id | order_date | amount | cust_id |
++---------+-----------+--------------+--------------------+--------------------+-----------+----------+------------+--------+---------+
+|       1 | Priya     | Dubhe        | priya12@gmail.com  | Katraj, Pune       | 845189654 |        1 | 2019-07-18 |  18700 |       1 |
+|       2 | Shraddha  | Sonekar      | shraddha@gmail.com | Hadapsar,Pune      | 941236485 |        2 | 2019-07-18 |   7060 |       2 |
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com    | Pragati Nagar,Wani | 842007562 |        3 | 2019-07-18 |     44 |       3 |
+|       4 | Rohini    | Tule         | rohini@gmail.com   | Daund, Pune        | 954036774 |        4 | 2019-07-18 |    980 |       4 |
+|       1 | Priya     | Dubhe        | priya12@gmail.com  | Katraj, Pune       | 845189654 |        5 | 2019-07-22 |   1080 |       1 |
++---------+-----------+--------------+--------------------+--------------------+-----------+----------+------------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer,place_order where customer.cust_id=place_order.cust_id and cust_name="Tanvi";
++---------+-----------+--------------+-----------------+--------------------+-----------+----------+------------+--------+---------+
+| cust_id | cust_name | cust_surname | email           | address            | mobile_no | order_id | order_date | amount | cust_id |
++---------+-----------+--------------+-----------------+--------------------+-----------+----------+------------+--------+---------+
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com | Pragati Nagar,Wani | 842007562 |        3 | 2019-07-18 |     44 |       3 |
++---------+-----------+--------------+-----------------+--------------------+-----------+----------+------------+--------+---------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer,place_order where customer.cust_id=place_order.cust_id and cust_name="Priya";
++---------+-----------+--------------+-------------------+--------------+-----------+----------+------------+--------+---------+
+| cust_id | cust_name | cust_surname | email             | address      | mobile_no | order_id | order_date | amount | cust_id |
++---------+-----------+--------------+-------------------+--------------+-----------+----------+------------+--------+---------+
+|       1 | Priya     | Dubhe        | priya12@gmail.com | Katraj, Pune | 845189654 |        1 | 2019-07-18 |  18700 |       1 |
+|       1 | Priya     | Dubhe        | priya12@gmail.com | Katraj, Pune | 845189654 |        5 | 2019-07-22 |   1080 |       1 |
++---------+-----------+--------------+-------------------+--------------+-----------+----------+------------+--------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select * from customer where email like '%gmail.com';
++---------+-----------+--------------+--------------------+--------------------+-----------+
+| cust_id | cust_name | cust_surname | email              | address            | mobile_no |
++---------+-----------+--------------+--------------------+--------------------+-----------+
+|       1 | Priya     | Dubhe        | priya12@gmail.com  | Katraj, Pune       | 845189654 |
+|       2 | Shraddha  | Sonekar      | shraddha@gmail.com | Hadapsar,Pune      | 941236485 |
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com    | Pragati Nagar,Wani | 842007562 |
+|       4 | Rohini    | Tule         | rohini@gmail.com   | Daund, Pune        | 954036774 |
+|       5 | Sonali    | Khadaskar    | sonali@gmail.com   | Ambegao, Pune      | 805674564 |
++---------+-----------+--------------+--------------------+--------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where email like 'p%';
++---------+-----------+--------------+-------------------+--------------+-----------+
+| cust_id | cust_name | cust_surname | email             | address      | mobile_no |
++---------+-----------+--------------+-------------------+--------------+-----------+
+|       1 | Priya     | Dubhe        | priya12@gmail.com | Katraj, Pune | 845189654 |
++---------+-----------+--------------+-------------------+--------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer where address like '%a%';
++---------+-----------+--------------+--------------------+--------------------+-----------+
+| cust_id | cust_name | cust_surname | email              | address            | mobile_no |
++---------+-----------+--------------+--------------------+--------------------+-----------+
+|       1 | Priya     | Dubhe        | priya12@gmail.com  | Katraj, Pune       | 845189654 |
+|       2 | Shraddha  | Sonekar      | shraddha@gmail.com | Hadapsar,Pune      | 941236485 |
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com    | Pragati Nagar,Wani | 842007562 |
+|       4 | Rohini    | Tule         | rohini@gmail.com   | Daund, Pune        | 954036774 |
+|       5 | Sonali    | Khadaskar    | sonali@gmail.com   | Ambegao, Pune      | 805674564 |
++---------+-----------+--------------+--------------------+--------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer where address like '%a';
+Empty set (0.00 sec)
+
+mysql> select * from customer where address like 'a%';
++---------+-----------+--------------+------------------+---------------+-----------+
+| cust_id | cust_name | cust_surname | email            | address       | mobile_no |
++---------+-----------+--------------+------------------+---------------+-----------+
+|       5 | Sonali    | Khadaskar    | sonali@gmail.com | Ambegao, Pune | 805674564 |
++---------+-----------+--------------+------------------+---------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer where name like 'a%';
+ERROR 1054 (42S22): Unknown column 'name' in 'where clause'
+mysql> select * from customer where cust_name like 'a%';
+Empty set (0.00 sec)
+
+mysql> select * from customer where cust_name like 't%';
++---------+-----------+--------------+-----------------+--------------------+-----------+
+| cust_id | cust_name | cust_surname | email           | address            | mobile_no |
++---------+-----------+--------------+-----------------+--------------------+-----------+
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com | Pragati Nagar,Wani | 842007562 |
++---------+-----------+--------------+-----------------+--------------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select cust_name from customer,place_order where customer.cust_id not in .place_order.cust_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '.place_order.cust_id' at line 1
+mysql> select cust_name from customer,place_order where customer.cust_id not in place_order.cust_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'place_order.cust_id' at line 1
+mysql> select * from place_order;
++----------+------------+--------+---------+
+| order_id | order_date | amount | cust_id |
++----------+------------+--------+---------+
+|        1 | 2019-07-18 |  18700 |       1 |
+|        2 | 2019-07-18 |   7060 |       2 |
+|        3 | 2019-07-18 |     44 |       3 |
+|        4 | 2019-07-18 |    980 |       4 |
+|        5 | 2019-07-22 |   1080 |       1 |
++----------+------------+--------+---------+
+5 rows in set (0.00 sec)
+
+mysql> select cust_name from customer,place_order where customer.cust_id <> place_order.cust_id;
++-----------+
+| cust_name |
++-----------+
+| Priya     |
+| Priya     |
+| Priya     |
+| Shraddha  |
+| Shraddha  |
+| Shraddha  |
+| Shraddha  |
+| Tanvi     |
+| Tanvi     |
+| Tanvi     |
+| Tanvi     |
+| Rohini    |
+| Rohini    |
+| Rohini    |
+| Rohini    |
+| Sonali    |
+| Sonali    |
+| Sonali    |
+| Sonali    |
+| Sonali    |
++-----------+
+20 rows in set (0.00 sec)
+
+mysql> select * from customer,place_order where customer.cust_id <> place_order.cust_id;
++---------+-----------+--------------+--------------------+--------------------+-----------+----------+------------+--------+---------+
+| cust_id | cust_name | cust_surname | email              | address            | mobile_no | order_id | order_date | amount | cust_id |
++---------+-----------+--------------+--------------------+--------------------+-----------+----------+------------+--------+---------+
+|       1 | Priya     | Dubhe        | priya12@gmail.com  | Katraj, Pune       | 845189654 |        2 | 2019-07-18 |   7060 |       2 |
+|       1 | Priya     | Dubhe        | priya12@gmail.com  | Katraj, Pune       | 845189654 |        3 | 2019-07-18 |     44 |       3 |
+|       1 | Priya     | Dubhe        | priya12@gmail.com  | Katraj, Pune       | 845189654 |        4 | 2019-07-18 |    980 |       4 |
+|       2 | Shraddha  | Sonekar      | shraddha@gmail.com | Hadapsar,Pune      | 941236485 |        1 | 2019-07-18 |  18700 |       1 |
+|       2 | Shraddha  | Sonekar      | shraddha@gmail.com | Hadapsar,Pune      | 941236485 |        3 | 2019-07-18 |     44 |       3 |
+|       2 | Shraddha  | Sonekar      | shraddha@gmail.com | Hadapsar,Pune      | 941236485 |        4 | 2019-07-18 |    980 |       4 |
+|       2 | Shraddha  | Sonekar      | shraddha@gmail.com | Hadapsar,Pune      | 941236485 |        5 | 2019-07-22 |   1080 |       1 |
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com    | Pragati Nagar,Wani | 842007562 |        1 | 2019-07-18 |  18700 |       1 |
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com    | Pragati Nagar,Wani | 842007562 |        2 | 2019-07-18 |   7060 |       2 |
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com    | Pragati Nagar,Wani | 842007562 |        4 | 2019-07-18 |    980 |       4 |
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com    | Pragati Nagar,Wani | 842007562 |        5 | 2019-07-22 |   1080 |       1 |
+|       4 | Rohini    | Tule         | rohini@gmail.com   | Daund, Pune        | 954036774 |        1 | 2019-07-18 |  18700 |       1 |
+|       4 | Rohini    | Tule         | rohini@gmail.com   | Daund, Pune        | 954036774 |        2 | 2019-07-18 |   7060 |       2 |
+|       4 | Rohini    | Tule         | rohini@gmail.com   | Daund, Pune        | 954036774 |        3 | 2019-07-18 |     44 |       3 |
+|       4 | Rohini    | Tule         | rohini@gmail.com   | Daund, Pune        | 954036774 |        5 | 2019-07-22 |   1080 |       1 |
+|       5 | Sonali    | Khadaskar    | sonali@gmail.com   | Ambegao, Pune      | 805674564 |        1 | 2019-07-18 |  18700 |       1 |
+|       5 | Sonali    | Khadaskar    | sonali@gmail.com   | Ambegao, Pune      | 805674564 |        2 | 2019-07-18 |   7060 |       2 |
+|       5 | Sonali    | Khadaskar    | sonali@gmail.com   | Ambegao, Pune      | 805674564 |        3 | 2019-07-18 |     44 |       3 |
+|       5 | Sonali    | Khadaskar    | sonali@gmail.com   | Ambegao, Pune      | 805674564 |        4 | 2019-07-18 |    980 |       4 |
+|       5 | Sonali    | Khadaskar    | sonali@gmail.com   | Ambegao, Pune      | 805674564 |        5 | 2019-07-22 |   1080 |       1 |
++---------+-----------+--------------+--------------------+--------------------+-----------+----------+------------+--------+---------+
+20 rows in set (0.00 sec)
+
+
+mysql> select * from customers;
+ERROR 1146 (42S02): Table 'order_manage.customers' doesn't exist
+mysql> select * from customer;
++---------+-----------+--------------+--------------------+--------------------+-----------+
+| cust_id | cust_name | cust_surname | email              | address            | mobile_no |
++---------+-----------+--------------+--------------------+--------------------+-----------+
+|       1 | Priya     | Dubhe        | priya12@gmail.com  | Katraj, Pune       | 845189654 |
+|       2 | Shraddha  | Sonekar      | shraddha@gmail.com | Hadapsar,Pune      | 941236485 |
+|       3 | Tanvi     | Madamwar     | tanvi@gmail.com    | Pragati Nagar,Wani | 842007562 |
+|       4 | Rohini    | Tule         | rohini@gmail.com   | Daund, Pune        | 954036774 |
+|       5 | Sonali    | Khadaskar    | sonali@gmail.com   | Ambegao, Pune      | 805674564 |
++---------+-----------+--------------+--------------------+--------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from place_order;
++----------+------------+--------+---------+
+| order_id | order_date | amount | cust_id |
++----------+------------+--------+---------+
+|        1 | 2019-07-18 |  18700 |       1 |
+|        2 | 2019-07-18 |   7060 |       2 |
+|        3 | 2019-07-18 |     44 |       3 |
+|        4 | 2019-07-18 |    980 |       4 |
+|        5 | 2019-07-22 |   1080 |       1 |
++----------+------------+--------+---------+
+5 rows in set (0.00 sec)
+
+//Customer who never place order
+
+mysql> select cust_name from customer where cust_id not in (select cust_id from place_order);
++-----------+
+| cust_name |
++-----------+
+| Sonali    |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> select cust_name from customer where cust_id not in (select cust_id from place_order);
++-----------+
+| cust_name |
++-----------+
+| Sonali    |
++-----------+
+
+
