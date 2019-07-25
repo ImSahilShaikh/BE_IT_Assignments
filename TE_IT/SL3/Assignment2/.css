@@ -4,12 +4,17 @@
 	font-family: "montserrat",sans-serif;
 }
 
+body{
+	margin: 10px;
+}
+
+
 .header{
     height: 100px;
 	background: linear-gradient(to right, #753a88, #753a88, #cc2b5e);
 	padding: 0 20px;
 	color: #fff;
-    /* transition: 0.8s; */
+    transition: 0.8s;
 }
 .logo{
     background: -webkit-linear-gradient(cyan,#0b5200);
@@ -19,6 +24,11 @@
 	float: left;
 	text-transform: uppercase;
 }
+
+
+
+
+
 
 .navbar {
   overflow: hidden;
@@ -64,7 +74,7 @@
 .dropdown-content a {
   float: none;
   color: black;
-  background-color: white;
+  background-color: #c3c3c3;
   margin-top: 0px;
   text-decoration: none;
   display: block;
@@ -82,62 +92,8 @@
 }
 
 .navbar a:hover, .dropdown:hover .dropbtn {
- 
-  background-color: #FAACA8;
-background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
-
+  background-color: white;
   color: #8360c3;
   border-radius: 12px;
   display: block;
-}
-
-
-html,
-body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-      background-color: #FAACA8;
-background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);
-
-}
-
-#main {
-    height: auto;
-    width: auto;
-}
-
-#log {
-    float: right;
-}
-
-#log a {
-    text-decoration: none;
-    color: black;
-    /* margin: 3px; */
-    /* padding: 3px; */
-    font-size: 20px;
-    text-align: right;
-    display: block;
-    /* transition-duration: 0.4s; */
-}
-
-#log a:hover {
-    font: bold;
-    color: #eb8712;
-}
-
-
-#feed {
-    height: 170%;
-}
-
-#MainFeed {
-    width: 100%;
-    height: 100%;
-}
-
-footer {
-	text-align:center;
-	background: linear-gradient(to right, #753a88, #753a88, #cc2b5e);
 }

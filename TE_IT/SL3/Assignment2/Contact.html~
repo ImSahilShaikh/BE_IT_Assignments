@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MUSIC STREAMING</title>
+	<style>
+        h3{
+                background: -webkit-linear-gradient(cyan,#0b5200);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    text-transform: uppercase;
+        }
+		div.polaroid {
+		  width: 40%;
+		  background-color: white;
+		  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		  margin-bottom: 25px;
+		  margin-top: 30px;
+		}
+
+		div.container {
+		  text-align: center;
+          padding-top: 50%;
+          padding-left: 50%;
+		}
+        
+  
+        .card-container {
+            cursor: pointer;
+            position: relative;
+            float: left;
+            width: 30%;
+            height: 25%;
+            margin: 20px;
+        }
+        .card {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            /* transform-style: preserve-3d; */
+            /* transition: all 1s ease-in-out; */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+        }
+        .card:hover {
+            /* transform: rotateY(180deg); */
+        }
+        .card .side {
+            backface-visibility: hidden;
+            height: 100%;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: absolute;
+            width: 100%;
+        }
+    </style>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="icon" href="icon2.png" type="image/gif" sizes="16x16">
+</head>
+<body style="background: none">
+	<header>
+	<div class="header">
+		
+		<h2 class="logo">Music streaming</h2>
+			
+			 <div class="navbar">
+                 
+                <div class="dropdown" style="float: right;">
+                    <button class="dropbtn">
+                    ABOUT US
+                    </button>
+                <div class="dropdown-content">
+                    <a href="Info.html">Info</a>
+                    <a href="Contact.html">Contact</a>
+
+                </div>
+                </div>
+                 <div class="dropdown" style="float: right;"> 
+                    <button class="dropbtn">
+                        GENRES
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="pop.html">Pop</a>
+                        <a href="romantic.html">Romantic</a>
+                        <a href="jazz.html">Jazz</a>
+                    </div>
+                 </div>
+                 
+                <a href="index.html">HOME</a>
+            </div>
+            </div>  
+            
+	</div>
+    </header>
+	<br><br>
+    <center>
+    <p>For any assistance please contact on following email :- </p>
+    <br>
+    <h4>
+    
+	Email : admin@musicstreaming.com 
+    </center>
+    </h4>
+        <br><br><br>
+</body>
+<footer style="color:white">&copy All rights reserved
+
+</footer>
+</html>
