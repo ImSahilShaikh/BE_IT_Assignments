@@ -1,61 +1,24 @@
 function myResetFunction(){
     document.getElementById("myform").reset();
-}  
+    alert("Page resetted!");
+} 
 function resetThis(arg){
+  	
     document.getElementById(arg).value=null;
 }
+
+
+
 function validate(){
-	var name = document.getElementById("name").value;
-	var gender = document.getElementById("gender").value;
-	var login = document.getElementById("login").value;
-	var city = document.getElementById("city").value;
-	var p1 = document.getElementById("p1").value;
-	var p2 = document.getElementById("p2").value;
-	//var mail = document.getElementById("email").value;
-	var phno = document.getElementById("phno").value;
-	var pin = document.getElementById("pin").value;
-	
-	
-	 if(name.length==0 || gender.length==0 ||login.length==0||city.length==0 || pas.length==0 || pas2.length==0 || mail.length==0 || mob.length==0 || pin.length==0)
-	 {
-	 alert("All fields required");
-	 return false;
-	 }
-	
-	//validate pass
-	if(p1.length<8 || p2.length<8){
-	alert("Password length too small");
-	return false;
-	}else if(p1!=p2){
-	alert("Password and retyped password dont match");
-	return false;
-	}
-	
-	//validate email
-	/*var reg = /^([A-Za-z0-9_\-\.])+@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-	if(reg.test(mail)==false){
-	alert("Invalid email");
-	return false;
-	}else{
-	console.log("good email");
+	//var pin=document.getElementById("pin").value;
+	var phone=document.getElementById("phno").value;
+	/*if (pin.length!=6 ){
+		{
+			alert("Please enter a valid 6 digit numeric pin");
+		}
 	}*/
-	
-	//validate mobile number
-	if(mob.length!=10 || mob.charAt(0)!='9' || mob.charAt(0)!='8' mob.charAt(0)!='7'){
-	alert("Invalid mobile number");
+	if(phone.charAt(0)=="8"){//(phone.length!=10){//|| phone.charAt(0)!='9' || phone.charAt(0)!='8' || phone.charAt(0)!='7'){
+		window.alert("Invalid mobile number");
 	return false;
 	}
-	
-	//validate pin code
-	if(pin.length!=6){
-	alert("Invalid PIN code");
-	return false;
-	}
-    }
-    
-    function myvalidate(){
-        var pin=document.getElementById("pin").value;
-        if(pin.length!=6)
-        window.alert("Invalid PIN");
-        return false;
-    }
+}
