@@ -1,54 +1,63 @@
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-int main(int argc, char *argv[])
+//include required libraries
+
+#include<sys/types.h>
+#include<sys/wait.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+
+//function to swap values
+void swap(int *xp, int *yp)
 {
-	int pid;
-	pid=fork();
-	
-	int a[]={1,3,5,7,9};
-	
-	int bubblesort(int array[])
-	{
-		for(int i=0;i<4;i++)
-		{
-			for(int j=0;j<4-i;j++)
-			{
-				if(array[j]>array[j+1])
-				{
-					int temp=array[j];
-					array[j]=array[j+1];
-					array[j+1]=temp;
-				}
-			}
-		}
-		printf("\nINFO: The sorted array is: ");
-		for(int i=0;i<5;i++)
-		{
-			printf("\n%d",array[i]);
-		}
-	}
-	
-	if(pid==0)
-	{
-		printf("\nChild is running\n");
-		printf("\nChild process id is: %d\n",getpid());
-		printf("\nOld Parent of child is: %d\n",getppid());
-		bubblesort(a);
-		sleep(5);
-		printf("\nNew Parent of child is: %d\n",getppid());
-	}
-	else
-	{
-		printf("\nParent is running\n");
-		bubblesort(a);
-		sleep(1);
-		printf("\nParent of child(PID) is: %d\n",getpid());
-		printf("\nPPID: %d\n",getppid());
-	}
-	return 0;	
+	  int temp = *xp; 
+    *xp = *yp; 
+    *yp = temp; 
 }
 
+//bubble sorting function
+int* bubbleSort(int *array)
+{
+	for(int i=0;i<4;i++)
+	{
+		for(int j=0;j<4-i;j++)
+		{
+			if(array[j] > array[j+1])
+			{
+				swap(&array[j],&array[j+1]);
+			}
+		}
+	}
+	
+	printf(" \nSorted array is : ");
+	for(int x=0;x<5;x++)
+	{
+		printf(" %d ",array[x]);
+	}
+	printf("\n");
+}
+
+int main()
+{
+	pid_t cpid;//child process id variable
+	int array[]={5,8,34,9,12};
+	cpid=fork();//fork creates child process
+	if(cpid == 0)//if return status = 0 child is running
+	{
+		printf("child is running \n");
+		printf("Child pid is %d \n", getpid());
+		bubbleSort(array);
+		printf("OLd Parent pid is %d \n", getppid());
+		sleep(5);
+		printf("New Parent pid is %d \n", getppid());
+	}
+	if(cpid > 0)//if return status is greater than zero parent is running
+	{
+		printf("parent is running \n");
+		printf("Parent is %d \n", getpid());
+		bubbleSort(array);
+		sleep(1);
+	}
+	
+	return 0;
+	
+}
