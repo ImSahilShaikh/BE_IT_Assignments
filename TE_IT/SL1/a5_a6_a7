@@ -1,0 +1,479 @@
+mllab12@mllab12:~$ sudo mysql -u sahil -p
+[sudo] password for mllab12: 
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.7.26-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select * from customer;
+ERROR 1046 (3D000): No database selected
+mysql> user Order_Management_System;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'user Order_Management_System' at line 1
+mysql> use Order_Management_System;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from order_t;
++----------+------------+-------+--------+---------+-------------+
+| order_id | order_date | tax   | amount | cust_id | grand_total |
++----------+------------+-------+--------+---------+-------------+
+|        1 | 2019-07-23 | 17400 |  58000 |       3 |       75400 |
+|        3 | 2019-07-21 | 32506 | 108354 |       3 |      140860 |
+|        5 | 2019-07-22 | 24300 |  81000 |       3 |      105300 |
+|       12 | 2019-07-18 | 58500 | 195000 |       1 |      253500 |
++----------+------------+-------+--------+---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select name from customer where c_id=(select * from order_t where cust_id);
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql> select * from order_t,customer where order_t.cust_id=customer.c_id and name="Swapnil";
++----------+------------+-------+--------+---------+-------------+------+---------+--------------------+------------+---------+
+| order_id | order_date | tax   | amount | cust_id | grand_total | c_id | name    | email              | phone      | address |
++----------+------------+-------+--------+---------+-------------+------+---------+--------------------+------------+---------+
+|        1 | 2019-07-23 | 17400 |  58000 |       3 |       75400 |    3 | Swapnil | swapnil@rediff.com | 9988774455 | NASHIK  |
+|        3 | 2019-07-21 | 32506 | 108354 |       3 |      140860 |    3 | Swapnil | swapnil@rediff.com | 9988774455 | NASHIK  |
+|        5 | 2019-07-22 | 24300 |  81000 |       3 |      105300 |    3 | Swapnil | swapnil@rediff.com | 9988774455 | NASHIK  |
++----------+------------+-------+--------+---------+-------------+------+---------+--------------------+------------+---------+
+3 rows in set (0.02 sec)
+
+mysql> select * order_t where cust_id in
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order_t where cust_id in' at line 1
+mysql> select * order_t where cust_id in(select c_id from customer where name="Sahil");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order_t where cust_id in(select c_id from customer where name="Sahil")' at line 1
+mysql> select * from order_t where cid=(select * from c_id from customer where name="Sahil");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from customer where name="Sahil")' at line 1
+mysql> select * from order_t where cid=(select c_id from customer where name="Sahil");
+ERROR 1054 (42S22): Unknown column 'cid' in 'where clause'
+mysql> select * from order_t where cust_id=(select c_id from customer where name="Sahil");
++----------+------------+-------+--------+---------+-------------+
+| order_id | order_date | tax   | amount | cust_id | grand_total |
++----------+------------+-------+--------+---------+-------------+
+|       12 | 2019-07-18 | 58500 | 195000 |       1 |      253500 |
++----------+------------+-------+--------+---------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from product orderby cat_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cat_id' at line 1
+mysql> select count(*) from product;
++----------+
+| count(*) |
++----------+
+|       35 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) from product groupby cat_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cat_id' at line 1
+mysql> select count(*) from product group by cat_id;
++----------+
+| count(*) |
++----------+
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
++----------+
+7 rows in set (0.00 sec)
+
+mysql> select count(*) from product group by (select * from cat_id);
+ERROR 1146 (42S02): Table 'Order_Management_System.cat_id' doesn't exist
+mysql> select count(*) from product group by (select * from category);
+ERROR 1241 (21000): Operand should contain 1 column(s)
+mysql> select * from category;
++--------+---------+
+| cat_id | name    |
++--------+---------+
+|      1 | Honda   |
+|      2 | Suzuki  |
+|      3 | Vespa   |
+|      4 | TVS     |
+|      5 | Bajaj   |
+|      6 | Hero    |
+|      7 | Enfield |
++--------+---------+
+7 rows in set (0.00 sec)
+
+mysql> mysql> select count(*) from product group by cat_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> select count(*) from product group by cat_id' at line 1
+mysql> select count(*) from product group by cat_id;
++----------+
+| count(*) |
++----------+
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
++----------+
+7 rows in set (0.00 sec)
+
+mysql> select count(*) from product group by cat_id;
++----------+
+| count(*) |
++----------+
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
++----------+
+7 rows in set (0.00 sec)
+
+mysql> select count(*) from product group by cat_id where cat_id=1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where cat_id=1' at line 1
+mysql> 
+mysql> select count(*) group by cat_id from product;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by cat_id from product' at line 1
+mysql> select count(*) from product group by cat_id;
++----------+
+| count(*) |
++----------+
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
+|        5 |
++----------+
+7 rows in set (0.00 sec)
+
+mysql> select count(*) from product where cat_id=1 ;
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) as no_of_products from product where cat_id=1 ;
++----------------+
+| no_of_products |
++----------------+
+|              5 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select name from product where cat_id=1;
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+mysql> select p_name from product where cat_id=1;
++-----------+
+| p_name    |
++-----------+
+| Activa3g  |
+| Activa4g  |
+| Activa5g  |
+| Dio       |
+| CB Hornet |
++-----------+
+5 rows in set (0.00 sec)
+
+mysql> select p_name,cat_id from product where cat_id=1;
++-----------+--------+
+| p_name    | cat_id |
++-----------+--------+
+| Activa3g  |      1 |
+| Activa4g  |      1 |
+| Activa5g  |      1 |
+| Dio       |      1 |
+| CB Hornet |      1 |
++-----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select min(amount) from product;
+ERROR 1054 (42S22): Unknown column 'amount' in 'field list'
+mysql> select min(amount) from order_t;
++-------------+
+| min(amount) |
++-------------+
+|       58000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from order_t where (select min(amount) from order_t);
++----------+------------+-------+--------+---------+-------------+
+| order_id | order_date | tax   | amount | cust_id | grand_total |
++----------+------------+-------+--------+---------+-------------+
+|        1 | 2019-07-23 | 17400 |  58000 |       3 |       75400 |
+|        3 | 2019-07-21 | 32506 | 108354 |       3 |      140860 |
+|        5 | 2019-07-22 | 24300 |  81000 |       3 |      105300 |
+|       12 | 2019-07-18 | 58500 | 195000 |       1 |      253500 |
++----------+------------+-------+--------+---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from order_t where amount=(select min(amount) from order_t);
++----------+------------+-------+--------+---------+-------------+
+| order_id | order_date | tax   | amount | cust_id | grand_total |
++----------+------------+-------+--------+---------+-------------+
+|        1 | 2019-07-23 | 17400 |  58000 |       3 |       75400 |
++----------+------------+-------+--------+---------+-------------+
+1 row in set (0.01 sec)
+
+mysql> select * from order_t where amount=(select min(grand_total) from order_t);
+Empty set (0.00 sec)
+
+mysql> select * from order_t where grand_total=(select min(grand_total) from order_t);
++----------+------------+-------+--------+---------+-------------+
+| order_id | order_date | tax   | amount | cust_id | grand_total |
++----------+------------+-------+--------+---------+-------------+
+|        1 | 2019-07-23 | 17400 |  58000 |       3 |       75400 |
++----------+------------+-------+--------+---------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from order_t where grand_total=(select max(grand_total) from order_t);
++----------+------------+-------+--------+---------+-------------+
+| order_id | order_date | tax   | amount | cust_id | grand_total |
++----------+------------+-------+--------+---------+-------------+
+|       12 | 2019-07-18 | 58500 | 195000 |       1 |      253500 |
++----------+------------+-------+--------+---------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from order_t where grand_total=(select max(grand_total) from order_t);
++----------+------------+-------+--------+---------+-------------+
+| order_id | order_date | tax   | amount | cust_id | grand_total |
++----------+------------+-------+--------+---------+-------------+
+|       12 | 2019-07-18 | 58500 | 195000 |       1 |      253500 |
++----------+------------+-------+--------+---------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select c_id distinct from order_t where (select * from order_t where grand_total=(select max(grand_total) from order_t));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'distinct from order_t where (select * from order_t where grand_total=(select max' at line 1
+mysql> select * from order_t where grand_total=(select max(grand_total) from order_t));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> select * from order_t where grand_total=(select max(grand_total) from order_t);
++----------+------------+-------+--------+---------+-------------+
+| order_id | order_date | tax   | amount | cust_id | grand_total |
++----------+------------+-------+--------+---------+-------------+
+|       12 | 2019-07-18 | 58500 | 195000 |       1 |      253500 |
++----------+------------+-------+--------+---------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select * from order_t;
++----------+------------+-------+--------+---------+-------------+
+| order_id | order_date | tax   | amount | cust_id | grand_total |
++----------+------------+-------+--------+---------+-------------+
+|        1 | 2019-07-23 | 17400 |  58000 |       3 |       75400 |
+|        3 | 2019-07-21 | 32506 | 108354 |       3 |      140860 |
+|        5 | 2019-07-22 | 24300 |  81000 |       3 |      105300 |
+|       12 | 2019-07-18 | 58500 | 195000 |       1 |      253500 |
++----------+------------+-------+--------+---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select min(amount),cust_id from order_t group by cust_id;
++-------------+---------+
+| min(amount) | cust_id |
++-------------+---------+
+|      195000 |       1 |
+|       58000 |       3 |
++-------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select count(*) as total_customers from customer;
++-----------------+
+| total_customers |
++-----------------+
+|               5 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer;
++------+---------+--------------------+------------+---------+
+| c_id | name    | email              | phone      | address |
++------+---------+--------------------+------------+---------+
+|    1 | Sahil   | sahil@gmail.com    | 9545727831 | PUNE    |
+|    2 | Manish  | manish@yahoo.com   | 9874561230 | PUNE    |
+|    3 | Swapnil | swapnil@rediff.com | 9988774455 | NASHIK  |
+|    4 | Sanket  | sanket@hotmail.com | 8877994455 | NASHIK  |
+|    5 | Rupesh  | rupesh@rediff.com  | 9977664455 | JALGAON |
++------+---------+--------------------+------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> mysql> select count(*) from product group by cat_id;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'mysql> select count(*) from product group by cat_id' at line 1
+mysql> select avg(grand_total) as average_purchase_amount from order_t;
++-------------------------+
+| average_purchase_amount |
++-------------------------+
+|             143765.0000 |
++-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(grand_total) as total_purchase_amount from order_t;
++-----------------------+
+| total_purchase_amount |
++-----------------------+
+|                575060 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> curdate;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'curdate' at line 1
+mysql> curdate();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'curdate()' at line 1
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2019-07-30 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select current_time;
++--------------+
+| current_time |
++--------------+
+| 10:21:56     |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select sysdate();
++---------------------+
+| sysdate()           |
++---------------------+
+| 2019-07-30 10:22:46 |
++---------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from order_t;
++----------+------------+-------+--------+---------+-------------+
+| order_id | order_date | tax   | amount | cust_id | grand_total |
++----------+------------+-------+--------+---------+-------------+
+|        1 | 2019-07-23 | 17400 |  58000 |       3 |       75400 |
+|        3 | 2019-07-21 | 32506 | 108354 |       3 |      140860 |
+|        5 | 2019-07-22 | 24300 |  81000 |       3 |      105300 |
+|       12 | 2019-07-18 | 58500 | 195000 |       1 |      253500 |
++----------+------------+-------+--------+---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select dayname(select order_date from order_t) from order_t;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select order_date from order_t) from order_t' at line 1
+mysql> select dayname (select order_date from order_t) from order_t;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select order_date from order_t) from order_t' at line 1
+mysql> select dayname(2019-07-30);
++---------------------+
+| dayname(2019-07-30) |
++---------------------+
+| NULL                |
++---------------------+
+1 row in set, 1 warning (0.00 sec)
+
+mysql> select dayname("2019-07-30");
++-----------------------+
+| dayname("2019-07-30") |
++-----------------------+
+| Tuesday               |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select dayname(select order_date from order_t);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select order_date from order_t)' at line 1
+mysql> select order_id,dayname(select order_date from order_t);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select order_date from order_t)' at line 1
+mysql> select dayname("2019-07-30");
++-----------------------+
+| dayname("2019-07-30") |
++-----------------------+
+| Tuesday               |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select dayname("2019-07-30");
++-----------------------+
+| dayname("2019-07-30") |
++-----------------------+
+| Tuesday               |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> select dayname("2019-07-30"), monthname("2019-07-30") ;
++-----------------------+-------------------------+
+| dayname("2019-07-30") | monthname("2019-07-30") |
++-----------------------+-------------------------+
+| Tuesday               | July                    |
++-----------------------+-------------------------+
+1 row in set (0.00 sec)
+
+mysql> select dayname("2019-07-30"), monthname("2019-07-30") year("2019-07-30");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '("2019-07-30")' at line 1
+mysql> select dayname("2019-07-30"), monthname("2019-07-30"); year("2019-07-30");
++-----------------------+-------------------------+
+| dayname("2019-07-30") | monthname("2019-07-30") |
++-----------------------+-------------------------+
+| Tuesday               | July                    |
++-----------------------+-------------------------+
+1 row in set (0.00 sec)
+
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'year("2019-07-30")' at line 1
+mysql> select dayname("2019-07-30"), monthname("2019-07-30"), year("2019-07-30");
++-----------------------+-------------------------+--------------------+
+| dayname("2019-07-30") | monthname("2019-07-30") | year("2019-07-30") |
++-----------------------+-------------------------+--------------------+
+| Tuesday               | July                    |               2019 |
++-----------------------+-------------------------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from customer where cust_id in (1,3,5);
+ERROR 1054 (42S22): Unknown column 'cust_id' in 'where clause'
+mysql> select * from customer where c_id in (1,3,5);
++------+---------+--------------------+------------+---------+
+| c_id | name    | email              | phone      | address |
++------+---------+--------------------+------------+---------+
+|    1 | Sahil   | sahil@gmail.com    | 9545727831 | PUNE    |
+|    3 | Swapnil | swapnil@rediff.com | 9988774455 | NASHIK  |
+|    5 | Rupesh  | rupesh@rediff.com  | 9977664455 | JALGAON |
++------+---------+--------------------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select * from customer where c_id not in (1,3,5);
++------+--------+--------------------+------------+---------+
+| c_id | name   | email              | phone      | address |
++------+--------+--------------------+------------+---------+
+|    2 | Manish | manish@yahoo.com   | 9874561230 | PUNE    |
+|    4 | Sanket | sanket@hotmail.com | 8877994455 | NASHIK  |
++------+--------+--------------------+------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select p_name from product where cat_id in (1,3,5,7);
++-------------+
+| p_name      |
++-------------+
+| Activa3g    |
+| Activa4g    |
+| Activa5g    |
+| Dio         |
+| Pulsar      |
+| Dominar     |
+| CB Hornet   |
+| Platina     |
+| Avenger     |
+| Discover    |
+| Urban       |
+| Notte125    |
+| SXL         |
+| VXL         |
+| Elegant     |
+| Classic     |
+| Bullet      |
+| Himalayan   |
+| Interceptor |
+| Thunderbird |
++-------------+
+20 rows in set (0.00 sec)
+
