@@ -69,7 +69,7 @@ int main(int argc,char *argv[]){
 	}	
 	int pid = fork();
 	
-	//Checking if pid =0 then it is chile process
+	//Checking if pid =0 then it is child process
 	if(pid == 0){
 			printf("\nSorting Using Child Process\n");
 			bubble_sort(num,n);		
