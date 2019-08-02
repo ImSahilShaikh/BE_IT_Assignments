@@ -1,0 +1,73 @@
+<!DOCTYPE HTML5>
+<html>
+        <script src="myScript.js"></script>
+        <link rel="stylesheet" type="text/css " href="style.css">
+    <head>
+        <title>
+            WELCOME TO MUSIC STREAMINGs
+        </title>    
+    </head>
+    <body>
+        <header>
+    <div class="header">
+        
+        <h2 class="logo">Music streaming</h2>
+            
+             <div class="navbar">
+                 <a href="register.html">REGISTER</a>
+                <div class="dropdown" style="float: right;">
+                    <button class="dropbtn">
+                    ABOUT US
+                    </button>
+                <div class="dropdown-content">
+                    <a href="Info.html">Info</a>
+                    <a href="Contact.html">Contact</a>
+
+
+                </div>
+                </div>
+                 <div class="dropdown" style="float: right;"> 
+                    <button class="dropbtn">
+                        GENRES
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="pop.html">Pop</a>
+                        <a href="romantic.html">Romantic</a>
+                        <a href="jazz.html">Jazz</a>
+                    </div>
+                 </div>
+                 
+                <a href="index.html">HOME</a>
+            </div>
+            </div>  
+            
+    </div>
+    </header>
+        <form id="myform">
+            
+            <div style="padding-left: 5%">
+                <br><h1 style="text-align: float"> Sign Up</h1>
+            </div>
+
+            <div style="margin: 30px; padding:20px ; text-align: center">
+                <fieldset  style="padding: 30px 30px ">
+                    <legend><h3>General Infomation</h3></legend>
+        
+                    <label style="margin-right: 125px">Name: </label> <input type="text" id="name" placeholder="First Middle Last"><button style="margin-left: 25px" type="button"  onclick="resetThis('name')">Reset</button><br> <span class="error" id="nameerror"> </span> <br><br>
+                    <label style="margin-right: 120px">Phone: </label><input type="text" id="phno" ><button style="margin-left: 25px" type="button"  onclick="resetThis('phno')" >Reset</button><br><span class="error" id="phoneerror"> </span><br><br>
+                    <label style="margin-right: 120px">Email: </label><input id="email" placeholder="Ex: abcd@gmail.com" type="text"><button style="margin-left: 25px" type="button"  onclick="resetThis('email')" >Reset</button><br> <span class="error" id="emailerror"></span><br><br>
+                    <label style="margin-right: 90px">Date of Birth: </label><input type="date" id="dob" ><button style="margin-left: 40px" type="button"  onclick="resetThis('dob')" >Reset</button><br><span class="error" id="doberror"> </span><br><br>
+                    <label style="margin-right: 80px">Password: </label> &nbsp <input type="password" id="p1"><button style="margin-left: 25px" type="button"  onclick="resetThis('p1')" >Reset</button><br><span class="error" id="passerror"> </span><br><br>
+                    <label style="margin-right: 15px">Re-Enter Password: </label><input type="password" id="p2"><button style="margin-left: 25px" type="button"  onclick="resetThis('p2')" >Reset</button><br><span class="error" id="rpasserror"> </span><br><br>
+                     <label style="margin-right: 100px">Address: </label><input type="text" id="add"><button style="margin-left: 25px" type="button"  onclick="resetThis('add')" >Reset</button><br><span class="error" id="adderror"> </span><br><br> 
+                    <label style="margin-right: 100px">Pincode: </label><input type="text" id="pin" ><button style="margin-left: 25px" type="button"  onclick="resetThis('pin')" >Reset</button><br><span class="error" id="pinerror"> </span><br><br>
+                    <button  onclick="return validation();" style="margin-right:20px">SUBMIT</button>
+                    <button type="reset" onclick="reset();">RESET</button>
+                </fieldset>
+                <fieldset style="padding: 30px 30px">
+                    <legend><h3>Educational Information</h3></legend>
+                </fieldset>
+            </div>
+        </form>
+    </body>
+</html>

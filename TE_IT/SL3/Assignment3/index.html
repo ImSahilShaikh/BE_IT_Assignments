@@ -1,34 +1,340 @@
-<!DOCTYPE HTML5>
+<!DOCTYPE html>
 <html>
-        <script src="myScript.js"></script>
-        <link rel="stylesheet" type="text/css " href="style.css">
-    <head>
-        <title>
-            WELCOME TO MUSIC STREAMINGs
-        </title>    
-    </head>
-    <body>
-        <form id="myform">
-            
-            <div style="padding-left: 5%">
-                <br><h1 style="text-align: center"> Sign Up</h1>
-            </div>
-
-            <div style="margin: 30px; padding:20px ; text-align: center">
-                <fieldset style="padding: 30px 30px ">
+<head>
+	<title>MUSIC STREAMING</title>
+	<style>
+        h3{
+                background: -webkit-linear-gradient(cyan,#0b5200);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    text-transform: uppercase;
+        }
+		div.polaroid {
+		  width: 40%;
+		  background-color: white;
+		  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		  margin-bottom: 25px;
+		  margin-top: 30px;
+		}
+		div.container {
+		  text-align: center;
+          padding-top: 50%;
+          padding-left: 50%;
+		}
         
-                    <label style="margin-right: 125px">Name: </label> <input type="text" id="name" placeholder="First Middle Last"><button style="margin-left: 25px" type="btn"  onclick="resetThis('name')" >Reset</button><br><br>
-                    <label style="margin-right: 120px">Phone: </label><input type="text" id="phno" ><button style="margin-left: 25px" type="btn"  onclick="resetThis('phno')" >Reset</button><br><br>
-                    <label style="margin-right: 120px">Email: </label><input id="email" placeholder="Ex: abcd@gmail.com" type="email"><button style="margin-left: 25px" type="btn"  onclick="resetThis('email')" >Reset</button><br><br>
-                    <label style="margin-right: 135px">Date of Birth: </label><input type="date" id="dob" ><button style="margin-left: 40px" type="btn"  onclick="resetThis('dob')" >Reset</button><br><br>
-                    <label style="margin-right: 80px">Password: </label> &nbsp <input type="password" id="p1"><button style="margin-left: 25px" type="btn"  onclick="resetThis('p1')" >Reset</button><br><br>
-                    <label style="margin-right: 15px">Re-Enter Password: </label><input type="password" id="p2"><button style="margin-left: 25px" type="btn"  onclick="resetThis('p2')" >Reset</button><br><br>
-                    <label style="margin-right: 100px">Address: </label><input type="text" id="add"><button style="margin-left: 25px" type="btn"  onclick="resetThis('add')" >Reset</button><br><br>
-                    <label style="margin-right: 100px">Pincode: </label><input type="text" id="pin" ><button style="margin-left: 25px" type="btn"  onclick="resetThis('pin')" >Reset</button><br><br>
-                    <button  onclick="validate();" style="margin-right:20px">SUBMIT</button>
-                    <button type="btn" onclick="myResetFunction();">RESET</button>
-                </fieldset>
+  
+        .card-container {
+            cursor: pointer;
+            position: relative;
+            float: left;
+            width: 30%;
+            height: 25%;
+            margin: 20px;
+        }
+        .card {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            /* transform-style: preserve-3d; */
+            /* transition: all 1s ease-in-out; */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+        }
+        .card:hover {
+            /* transform: rotateY(180deg); */
+        }
+        .card .side {
+            backface-visibility: hidden;
+            height: 100%;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: absolute;
+            width: 100%;
+        }
+    </style>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="icon" href="icon2.png" type="image/gif" sizes="16x16">
+</head>
+<body style="background: none">
+	<header>
+	<div class="header">
+		
+		<h2 class="logo">Music streaming</h2>
+			
+			 <div class="navbar">
+                 
+                <a href="register.html">REGISTER</a>
+                <div class="dropdown" style="float: right;">
+                    <button class="dropbtn">
+                    ABOUT US
+                   
+                    </button>
+                <div class="dropdown-content">
+                    <a href="Info.html">Info</a>
+                    <a href="Contact.html">Contact</a>
+                </div>
+                </div>
+                 <div class="dropdown" style="float: right;"> 
+                    <button class="dropbtn">
+                        GENRES
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="pop.html">Pop</a>
+                        <a href="romantic.html">Romantic</a>
+                        <a href="jazz.html">Jazz</a>
+                    </div>
+                 </div>
+                 
+                <a href="index.html">HOME</a>
             </div>
-        </form>
-    </body>
+            </div>  
+            
+	</div>
+    </header>
+    
+	
+		
+
+    <center>
+    <details>
+    <summary>Trending top songs</summary>
+        <br><br><br>
+            <div > 
+                    
+                    <h3>Trending Top Songs</h3>
+                    
+                    
+                        <table cellpadding="10px" cellspacing="10px">
+                            <th>
+                                <a href="jazz.html">
+                                    <img src="./images/soty2.jpeg" height="140px" width="120px" hspace="10px">
+                                </a>
+                            </th>
+                            <th>
+                                <a href="romantic.html">
+                                <img src="./images/kabirsingh.jpg" height="140px" width="120px" hspace="10px">
+                            </th>
+                            <th>
+                                <a href="romantic.html">
+                              <img src="./images/bharat.jpg" height="140px" width="120px" hspace="10px">
+                            </th>
+                                <th>
+                                    <a href="romantic.html">
+                                            
+                                        <img src="./images/if.png" height="140px" width="120px" hspace="10px">
+                                        </img>
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="pop.html">
+                                    <img src="./images/evolve.jpeg" height="140px" width="120px" hspace="10px">
+                                </th>
+                                <th>
+                                        <a href="romantic.html">
+                                  <img src="./images/divide.jpeg" height="140px" width="120px" hspace="10px">
+                                </th>
+                        </table>
+                </div>
+		        	</details>
+                </center>
+
+        	<center>
+        	<details>
+		<summary>Top Hits</summary>
+	
+                
+                    
+                    <br>
+                <div > 
+                    
+                    <h3 style="background: -webkit-linear-gradient(cyan,#0b5200);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    
+                    
+                    text-transform: uppercase;">Top Hits</h3>
+                    </font>
+                    
+                        <table cellpadding="10px" cellspacing="10px">
+                            <th>
+                                <a href="jazz.html">
+                                    <img src="./images/avicci.jpeg" height="140px" width="120px" hspace="10px">
+                                </a>
+                            </th>
+                            <th>
+                                <a href="pop.html">
+                                <img src="./images/spacebound.jpg" height="140px" width="120px" hspace="10px">
+                            </th>
+                            <th>
+                                    <a href="jazz.html">
+                              <img src="./images/1989.jpeg" height="140px" width="120px" hspace="10px">
+                            </th>
+                                <th>
+                                    <a href="pop.html">
+                                        <img src="./images/partyinusa.jpeg" height="140px" width="120px" hspace="10px">
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="pop.html">
+                                    <img src="./images/believe.jpeg" height="140px" width="120px" hspace="10px">
+                                </th>
+                                <th>
+                                        <a href="jazz.html">
+                                  <img src="./images/stay.jpg" height="140px" width="120px" hspace="10px">
+                                </th>
+                        </table>
+                </div>
+                </details>
+                
+                <center>
+                <details>
+		<summary>Weekly Hits</summary>
+	
+                
+                    
+                    <br>
+                <div > 
+                    
+                    <h3 style="background: -webkit-linear-gradient(cyan,#0b5200);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    
+                    
+                    text-transform: uppercase;">Top Hits</h3>
+                    </font>
+                    
+                        <table cellpadding="10px" cellspacing="10px">
+                            <th>
+                                <a href="jazz.html">
+                                    <img src="./images/avicci.jpeg" height="140px" width="120px" hspace="10px">
+                                </a>
+                            </th>
+                            <th>
+                                <a href="pop.html">
+                                <img src="./images/spacebound.jpg" height="140px" width="120px" hspace="10px">
+                            </th>
+                            <th>
+                                    <a href="jazz.html">
+                              <img src="./images/1989.jpeg" height="140px" width="120px" hspace="10px">
+                            </th>
+                                <th>
+                                    <a href="pop.html">
+                                        <img src="./images/partyinusa.jpeg" height="140px" width="120px" hspace="10px">
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="pop.html">
+                                    <img src="./images/believe.jpeg" height="140px" width="120px" hspace="10px">
+                                </th>
+                                <th>
+                                        <a href="jazz.html">
+                                  <img src="./images/stay.jpg" height="140px" width="120px" hspace="10px">
+                                </th>
+                        </table>
+                </div>
+                </details>
+                </center>
+                
+
+    <center>
+    <details>
+		<summary>Trending top songs</summary>
+        <br><br><br>
+            <div > 
+                    
+                    <h3>Trending Top Songs</h3>
+                    
+                    
+                        <table cellpadding="10px" cellspacing="10px">
+                            <th>
+                                <a href="jazz.html">
+                                    <img src="./images/soty2.jpeg" height="140px" width="120px" hspace="10px">
+                                </a>
+                            </th>
+                            <th>
+                                <a href="romantic.html">
+                                <img src="./images/kabirsingh.jpg" height="140px" width="120px" hspace="10px">
+                            </th>
+                            <th>
+                                <a href="romantic.html">
+                              <img src="./images/bharat.jpg" height="140px" width="120px" hspace="10px">
+                            </th>
+                                <th>
+                                    <a href="romantic.html">
+                                            
+                                        <img src="./images/if.png" height="140px" width="120px" hspace="10px">
+                                        </img>
+                                    </a>
+                                </th>
+                                <th>
+                                    <a href="pop.html">
+                                    <img src="./images/evolve.jpeg" height="140px" width="120px" hspace="10px">
+                                </th>
+                                <th>
+                                        <a href="romantic.html">
+                                  <img src="./images/divide.jpeg" height="140px" width="120px" hspace="10px">
+                                </th>
+                        </table>
+                </div>
+                </details>
+                </center>
+        	
+    <!-- <div id="feed"> 
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div id="MainFeed">
+            <div class="card-container">
+                
+                 <div  class="card" style="background-image: url('./images/tabla.jpg') " href="index.html" > 
+                        <br>
+                        <center>
+                        <a href='classical.html/' style="color: brown"><h2>Classical</h2></a>
+                        </center>
+                        <br><br>
+                        <br><br>
+                        <br><br>
+                        <br><br>
+                        <br>                       
+                </div>
+            </div> 
+            <div class="card-container">
+                    <div class="card" style="background-image: url('cyber.jpg')">
+                            <br>
+                            <center>
+                           <h2> Jazz     </h2>
+                           </center>
+                            <br><br>
+                            <br><br>
+                            <br><br>
+                            <br><br>
+                            <br>                       
+                            <center>
+                            <a href='https://www.freecodecamp.org/'><button style="background-color: inherit">Go to them    </button></a>
+                            </center>
+                    </div>
+                </div> 
+                <div class="card-container">
+                        <div class="card" style="background-image: url('cyber.jpg')">
+                                <br>
+                                <center>
+                               <h2> Romantic </h2>
+                               </center>
+                                <br><br>
+                                <br><br>
+                                <br><br>
+                                <br><br>
+                                <br>                       
+                                <center>
+                                <a href='https://www.freecodecamp.org/'><button style="background-color: inherit">Go to them    </button></a>
+                                </center>
+                        </div>
+                    </div>               
+        </div>
+    </div>-->
+</body>
+
 </html>
