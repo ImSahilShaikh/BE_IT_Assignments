@@ -51,8 +51,12 @@
 
             <div style="margin: 30px; padding:20px ; text-align: center">
                 <fieldset  style="margin-left: 20%; margin-right: 20%; padding: 5% 5%;  ">
-                    <legend><h3>General Infomation</h3></legend>
-        
+                    <details>
+                        <summary>
+                            <legend>
+                                <h3>General Infomation</h3>
+                            </legend>
+                        </summary>
                     <label style="margin-right: 125px">Name: </label> <input type="text" id="name" placeholder="First Middle Last"><button style="margin-left: 25px" type="button"  onclick="resetThis('name')">Reset</button><br> <span class="error" id="nameerror"> </span> <br><br>
                     <label style="margin-right: 120px">Phone: </label><input type="text" id="phno" ><button style="margin-left: 25px" type="button"  onclick="resetThis('phno')" >Reset</button><br><span class="error" id="phoneerror"> </span><br><br>
                     <label style="margin-right: 120px">Email: </label><input id="email" placeholder="Ex: abcd@gmail.com" type="text"><button style="margin-left: 25px" type="button"  onclick="resetThis('email')" >Reset</button><br> <span class="error" id="emailerror"></span><br><br>
@@ -63,6 +67,7 @@
                     <label style="margin-right: 100px">Pincode: </label><input type="text" id="pin" ><button style="margin-left: 25px" type="button"  onclick="resetThis('pin')" >Reset</button><br><span class="error" id="pinerror"> </span><br><br>
                     <button  onclick="return validation();" style="margin-right:20px">SUBMIT</button>
                     <button type="reset" onclick="reset();">RESET</button>
+                    </details>
                 </fieldset>
                 <fieldset  style="margin-left: 20%; margin-right: 20%; padding: 5% 5%;  ">
                     <legend><h3>Educational Information</h3></legend>
