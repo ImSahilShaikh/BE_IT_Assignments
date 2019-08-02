@@ -1,0 +1,258 @@
+<html>
+<head>
+	<title>SCHOOL WALA</title>
+	<link rel="stylesheet" type="text/css" href="./css/common.css">
+	<style>
+		input{
+			border-radius: 10px;
+			color: black;
+			padding: 20px 30px;
+			border: 1px solid orange;
+			min-width: 40vw;
+			text-decoration: none;
+			display: inline-block;
+			margin: 4px 2px;	
+		}
+		input:hover{
+			display: inline-block;
+			box-shadow: 0 0 15px rgba(0,0,0,0.6);
+			/*background-color: rgb(255,255,255);*/
+		}
+
+		select{
+			border-radius: 10px;
+			color: black;
+			padding: 20px 30px;
+			border: 1px solid orange;
+			min-width: 40vw;
+			text-decoration: none;
+			display: inline-block;
+			margin: 4px 2px;	
+			background: white;
+		}
+		select:hover{
+			display: inline-block;
+			box-shadow: 0 0 15px rgba(0,0,0,0.6);
+			/*background-color: rgb(255,255,255);*/
+		}
+
+		.dropdown-item{
+			height:10vh;
+		}
+
+		.signuplabel{
+			border-radius: 10px;
+			color: white;
+			padding: 20px;
+			min-width: 150px;
+			text-decoration: none;
+			display: inline-block;
+			margin: 4px 2px;	
+			background: linear-gradient(140deg, #f12711 10%, #f5af19 );
+		}
+		.signupbtn{
+			background: rgb(0,255,0); 
+			border-radius: 10px;
+			color: white;
+			padding: 10px 15px;
+			min-width: 120px;
+			text-decoration: none;
+			display: inline-block;
+			margin: 4px 2px;
+		}
+		.resetbtn{
+			float: right;
+			border-radius: 10px;
+			border: 1px solid red;
+			color: red;
+			padding: 10px 15px;
+			min-width: 120px;
+			text-decoration: none;
+			display: inline-block;
+			margin: 4px 2px;	
+			background-color: white;
+		}
+		.resetbtnmain{
+			border-radius: 10px;
+			border: 1px solid red;
+			color: red;
+			padding: 10px 15px;
+			min-width: 120px;
+			text-decoration: none;
+			display: inline-block;
+			margin: 4px 2px;	
+			background-color: white;
+		}
+		.resetbtn:hover,.resetbtnmain:hover{
+			background-color: red;
+			color: white;
+		}
+		label{
+			padding-left:12vh;
+			float: left;
+		}
+	</style>
+</head>
+<body>
+	<header>
+		<nav class="header">
+			<a href="index.html" class="logo"><img src="./img/logo.png" width="150px" alt="logo"></a>
+			<!-- <h2>Education Rercommendation System</h2> -->
+				<ul class="menu"> 
+						<a href="index.html">Home</a>
+						<div class="dropdown">
+							<a href="cities.html" vspace="10">Select City</a>
+							<div  class="dropdown-content">
+								<a href="pune.html">Pune</a>
+								<a href="mumbai.html">Mumbai</a>
+							</div>
+						</div>
+						<div class="dropdown">
+							<a href="trends.html">Trends</a>
+							<div  class="dropdown-content">
+								<a href="engg.html">Engineering</a>
+								<a href="science.html">Science</a>
+							</div>
+						</div>
+						<a href="online_courses.html">Online Courses</a>	
+						<a href="login.html" class="loginbtn">Login/Signup</a>	
+				</ul>
+		</nav>
+	</header>
+<br>
+
+
+	<center>
+	<!-- 	PAGE CONTENT -->
+		<div class="txtbox" >
+			<a class="signuplabel">SIGN-UP</a><br><br>
+			<!-- Login Form --><br>
+		    <form action="#">
+		      <label>Name:</label><br>
+		      <input type="text" id="name" name="name" placeholder="Name">
+		      <input type="button" class="resetbtn" id="reset" onclick="resetThis('name');" name="reset" value="<--Reset">
+		      <br><br>
+
+		      <label>Gender:</label><br>
+			  <select id="gender">
+			  	<option class="dropdown-item" style="height:10vh;" value="select">Select Gender</option>
+			    <option class="dropdown-item" value="male">Male</option>
+			    <option class="dropdown-item" value="female">Female</option>
+			  </select>
+		      <input type="button" class="resetbtn" id="reset" onclick="resetThis('gender');" name="reset" value="<--Reset">
+		      <br><br>
+
+		      <label>Login ID:</label><br>
+		      <input type="text" id="login" name="login" placeholder="Login-ID">
+		      <input type="button" class="resetbtn" id="reset" onclick="resetThis('login');" name="reset" value="<--Reset">
+		      <br><br>
+
+		      <label>Password:</label><br>
+		      <input type="password" id="password" name="pass" placeholder="Password">
+		      <input type="button" class="resetbtn" id="reset" onclick="resetThis('password');" name="reset" value="<--Reset">
+		      <br><br>
+		      
+		      <label>Retype Password:</label><br>
+		      <input type="password" id="repassword" name="pass" placeholder="Retype Password">
+		      <input type="button" class="resetbtn" id="reset" onclick="resetThis('repassword');" name="reset" value="<--Reset">
+		      <br><br>
+		  
+		  	  <label>Email:</label><br>
+		      <input type="text" id="email" name="email" placeholder="E-Mail ID">
+		      <input type="button" class="resetbtn" id="reset" onclick="resetThis('email');" name="reset" value="<--Reset">
+		      <br><br>
+		      
+		      <label>Mobile Number:</label><br>
+		      <input type="text" id="mob" name="mob" placeholder="Mobile Number">
+		      <input type="button" class="resetbtn" id="reset" onclick="resetThis('mob');" name="reset" value="<--Reset">
+		      <br><br>
+		      
+		      <label>City:</label><br>
+		      <input type="text" id="city" name="city" placeholder="City">
+		      <input type="button" class="resetbtn" id="reset" onclick="resetThis('city');" name="reset" value="<--Reset">
+		      <br><br>
+		      
+		      <label>Pincode:</label><br>
+		      <input type="number" id="pin" name="pin" placeholder="Pincode">
+		      <input type="button" class="resetbtn" id="reset" onclick="resetThis('pin');" name="reset" value="<--Reset">
+		      <br><br>
+
+		      <input type="submit" class="signupbtn" onclick="return validate();" value="Sign Up">
+		      <input type="reset" class="resetbtnmain" value="Reset Form">
+		    </form>
+		</div>
+	</center>
+
+<script>
+	//FUNCTION TO RESET A SINGLE FIELD
+	function resetThis(arg) {
+		//console.log(arg);
+		document.getElementById(arg).value=null;
+	}
+
+	//FUNCTION TO VALIDATE INPUTS ON SUBMIT
+	function validate(){
+		var name = document.getElementById("name").value;
+		var gender = document.getElementById("gender").value;
+		var login = document.getElementById("login").value;
+		var city = document.getElementById("city").value;
+		var pas = document.getElementById("password").value;
+		var pas2 = document.getElementById("repassword").value;
+		var mail = document.getElementById("email").value;
+		var mob = document.getElementById("mob").value;
+		var pin = document.getElementById("pin").value;
+
+		//no field should be blank
+		if(name.length==0 || gender.length==0 ||login.length==0||city.length==0 || pas.length==0 || pas2.length==0 || mail.length==0 || mob.length==0 || pin.length==0)
+		{
+			alert("All fields required");
+			return false;
+		} 
+		
+	    //validate name being string only dosent allow space
+		 var regstr=/^[a-z][a-z\s]*$/;
+		if(regstr.test(name)==false){
+			alert("Name should be string only!");
+			return false;
+		}	
+
+		//validate pass
+		if(pas.length<8 || pas2.length<8){
+			alert("Password length too small");		
+			return false;
+		}else if(pas!=pas2){
+			alert("Password and retyped password dont match");
+			return false;
+		}
+		
+		//validate email
+		var reg = /^([A-Za-z0-9_\-\.])+@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		if(reg.test(mail)==false){
+			alert("Invalid email");
+			return false;
+		}else{
+			console.log("good email");
+		}
+
+		//validate mobile number
+		
+		// if(regstr.test(mob)==true){
+		// 	alert("Invalid characters in mobile number");
+		// 	return false;
+		// }
+		console.log(mob.length);
+		/*if(mob.length!=10 || mob.charAt(0)!='9' || mob.charAt(0)!='8' || mob.charAt(0)!='7'){
+			alert("Invalid length and or start of mobile number");
+			return false;
+		}*/
+
+		//validate pin code
+		if(pin.length!=6){
+			alert("Invalid PIN code");
+			return false;
+		}
+	}
+</script>
+
+</body>
+</html>
