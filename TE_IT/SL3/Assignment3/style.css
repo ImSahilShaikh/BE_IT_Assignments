@@ -102,6 +102,18 @@ label{
     font-family: 'Open Sans', 'Helvetica', sans-serif;
 }
 
+details {
+  overflow: hidden;
+  background: inherit;
+  margin-bottom: 10px;
+  display: block;
+  -webkit-appearance:none;
+}
+
+details summary::-webkit-details-marker {
+  display:none;
+}
+
 html,
 body {
     
