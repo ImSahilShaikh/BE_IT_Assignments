@@ -135,8 +135,14 @@ h1,h2,h3{
         text-transform: uppercase;
 }
 
-input, select,textarea,label{
-  font-size: 14px; 
+input, select,label{
+  font-size: 16px; 
+  height: 3.5%;
+  width: 28.5%;
+}
+textarea{
+  font-size: 14.5px; 
+  width: 29.5%;
 }
 
 span{
