@@ -91,12 +91,13 @@ background-image: linear-gradient(100deg, #FAACA8 0%, #DDD6F3 100%);
   display: block;
 }
 
-button{
+button.gbtn{
   border-radius: 30px 30px 30px 30px;
   background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
   width: 70px;
   height: 35px;
 }
+
 
 label{
     font-family: 'Open Sans', 'Helvetica', sans-serif;
@@ -108,7 +109,10 @@ details {
   margin-bottom: 10px;
   display: block;
   -webkit-appearance:none;
+
 }
+
+
 
 details summary::-webkit-details-marker {
   display:none;
@@ -116,7 +120,7 @@ details summary::-webkit-details-marker {
 
 html,
 body {
-    
+    color: white;
     margin: 0;
       /*background-color: #FAACA8;*/
 /*background-image: linear-gradient(19deg, #FAACA8 0%, #DDD6F3 100%);*/
@@ -129,6 +133,16 @@ h1,h2,h3{
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         text-transform: uppercase;
+}
+
+input, select,label{
+  font-size: 16px; 
+  height: 3.5%;
+  width: 28.5%;
+}
+textarea{
+  font-size: 14.5px; 
+  width: 29.5%;
 }
 
 span{
