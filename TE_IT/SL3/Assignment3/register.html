@@ -19,14 +19,14 @@
                     <button class="dropbtn">
                     ABOUT US
                     </button>
-                <div class="dropdown-content">
-                    <a href="Info.html">Info</a>
-                    <a href="Contact.html">Contact</a>
+	                <div class="dropdown-content">
+	                    <a href="Info.html">Info</a>
+	                    <a href="Contact.html">Contact</a>
 
 
+	                </div>
                 </div>
-                </div>
-                 <div class="dropdown" style="float: right;"> 
+                <div class="dropdown" style="float: right;"> 
                     <button class="dropbtn">
                         GENRES
                     </button>
@@ -35,8 +35,7 @@
                         <a href="romantic.html">Romantic</a>
                         <a href="jazz.html">Jazz</a>
                     </div>
-                 </div>
-                 
+                </div>
                 <a href="index.html">HOME</a>
             </div>
             </div>  
@@ -45,34 +44,59 @@
     </header>
         <form id="myform">
             
-            <div style="padding-left: 5%">
+            <div style="padding-left: 3%">
                 <br><h1 style="text-align: float"> Sign Up</h1>
             </div>
 
-            <div style="margin: 30px; padding:20px ; text-align: center">
-                <fieldset  style="margin-left: 20%; margin-right: 20%; padding: 5% 5%;  ">
-                    <details>
-                        <summary>
-                            <legend>
-                                <h3>General Infomation</h3>
-                            </legend>
-                        </summary>
-                    <label style="margin-right: 125px">Name: </label> <input type="text" id="name" placeholder="First Middle Last"><button style="margin-left: 25px" type="button"  onclick="resetThis('name')">Reset</button><br> <span class="error" id="nameerror"> </span> <br><br>
-                    <label style="margin-right: 120px">Phone: </label><input type="text" id="phno" ><button style="margin-left: 25px" type="button"  onclick="resetThis('phno')" >Reset</button><br><span class="error" id="phoneerror"> </span><br><br>
-                    <label style="margin-right: 120px">Email: </label><input id="email" placeholder="Ex: abcd@gmail.com" type="text"><button style="margin-left: 25px" type="button"  onclick="resetThis('email')" >Reset</button><br> <span class="error" id="emailerror"></span><br><br>
-                    <label style="margin-right: 90px">Date of Birth: </label><input type="date" id="dob" ><button style="margin-left: 40px" type="button"  onclick="resetThis('dob')" >Reset</button><br><span class="error" id="doberror"> </span><br><br>
-                    <label style="margin-right: 80px">Password: </label> &nbsp <input type="password" id="p1"><button style="margin-left: 25px" type="button"  onclick="resetThis('p1')" >Reset</button><br><span class="error" id="passerror"> </span><br><br>
-                    <label style="margin-right: 15px">Re-Enter Password: </label><input type="password" id="p2"><button style="margin-left: 25px" type="button"  onclick="resetThis('p2')" >Reset</button><br><span class="error" id="rpasserror"> </span><br><br>
-                     <label style="margin-right: 100px">Address: </label><input type="text" id="add"><button style="margin-left: 25px" type="button"  onclick="resetThis('add')" >Reset</button><br><span class="error" id="adderror"> </span><br><br> 
-                    <label style="margin-right: 100px">Pincode: </label><input type="text" id="pin" ><button style="margin-left: 25px" type="button"  onclick="resetThis('pin')" >Reset</button><br><span class="error" id="pinerror"> </span><br><br>
-                    <button  onclick="return validation();" style="margin-right:20px">SUBMIT</button>
-                    <button type="reset" onclick="reset();">RESET</button>
-                    </details>
+            <div style="margin: 10px; padding:20px ; text-align: center">
+                <fieldset  style="margin-left: 20%; margin-right: 20%; padding: 5% 5%; ">
+                
+                    <legend>
+                        <h3>Login Infomation</h3>
+                    </legend>
+                
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Name: </label> <input type="text" id="name" placeholder="First Middle Last" autocomplete="off"> <br> <span class="error" id="nameerror"> </span>
+                    <br><br><br>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Email: </label><input id="email" placeholder="Ex: abcd@gmail.com" type="text" autocomplete="off"><br><span class="error" id="emailerror"></span>
+                    <br><br><br>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Password: </label><input type="password" id="p1" autocomplete="off"><br><span class="error" id="passerror"> </span>
+					<br><br><br>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Re-Enter Password: </label><input type="password" id="p2" autocomplete="off"><br><span class="error" id="rpasserror"> </span>
+                    
+                    
                 </fieldset>
+                
                 <fieldset  style="margin-left: 20%; margin-right: 20%; padding: 5% 5%;  ">
-                    <legend><h3>Educational Information</h3></legend>
+                    <legend>
+                    	<h3>Personal Information</h3>
+                    </legend>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Phone: </label><input type="text" id="phno" autocomplete="off"><br><span class="error" id="phoneerror"> </span>
+                    <br><br><br>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Address: </label><textarea rows="2" type="text" id="add" autocomplete="off"></textarea><br><span class="error" id="adderror"> </span>
+                    <br><br><br>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Pincode: </label><input type="text" id="pin" autocomplete="off"><br>
+                    <span class="error" id="pinerror"> </span>                    <br><br><br>
+
+
+
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Date of Birth: </label><input type="date" id="dob" autocomplete="off" >
+                    <br><span class="error" id="doberror"> </span>
+                    <br><br><br>
+
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Gender:- </label>
+                    <br><br>
+                    <label style="float: left; width: 45%; margin-right: -60%; text-align: right;">Male: </label> <input type="radio"  name="Gender" id="dob" >
+               		<br><br>
+                    <label style="float: left; width: 45%; margin-right: -60%; text-align: right;">Female: </label> <input type="radio" name="Gender" id="dob" >
+                    <br><br>
+                    <label style="float: left; width: 45%; margin-right: -60%; text-align: right;">Other: </label> <input type="radio"  name="Gender" id="dob" >
                 </fieldset>
+                <br><br>
+                <button class="gbtn" onclick="return validation();" style="margin-right:20px" >SUBMIT</button>
+                <button class="gbtn" type="Clear" onclick="Clear();">RESET</button>
+            
             </div>
         </form>
     </body>
+    <footer>&copy All rights reserved</footer>
 </html>
