@@ -57,6 +57,14 @@ function validation(){
 		alert("Password doesn't matches!");
 		return false;
 	}
+
+	var option=document.getElementsByName('Gender');
+
+	if (!(option[0].checked || option[1].checked || option[2].checked) )
+	{
+		alert("Please Select Your Gender");
+		return false;
+	}
 }
 
 function resetThis(arg) {
