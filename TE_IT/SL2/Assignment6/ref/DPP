@@ -1,0 +1,106 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<pthread.h>
+#include<semaphore.h>
+#include<unistd.h>
+
+sem_t phi[10];
+sem_t mutex;
+int n;
+char state[10];
+
+
+void initialize()
+{
+int i;
+for(i=0;i<n;i++)
+sem_init(&phi[i],0,0);
+sem_init(&mutex,0,1);
+}
+
+
+void test (int i)
+{
+if(state[i]=='H' && state[(i+n-1)%n]!='E' && state[(i+1)%n]!='E')
+
+{
+   state[i]='E';
+   sleep(0);
+   printf("\nPhilosopher %d takes fork %d and %d",i+1,((i+n-1)%n)+1,i+1);
+   printf("\n Philosopher %d in EATING state",i+1);
+   sem_post(&phi[i]);
+
+}
+}
+void take_fork(int i)
+{
+  sem_wait(&mutex);
+  state[i]='H';
+  printf("\n Philosopher %d is in HUNGRY state",i+1);
+  test(i);
+  sem_post(&mutex);
+  sem_wait(&phi[i]);
+  sleep(1);
+}
+
+
+
+
+void put_fork(int i)
+{
+   sem_wait(&mutex);
+   state[i]='T';
+   printf("\nPhilosopher %d is putting fork %d and %d down",i+1,((i+n-1)%n)+1,i+1);
+   test((i+n-1)%n);
+   test((i+1)%n);
+   sem_post(&mutex);
+
+}
+
+void think(int i)
+{
+  printf("\nPhilosopher %d in THINKING state",i+1);
+ sleep(1);
+}
+
+
+void *phil(void *param)
+{
+   while(1)
+     {
+       int *i=param;
+       think(*i);
+       sleep(1);
+       take_fork(*i);
+       sleep(0);
+       put_fork(*i);   
+     }
+}
+
+int main()
+
+{
+   int i, phil_num[10];
+   printf("\n Enter the number of Philosophers:");
+   scanf("%d",&n);
+
+   for(i=0;i<n;i++)
+   phil_num[i]=i;
+   initialize();
+
+   pthread_t Philosophers[n];
+   for(i=0;i<n;i++)
+   pthread_create(&Philosophers[i],NULL,(void*)phil,&phil_num[i]);
+   for(i=0;i<n;i++)
+   pthread_join(Philosophers[i],NULL);
+
+   return 0;
+
+}
+
+
+
+   
+
+
+
