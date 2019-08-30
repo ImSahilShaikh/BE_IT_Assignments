@@ -1,1 +1,1 @@
-use onkeypressup to do runtime validations
+use onkeyup to do runtime validations
