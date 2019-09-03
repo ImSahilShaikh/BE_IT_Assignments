@@ -1,0 +1,188 @@
+mysql> create view myview as select p_id,p_name,price from product;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from myview;
++------+-------------+---------+
+| p_id | p_name      | price   |
++------+-------------+---------+
+|    1 | Activa3g    |   60000 |
+|    2 | Activa4g    |   65000 |
+|    3 | Activa5g    |   67800 |
+|    4 | Dio         |   80000 |
+|    5 | Pulsar      |   90000 |
+|    6 | Dominar     |   17400 |
+|    7 | CB Hornet   |   86500 |
+|    8 | Platina     |   40749 |
+|    9 | Avenger     |   10400 |
+|   10 | Discover    |   54650 |
+|   11 | Gixxer      |   17100 |
+|   12 | Access125   |   55977 |
+|   13 | Hayabusa    | 1300000 |
+|   14 | Intruder    |  100000 |
+|   15 | Burgman     |   68000 |
+|   16 | Urban       |   73100 |
+|   17 | Notte125    |   73177 |
+|   18 | SXL         |   85000 |
+|   19 | VXL         |   81000 |
+|   20 | Elegant     |  101000 |
+|   21 | Apache160   |   79100 |
+|   22 | Jupiter     |   52177 |
+|   23 | NTORQ       |   58000 |
+|   24 | Sport       |   39000 |
+|   25 | Radeon      |   50000 |
+|   26 | Splendor    |   51000 |
+|   27 | Passion     |   54177 |
+|   28 | Glamour     |   61000 |
+|   29 | Maestro     |   51300 |
+|   30 | iSmart      |   56800 |
+|   31 | Classic     |  151000 |
+|   32 | Bullet      |  124177 |
+|   33 | Himalayan   |  179000 |
+|   34 | Interceptor |  251000 |
+|   35 | Thunderbird |   16400 |
++------+-------------+---------+
+35 rows in set (0.00 sec)
+
+-----------------------------------------------------------------------------------------
+
+mysql> select * from myview where price<50000 ;
++------+-------------+-------+
+| p_id | p_name      | price |
++------+-------------+-------+
+|    6 | Dominar     | 17400 |
+|    8 | Platina     | 40749 |
+|    9 | Avenger     | 10400 |
+|   11 | Gixxer      | 17100 |
+|   24 | Sport       | 39000 |
+|   35 | Thunderbird | 16400 |
++------+-------------+-------+
+6 rows in set (0.01 sec)
+
+
+
+-----------------------------------------------------------------------------------------
+
+mysql> create view v3 as select p_id,p_name from product where price < 50000;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from v3;
++------+-------------+
+| p_id | p_name      |
++------+-------------+
+|    8 | Platina     |
+|    9 | Avenger     |
+|   11 | Gixxer      |
+|   24 | Sport       |
+|   35 | Thunderbird |
++------+-------------+
+5 rows in set (0.00 sec)
+
+-----------------------------------------------------------------------------------------
+ Insert new record in the base table.
+-----------------------------------------------------------------------------------------
+mysql> insert into v3 values(36,"GrandDuke");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from v3;
++------+-------------+
+| p_id | p_name      |
++------+-------------+
+|    8 | Platina     |
+|    9 | Avenger     |
+|   11 | Gixxer      |
+|   24 | Sport       |
+|   35 | Thunderbird |
++------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select p_name from product;
++-------------+
+| p_name      |
++-------------+
+| Activa3g    |
+| Activa4g    |
+| Activa5g    |
+| Dio         |
+| Pulsar      |
+| CB Hornet   |
+| Platina     |
+| Avenger     |
+| Discover    |
+| Gixxer      |
+| Access125   |
+| Hayabusa    |
+| Intruder    |
+| Burgman     |
+| Urban       |
+| Notte125    |
+| SXL         |
+| VXL         |
+| Elegant     |
+| Apache160   |
+| Jupiter     |
+| NTORQ       |
+| Sport       |
+| Radeon      |
+| Splendor    |
+| Passion     |
+| Glamour     |
+| Maestro     |
+| iSmart      |
+| Classic     |
+| Bullet      |
+| Himalayan   |
+| Interceptor |
+| Thunderbird |
+| GrandDuke   |
++-------------+
+35 rows in set (0.00 sec)
+-----------------------------------------------------------------------------------------
+Delete record in the base table.
+-----------------------------------------------------------------------------------------
+
+mysql> delete from v2 where p_name="Dominar";
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from product where p_name="Dominar";
+Empty set (0.00 sec)
+
+-----------------------------------------------------------------------------------------
+Update the base table
+-----------------------------------------------------------------------------------------
+
+mysql> select * from v3;
++------+-------------+
+| p_id | p_name      |
++------+-------------+
+|    8 | Platina     |
+|    9 | Avenger     |
+|   11 | Gixxer      |
+|   24 | Sport       |
+|   35 | Thunderbird |
++------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> update v3 set p_name="AllNewSport" where p_name="Sport";
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from v3;
++------+-------------+
+| p_id | p_name      |
++------+-------------+
+|    8 | Platina     |
+|    9 | Avenger     |
+|   11 | Gixxer      |
+|   24 | AllNewSport |
+|   35 | Thunderbird |
++------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from product where p_name="AllNewSport";
++------+-------------+-------+-------+--------+
+| p_id | p_name      | stock | price | cat_id |
++------+-------------+-------+-------+--------+
+|   24 | AllNewSport |     3 | 39000 |      4 |
++------+-------------+-------+-------+--------+
+1 row in set (0.00 sec)
+
