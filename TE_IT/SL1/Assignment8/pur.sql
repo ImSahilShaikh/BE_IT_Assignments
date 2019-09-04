@@ -1,5 +1,7 @@
+----------------------------------------------------------------------------
+--Statement 2: Write a trigger to check purchase quantity and if purchase quantity < 0 prompt error message 
+----------------------------------------------------------------------------
 delimiter //
-
 create trigger pur_quantity
 before insert on contains
 for each row
@@ -10,8 +12,10 @@ begin
 	end if;
 end //
 delimiter ;
+----------------------------------OUTPUT------------------------------------
+mysql> source pur.sql
+Query OK, 0 rows affected (0.06 sec)
 
-------------------------------OUTPUT-------------------------------
 mysql> insert into contains values(11,-2,2);
 ERROR 1643 (02000): ERROR: Quantity Cannot be zero or negative!!!
-------------------------------OUTPUT-------------------------------
+----------------------------------------------------------------------------
