@@ -1,3 +1,7 @@
+----------------------------------------------------------------------------
+--Statement 3: Write a trigger to check purchase quantity with available stock , if not available prompt error message 
+----------------------------------------------------------------------------
+
 delimiter //
 
 create trigger stock_trig
@@ -11,12 +15,11 @@ begin
 end//
 delimiter ;
 
--------------------------------------OUTPUT-------------------------------------
+----------------------------------OUTPUT------------------------------------
 
 mysql> source stocktrig.sql
 Query OK, 0 rows affected (0.06 sec)
 
 mysql> insert into contains values(7,3,15);
 ERROR 1643 (02000): ERROR: NOT ENOUGH STOCK
-
--------------------------------------OUTPUT-------------------------------------
+----------------------------------------------------------------------------
