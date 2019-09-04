@@ -1,3 +1,6 @@
+--------------------------------------------------------------------------
+Statement 1: Write a trigger which will turn the customer name to upper case
+--------------------------------------------------------------------------
 delimiter //
 
 create trigger mytrig 
@@ -6,10 +9,11 @@ for each row
 begin
 	set NEW.name=upper(NEW.name);
 end;
-
 delimiter ;
+----------------------------------OUTPUT----------------------------------
+mysql>source myUpperTrigger.sql
+Query OK, 1 row affected (0.04 sec)
 
--------------------------------------------OUTPUT-------------------------------------------
 mysql> insert into customer values(6,"Jayesh","jayesh@yahoo.in",8585757565,"NASHIK");
 Query OK, 1 row affected (0.04 sec)
 
@@ -25,4 +29,3 @@ mysql> select * from customer;
 |    6 | JAYESH  | jayesh@yahoo.in    | 8585757565 | NASHIK  |
 +------+---------+--------------------+------------+---------+
 6 rows in set (0.00 sec)
--------------------------------------------OUTPUT-------------------------------------------
