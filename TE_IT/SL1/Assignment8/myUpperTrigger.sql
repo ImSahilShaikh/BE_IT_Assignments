@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------
-Statement 1: Write a trigger which will turn the customer name to upper case
+--Statement 1: Write a trigger which will turn the customer name to upper case
 --------------------------------------------------------------------------
 delimiter //
 
