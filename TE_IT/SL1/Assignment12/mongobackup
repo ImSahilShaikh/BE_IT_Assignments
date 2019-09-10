@@ -1,0 +1,295 @@
+mllab12@mllab12:~$ mongo
+MongoDB shell version v4.0.12
+connecting to: mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("af5dfeeb-414a-46bb-854e-367d1a950513") }
+MongoDB server version: 4.0.12
+Server has startup warnings: 
+2019-09-10T08:56:41.723+0530 I STORAGE  [initandlisten] 
+2019-09-10T08:56:41.724+0530 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-09-10T08:56:41.724+0530 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-09-10T08:56:43.221+0530 I CONTROL  [initandlisten] 
+2019-09-10T08:56:43.221+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-09-10T08:56:43.221+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-09-10T08:56:43.221+0530 I CONTROL  [initandlisten] 
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> show databases;
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+> use student;
+switched to db student
+> show dbs;
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+> drop db student;
+2019-09-10T09:36:54.488+0530 E QUERY    [js] SyntaxError: missing ; before statement @(shell):1:5
+> db.dropDatabase();
+{ "ok" : 1 }
+> use SMS;
+switched to db SMS
+> db.createCollection(Student)
+2019-09-10T09:48:06.509+0530 E QUERY    [js] ReferenceError: Student is not defined :
+@(shell):1:1
+> db.createCollection(Student);
+2019-09-10T09:48:10.221+0530 E QUERY    [js] ReferenceError: Student is not defined :
+@(shell):1:1
+> db.createCollection("CStudent")
+{ "ok" : 1 }
+> show collections;
+CStudent
+> db.CStudent.drop()
+true
+> show collections;
+
+> db.createCollection("Student")
+{ "ok" : 1 }
+
+> db.Student.insert({rollno:"33364",name:"Sahil"})
+WriteResult({ "nInserted" : 1 })
+
+> db.Student.insert({rollno:"33363",name:"Saurabh"})
+WriteResult({ "nInserted" : 1 })
+
+> db.Student.find();
+{ "_id" : ObjectId("5d7724fdf5e4a221094da600"), "rollno" : "33364", "name" : "Sahil" }
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363", "name" : "Saurabh" }
+
+> db.Student.find({},{rollno:1});
+{ "_id" : ObjectId("5d7724fdf5e4a221094da600"), "rollno" : "33364" }
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363" }
+
+> db.Student.find({},{rollno:0});
+{ "_id" : ObjectId("5d7724fdf5e4a221094da600"), "name" : "Sahil" }
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "name" : "Saurabh" }
+
+> db.Student.find({},{rollno:1}).pretty();
+{ "_id" : ObjectId("5d7724fdf5e4a221094da600"), "rollno" : "33364" }
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363" }
+
+
+> db.Student.find();
+{ "_id" : ObjectId("5d7724fdf5e4a221094da600"), "rollno" : "33364", "name" : "Sahil" }
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363", "name" : "Saurabh" }
+
+> db.Student.find().pretty();
+{
+	"_id" : ObjectId("5d7724fdf5e4a221094da600"),
+	"rollno" : "33364",
+	"name" : "Sahil"
+}
+{
+	"_id" : ObjectId("5d772524f5e4a221094da601"),
+	"rollno" : "33363",
+	"name" : "Saurabh"
+}
+
+> db.Student.update({rollno:"33364"},{$set:{marks:"90"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.find().pretty();
+{
+	"_id" : ObjectId("5d7724fdf5e4a221094da600"),
+	"rollno" : "33364",
+	"name" : "Sahil",
+	"marks" : "90"
+}
+{
+	"_id" : ObjectId("5d772524f5e4a221094da601"),
+	"rollno" : "33363",
+	"name" : "Saurabh"
+}
+
+> db.Student.update({rollno:"33363"},{$set:{marks:"95"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.insert({rollno:"33370",name:"Manish",marks:"80"});
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({rollno:"33361",name:"Rupesh",marks:"70"});
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({rollno:"33358",name:"Swapnil",marks:"75"});
+WriteResult({ "nInserted" : 1 })
+> db.Student.insert({rollno:"33360",name:"Jayesh",marks:"80"});
+WriteResult({ "nInserted" : 1 })
+> db.Student.find();
+{ "_id" : ObjectId("5d7724fdf5e4a221094da600"), "rollno" : "33364", "name" : "Sahil", "marks" : "90" }
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363", "name" : "Saurabh", "marks" : "95" }
+{ "_id" : ObjectId("5d772847c911f9b70c756647"), "rollno" : "33370", "name" : "Manish", "marks" : "80" }
+{ "_id" : ObjectId("5d772869c911f9b70c756648"), "rollno" : "33361", "name" : "Rupesh", "marks" : "70" }
+{ "_id" : ObjectId("5d772a4fc911f9b70c756649"), "rollno" : "33358", "name" : "Swapnil", "marks" : "75" }
+{ "_id" : ObjectId("5d772a5dc911f9b70c75664a"), "rollno" : "33360", "name" : "Jayesh", "marks" : "80" }
+> db.Student.find().pretty();
+{
+	"_id" : ObjectId("5d7724fdf5e4a221094da600"),
+	"rollno" : "33364",
+	"name" : "Sahil",
+	"marks" : "90"
+}
+{
+	"_id" : ObjectId("5d772524f5e4a221094da601"),
+	"rollno" : "33363",
+	"name" : "Saurabh",
+	"marks" : "95"
+}
+{
+	"_id" : ObjectId("5d772847c911f9b70c756647"),
+	"rollno" : "33370",
+	"name" : "Manish",
+	"marks" : "80"
+}
+{
+	"_id" : ObjectId("5d772869c911f9b70c756648"),
+	"rollno" : "33361",
+	"name" : "Rupesh",
+	"marks" : "70"
+}
+{
+	"_id" : ObjectId("5d772a4fc911f9b70c756649"),
+	"rollno" : "33358",
+	"name" : "Swapnil",
+	"marks" : "75"
+}
+{
+	"_id" : ObjectId("5d772a5dc911f9b70c75664a"),
+	"rollno" : "33360",
+	"name" : "Jayesh",
+	"marks" : "80"
+}
+
+> db.Student.find().sort({rollno:1});
+{ "_id" : ObjectId("5d772a4fc911f9b70c756649"), "rollno" : "33358", "name" : "Swapnil", "marks" : "75" }
+{ "_id" : ObjectId("5d772a5dc911f9b70c75664a"), "rollno" : "33360", "name" : "Jayesh", "marks" : "80" }
+{ "_id" : ObjectId("5d772869c911f9b70c756648"), "rollno" : "33361", "name" : "Rupesh", "marks" : "70" }
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363", "name" : "Saurabh", "marks" : "95" }
+{ "_id" : ObjectId("5d7724fdf5e4a221094da600"), "rollno" : "33364", "name" : "Sahil", "marks" : "90" }
+{ "_id" : ObjectId("5d772847c911f9b70c756647"), "rollno" : "33370", "name" : "Manish", "marks" : "80" }
+
+> db.Student.find().sort({rollno:-1});
+{ "_id" : ObjectId("5d772847c911f9b70c756647"), "rollno" : "33370", "name" : "Manish", "marks" : "80" }
+{ "_id" : ObjectId("5d7724fdf5e4a221094da600"), "rollno" : "33364", "name" : "Sahil", "marks" : "90" }
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363", "name" : "Saurabh", "marks" : "95" }
+{ "_id" : ObjectId("5d772869c911f9b70c756648"), "rollno" : "33361", "name" : "Rupesh", "marks" : "70" }
+{ "_id" : ObjectId("5d772a5dc911f9b70c75664a"), "rollno" : "33360", "name" : "Jayesh", "marks" : "80" }
+{ "_id" : ObjectId("5d772a4fc911f9b70c756649"), "rollno" : "33358", "name" : "Swapnil", "marks" : "75" }
+
+> db.Student.find().sort({marks:-1});
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363", "name" : "Saurabh", "marks" : "95" }
+{ "_id" : ObjectId("5d7724fdf5e4a221094da600"), "rollno" : "33364", "name" : "Sahil", "marks" : "90" }
+{ "_id" : ObjectId("5d772847c911f9b70c756647"), "rollno" : "33370", "name" : "Manish", "marks" : "80" }
+{ "_id" : ObjectId("5d772a5dc911f9b70c75664a"), "rollno" : "33360", "name" : "Jayesh", "marks" : "80" }
+{ "_id" : ObjectId("5d772a4fc911f9b70c756649"), "rollno" : "33358", "name" : "Swapnil", "marks" : "75" }
+{ "_id" : ObjectId("5d772869c911f9b70c756648"), "rollno" : "33361", "name" : "Rupesh", "marks" : "70" }
+
+> db.Student.find().sort({marks:1});
+{ "_id" : ObjectId("5d772869c911f9b70c756648"), "rollno" : "33361", "name" : "Rupesh", "marks" : "70" }
+{ "_id" : ObjectId("5d772a4fc911f9b70c756649"), "rollno" : "33358", "name" : "Swapnil", "marks" : "75" }
+{ "_id" : ObjectId("5d772847c911f9b70c756647"), "rollno" : "33370", "name" : "Manish", "marks" : "80" }
+{ "_id" : ObjectId("5d772a5dc911f9b70c75664a"), "rollno" : "33360", "name" : "Jayesh", "marks" : "80" }
+{ "_id" : ObjectId("5d7724fdf5e4a221094da600"), "rollno" : "33364", "name" : "Sahil", "marks" : "90" }
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363", "name" : "Saurabh", "marks" : "95" }
+
+> db.Student.find({},{_id:0}).sort({marks:1});
+{ "rollno" : "33361", "name" : "Rupesh", "marks" : "70" }
+{ "rollno" : "33358", "name" : "Swapnil", "marks" : "75" }
+{ "rollno" : "33370", "name" : "Manish", "marks" : "80" }
+{ "rollno" : "33360", "name" : "Jayesh", "marks" : "80" }
+{ "rollno" : "33364", "name" : "Sahil", "marks" : "90" }
+{ "rollno" : "33363", "name" : "Saurabh", "marks" : "95" }
+> mongodump
+
+> db.Student.find().pretty();
+> use SMS
+switched to db SMS
+> db.Student.find().pretty();
+{
+	"_id" : ObjectId("5d7724fdf5e4a221094da600"),
+	"rollno" : "33364",
+	"name" : "Sahil",
+	"marks" : "90"
+}
+{
+	"_id" : ObjectId("5d772524f5e4a221094da601"),
+	"rollno" : "33363",
+	"name" : "Saurabh",
+	"marks" : "95"
+}
+{
+	"_id" : ObjectId("5d772847c911f9b70c756647"),
+	"rollno" : "33370",
+	"name" : "Manish",
+	"marks" : "80"
+}
+{
+	"_id" : ObjectId("5d772869c911f9b70c756648"),
+	"rollno" : "33361",
+	"name" : "Rupesh",
+	"marks" : "70"
+}
+{
+	"_id" : ObjectId("5d772a4fc911f9b70c756649"),
+	"rollno" : "33358",
+	"name" : "Swapnil",
+	"marks" : "75"
+}
+{
+	"_id" : ObjectId("5d772a5dc911f9b70c75664a"),
+	"rollno" : "33360",
+	"name" : "Jayesh",
+	"marks" : "80"
+}
+
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.Student.find();
+{ "_id" : ObjectId("5d7724fdf5e4a221094da600"), "rollno" : "64", "name" : "Sahil", "marks" : "90" }
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363", "name" : "Saurabh", "marks" : "95" }
+{ "_id" : ObjectId("5d772847c911f9b70c756647"), "rollno" : "33370", "name" : "Manish", "marks" : "80" }
+{ "_id" : ObjectId("5d772869c911f9b70c756648"), "rollno" : "33361", "name" : "Rupesh", "marks" : "70" }
+{ "_id" : ObjectId("5d772a4fc911f9b70c756649"), "rollno" : "33358", "name" : "Swapnil", "marks" : "75" }
+{ "_id" : ObjectId("5d772a5dc911f9b70c75664a"), "rollno" : "33360", "name" : "Jayesh", "marks" : "80" }
+
+> db.Student.remove({rollno:"64"})
+WriteResult({ "nRemoved" : 1 })
+
+> db.Student.find();
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363", "name" : "Saurabh", "marks" : "95" }
+{ "_id" : ObjectId("5d772847c911f9b70c756647"), "rollno" : "33370", "name" : "Manish", "marks" : "80" }
+{ "_id" : ObjectId("5d772869c911f9b70c756648"), "rollno" : "33361", "name" : "Rupesh", "marks" : "70" }
+{ "_id" : ObjectId("5d772a4fc911f9b70c756649"), "rollno" : "33358", "name" : "Swapnil", "marks" : "75" }
+{ "_id" : ObjectId("5d772a5dc911f9b70c75664a"), "rollno" : "33360", "name" : "Jayesh", "marks" : "80" }
+
+> db.Student.update({marks:"80"}{$set:{marks:"82"}})
+2019-09-10T10:42:15.976+0530 E QUERY    [js] SyntaxError: missing ) after argument list @(shell):1:30
+
+> db.Student.update({marks:"80"},{$set:{marks:"82"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.Student.find()
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363", "name" : "Saurabh", "marks" : "95" }
+{ "_id" : ObjectId("5d772847c911f9b70c756647"), "rollno" : "33370", "name" : "Manish", "marks" : "82" }
+{ "_id" : ObjectId("5d772869c911f9b70c756648"), "rollno" : "33361", "name" : "Rupesh", "marks" : "70" }
+{ "_id" : ObjectId("5d772a4fc911f9b70c756649"), "rollno" : "33358", "name" : "Swapnil", "marks" : "75" }
+{ "_id" : ObjectId("5d772a5dc911f9b70c75664a"), "rollno" : "33360", "name" : "Jayesh", "marks" : "80" }
+
+> db.Student.update({marks:"80"},{$set:{marks:"82"}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.Student.find()
+{ "_id" : ObjectId("5d772524f5e4a221094da601"), "rollno" : "33363", "name" : "Saurabh", "marks" : "95" }
+{ "_id" : ObjectId("5d772847c911f9b70c756647"), "rollno" : "33370", "name" : "Manish", "marks" : "82" }
+{ "_id" : ObjectId("5d772869c911f9b70c756648"), "rollno" : "33361", "name" : "Rupesh", "marks" : "70" }
+{ "_id" : ObjectId("5d772a4fc911f9b70c756649"), "rollno" : "33358", "name" : "Swapnil", "marks" : "75" }
+{ "_id" : ObjectId("5d772a5dc911f9b70c75664a"), "rollno" : "33360", "name" : "Jayesh", "marks" : "82" }
+
+> db.Student.update({marks:"82"},{$set:{marks:"86"}},{multi:true})
+WriteResult({ "nMatched" : 2, "nUpserted" : 0, "nModified" : 2 })
+
+
