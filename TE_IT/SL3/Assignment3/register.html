@@ -7,7 +7,7 @@
             WELCOME TO MUSIC STREAMINGs
         </title>    
     </head>
-    <body>
+    <body onload="init()">
         <header>
     <div class="header">
         
@@ -42,7 +42,7 @@
             
     </div>
     </header>
-        <form id="myform">
+        <form id="myform" method="get">
             
             <div style="padding-left: 3%">
                 <br><h1 style="text-align: float"> Sign Up</h1>
@@ -50,18 +50,17 @@
 
             <div style="margin: 10px; padding:20px ; text-align: center">
                 <fieldset  style="margin-left: 20%; margin-right: 20%; padding: 5% 5%; ">
-                
-                    <legend>
-                        <h3>Login Infomation</h3>
-                    </legend>
-                
-                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Name: </label> <input type="text" id="name" placeholder="First Middle Last" autocomplete="off"> <br> <span class="error" id="nameerror"> </span>
+                <legend>
+                	<h3>Login Infomation</h3>
+                </legend>
+                       
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Name*: </label> <input type="text" id="name" onkeyup="nameValidation()" placeholder="First Middle Last" autocomplete="off"> <br> <span class="error" id="nameerror"> </span>
                     <br><br><br>
-                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Email: </label><input id="email" placeholder="Ex: abcd@gmail.com" type="text" autocomplete="off"><br><span class="error" id="emailerror"></span>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Email*: </label><input id="email" placeholder="Ex: abcd@gmail.com" type="text" onkeyup="emailValidation()" autocomplete="off"><br><span class="error" id="emailerror"></span>
                     <br><br><br>
-                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Password: </label><input type="password" id="p1" autocomplete="off"><br><span class="error" id="passerror"> </span>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Password*: </label><input type="password"  id="p1" autocomplete="off"><br><span class="error" id="passerror"> </span>
 					<br><br><br>
-                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Re-Enter Password: </label><input type="password" id="p2" autocomplete="off"><br><span class="error" id="rpasserror"> </span>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Re-Enter Password*: </label><input type="password" id="p2" autocomplete="off"><br><span class="error" id="rpasserror"> </span>
                     
                     
                 </fieldset>
@@ -70,29 +69,29 @@
                     <legend>
                     	<h3>Personal Information</h3>
                     </legend>
-                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Phone: </label><input type="text" id="phno" autocomplete="off"><br><span class="error" id="phoneerror"> </span>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Phone*: </label><input type="text" onkeyup="phoneValid()" onKeyDown="if(this.value.length==10 && event.keyCode!=8) return false;" id="phno" autocomplete="off"><br><span class="error" id="phoneerror"> </span>
                     <br><br><br>
-                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Address: </label><textarea rows="2" type="text" id="add" autocomplete="off"></textarea><br><span class="error" id="adderror"> </span>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Address*: </label><textarea rows="2" type="text" id="add" autocomplete="off"></textarea><br><span class="error" id="adderror"> </span>
                     <br><br><br>
-                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Pincode: </label><input type="text" id="pin" autocomplete="off"><br>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Pincode*: </label><input type="text" id="pin" onkeyup="pinValid()" onKeyDown="if(this.value.length==6 && event.keyCode!=8) return false;" autocomplete="off"><br>
                     <span class="error" id="pinerror"> </span>                    <br><br><br>
 
 
 
-                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Date of Birth: </label><input type="date" id="dob" autocomplete="off" >
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Date of Birth*: </label><input type="date"  id="dob" autocomplete="off" >
                     <br><span class="error" id="doberror"> </span>
                     <br><br><br>
 
-                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Gender:- </label>
-                    <br><br>
-                    <label style="float: left; width: 45%; margin-right: -60%; text-align: right;">Male: </label> <input type="radio"  name="Gender" id="dob" >
-               		<br><br>
-                    <label style="float: left; width: 45%; margin-right: -60%; text-align: right;">Female: </label> <input type="radio" name="Gender" id="dob" >
-                    <br><br>
-                    <label style="float: left; width: 45%; margin-right: -60%; text-align: right;">Other: </label> <input type="radio"  name="Gender" id="dob" >
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Gender*: </label>
+                    <br>
+               		<label style="text-align: right; float:left; margin-left:15% ">Male</label> <input type="radio" name="Gender" id="dob" checked="checked" >
+               		<br>
+                    <label style="text-align:right; float: left; margin-left: 15%">Female</label> <input type="radio" name="Gender" id="dob" >
+                    <br>
+                    <label style=" text-align: right; float: left; margin-left: 15%">Other</label> <input type="radio" name="Gender" id="dob" >
                 </fieldset>
                 <br><br>
-                <button class="gbtn" onclick="return validation();" style="margin-right:20px" >SUBMIT</button>
+                <button class="gbtn" onclick=" return onSub();" style="margin-right:20px" >SUBMIT</button>
                 <button class="gbtn" type="Clear" onclick="Clear();">RESET</button>
             
             </div>
