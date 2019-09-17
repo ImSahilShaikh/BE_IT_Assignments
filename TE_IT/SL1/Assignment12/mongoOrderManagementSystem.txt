@@ -1,0 +1,42 @@
+> db.createCollection("Customer",{validator:{cid:{$type:"number"},cname:{$type:"string"}}});
+{ "ok" : 1 }
+> db.customer.insert({cid:21231,name:"Sahil"});
+WriteResult({ "nInserted" : 1 })
+
+> db.Customer.insert({cid:2,cname:"Sanket",pid:486,pname:"Shoes",price:1300,qty:1},{cid:3,cname:"Manas",pid:316,pname:"Fashion-Jacket",price:3000,qty:1});
+
+> db.Customer.insert({cid:1,cname:"Sahil",pid:476,price:4000,qty:2});
+WriteResult({ "nInserted" : 1 })
+> db.getCollectionNames();
+[ "Customer" ]
+
+
+> db.createCollection("OrderM",{validator:{cid:{$type:"number"},cname:{$type:"string"},oid:{$type:"number"},odetails:[{prodid:{$type:"number"},prodname:{$type:"string"},prodprice:{$type:"number"},qty:{$type:"number"}}],tamount:{type:"number"}}});
+{ "ok" : 1 }
+
+> db.OrderM.insert({cid:1,cname:"Sahil",oid:1,odetails:[{prodid:2,prodname:"Keyboard",price:800,qty:1},{prodid:3,prodname:"Mouse",price:900,qty:1}],tamount:0});
+
+WriteResult({ "nInserted" : 1 })
+> db.OrderM.find().pretty()
+{
+	"_id" : ObjectId("5d806e768df2fc6983796602"),
+	"cid" : 1,
+	"cname" : "Sahil",
+	"oid" : 1,
+	"odetails" : [
+		{
+			"prodid" : 2,
+			"prodname" : "Keyboard",
+			"price" : 800,
+			"qty" : 1
+		},
+		{
+			"prodid" : 3,
+			"prodname" : "Mouse",
+			"price" : 900,
+			"qty" : 1
+		}
+	],
+	"tamount" : 0
+}
+> 
