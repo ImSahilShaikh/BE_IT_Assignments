@@ -1,0 +1,255 @@
+> db.OrderM.find();
+{ "_id" : ObjectId("5d806e768df2fc6983796602"), "cid" : 1, "cname" : "Sahil", "oid" : 1, "odetails" : [ { "prodid" : 2, "prodname" : "Keyboard", "price" : 800, "qty" : 1 }, { "prodid" : 3, "prodname" : "Mouse", "price" : 900, "qty" : 1 } ], "tamount" : 0 }
+{ "_id" : ObjectId("5d833e30ba4941577a601240"), "cid" : 2, "cname" : "Manas", "oid" : 2, "odetails" : [ { "prodid" : 13, "prodname" : "HeadPhone", "price" : 1200, "qty" : 2 } ], "tamount" : 0 }
+{ "_id" : ObjectId("5d833eaeba4941577a601241"), "cid" : 3, "cname" : "Rupesh", "oid" : 3, "odetails" : [ { "prodid" : 41, "prodname" : "SceenGuard", "price" : 100, "qty" : 1 }, { "prodid" : 52, "prodname" : "MobileCase", "price" : 280, "qty" : 2 } ], "tamount" : 0 }
+{ "_id" : ObjectId("5d8341c8eefe758082fc2cec"), "cid" : 4, "cname" : "Saurabh", "oid" : 4, "odetails" : [ { "prodid" : 66, "prodname" : "IPhone11", "price" : 120000, "qty" : 1 } ] }
+{ "_id" : ObjectId("5d8341c8eefe758082fc2ced"), "cid" : 5, "cname" : "Sanket", "oid" : 5, "odetails" : [ { "prodid" : 78, "prodname" : "SamsungNote10", "price" : 89000, "qty" : 2 } ] }
+{ "_id" : ObjectId("5d83445c983f0ebecebff6bb"), "cid" : 5, "cname" : "Jayesh", "oid" : 52, "odetails" : [ { "prodid" : 4, "prodname" : "SceenGuard", "price" : 120, "qty" : 3 }, { "prodid" : 23, "prodname" : "MobileCase", "price" : 280, "qty" : 1 } ], "tamount" : 0 }
+{ "_id" : ObjectId("5d83445c983f0ebecebff6bc"), "cid" : 6, "cname" : "Niranjan", "oid" : 7, "odetails" : [ { "prodname" : "VRBox", "price" : 1399, "qty" : 1, "prodid" : "71" } ] }
+{ "_id" : ObjectId("5d834fd78a96e857a7043474"), "cname" : "Kalpit", "odetails" : { "0" : { "prodid" : "71" } } }
+> db.OrderM.find().pretty();
+{
+	"_id" : ObjectId("5d806e768df2fc6983796602"),
+	"cid" : 1,
+	"cname" : "Sahil",
+	"oid" : 1,
+	"odetails" : [
+		{
+			"prodid" : 2,
+			"prodname" : "Keyboard",
+			"price" : 800,
+			"qty" : 1
+		},
+		{
+			"prodid" : 3,
+			"prodname" : "Mouse",
+			"price" : 900,
+			"qty" : 1
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d833e30ba4941577a601240"),
+	"cid" : 2,
+	"cname" : "Manas",
+	"oid" : 2,
+	"odetails" : [
+		{
+			"prodid" : 13,
+			"prodname" : "HeadPhone",
+			"price" : 1200,
+			"qty" : 2
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d833eaeba4941577a601241"),
+	"cid" : 3,
+	"cname" : "Rupesh",
+	"oid" : 3,
+	"odetails" : [
+		{
+			"prodid" : 41,
+			"prodname" : "SceenGuard",
+			"price" : 100,
+			"qty" : 1
+		},
+		{
+			"prodid" : 52,
+			"prodname" : "MobileCase",
+			"price" : 280,
+			"qty" : 2
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d8341c8eefe758082fc2cec"),
+	"cid" : 4,
+	"cname" : "Saurabh",
+	"oid" : 4,
+	"odetails" : [
+		{
+			"prodid" : 66,
+			"prodname" : "IPhone11",
+			"price" : 120000,
+			"qty" : 1
+		}
+	]
+}
+{
+	"_id" : ObjectId("5d8341c8eefe758082fc2ced"),
+	"cid" : 5,
+	"cname" : "Sanket",
+	"oid" : 5,
+	"odetails" : [
+		{
+			"prodid" : 78,
+			"prodname" : "SamsungNote10",
+			"price" : 89000,
+			"qty" : 2
+		}
+	]
+}
+{
+	"_id" : ObjectId("5d83445c983f0ebecebff6bb"),
+	"cid" : 5,
+	"cname" : "Jayesh",
+	"oid" : 52,
+	"odetails" : [
+		{
+			"prodid" : 4,
+			"prodname" : "SceenGuard",
+			"price" : 120,
+			"qty" : 3
+		},
+		{
+			"prodid" : 23,
+			"prodname" : "MobileCase",
+			"price" : 280,
+			"qty" : 1
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d83445c983f0ebecebff6bc"),
+	"cid" : 6,
+	"cname" : "Niranjan",
+	"oid" : 7,
+	"odetails" : [
+		{
+			"prodname" : "VRBox",
+			"price" : 1399,
+			"qty" : 1,
+			"prodid" : "71"
+		}
+	]
+}
+{
+	"_id" : ObjectId("5d834fd78a96e857a7043474"),
+	"cname" : "Kalpit",
+	"odetails" : {
+		"0" : {
+			"prodid" : "71"
+		}
+	}
+}
+
+> db.OrderM.find({},{cname:1}).pretty();
+{ "_id" : ObjectId("5d806e768df2fc6983796602"), "cname" : "Sahil" }
+{ "_id" : ObjectId("5d833e30ba4941577a601240"), "cname" : "Manas" }
+{ "_id" : ObjectId("5d833eaeba4941577a601241"), "cname" : "Rupesh" }
+{ "_id" : ObjectId("5d8341c8eefe758082fc2cec"), "cname" : "Saurabh" }
+{ "_id" : ObjectId("5d8341c8eefe758082fc2ced"), "cname" : "Sanket" }
+{ "_id" : ObjectId("5d83445c983f0ebecebff6bb"), "cname" : "Jayesh" }
+{ "_id" : ObjectId("5d83445c983f0ebecebff6bc"), "cname" : "Niranjan" }
+{ "_id" : ObjectId("5d834fd78a96e857a7043474"), "cname" : "Kalpit" }
+> db.OrderM.find({},{cname:1,_id:0}).pretty();
+{ "cname" : "Sahil" }
+{ "cname" : "Manas" }
+{ "cname" : "Rupesh" }
+{ "cname" : "Saurabh" }
+{ "cname" : "Sanket" }
+{ "cname" : "Jayesh" }
+{ "cname" : "Niranjan" }
+{ "cname" : "Kalpit" }
+
+> db.OrderM.find({},{cname:1,_id:0}).limit(2).pretty();
+{ "cname" : "Sahil" }
+{ "cname" : "Manas" }
+
+> db.OrderM.find({},{cname:1,_id:0}).skip(1).pretty();
+{ "cname" : "Manas" }
+{ "cname" : "Rupesh" }
+{ "cname" : "Saurabh" }
+{ "cname" : "Sanket" }
+{ "cname" : "Jayesh" }
+{ "cname" : "Niranjan" }
+{ "cname" : "Kalpit" }
+
+> db.OrderM.findOne();
+{
+	"_id" : ObjectId("5d806e768df2fc6983796602"),
+	"cid" : 1,
+	"cname" : "Sahil",
+	"oid" : 1,
+	"odetails" : [
+		{
+			"prodid" : 2,
+			"prodname" : "Keyboard",
+			"price" : 800,
+			"qty" : 1
+		},
+		{
+			"prodid" : 3,
+			"prodname" : "Mouse",
+			"price" : 900,
+			"qty" : 1
+		}
+	],
+	"tamount" : 0
+}
+
+> db.OrderM.find({oid:{$not:{$lt:5}}}).pretty();
+{
+	"_id" : ObjectId("5d8341c8eefe758082fc2ced"),
+	"cid" : 5,
+	"cname" : "Sanket",
+	"oid" : 5,
+	"odetails" : [
+		{
+			"prodid" : 78,
+			"prodname" : "SamsungNote10",
+			"price" : 89000,
+			"qty" : 2
+		}
+	]
+}
+{
+	"_id" : ObjectId("5d83445c983f0ebecebff6bb"),
+	"cid" : 5,
+	"cname" : "Jayesh",
+	"oid" : 52,
+	"odetails" : [
+		{
+			"prodid" : 4,
+			"prodname" : "SceenGuard",
+			"price" : 120,
+			"qty" : 3
+		},
+		{
+			"prodid" : 23,
+			"prodname" : "MobileCase",
+			"price" : 280,
+			"qty" : 1
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d83445c983f0ebecebff6bc"),
+	"cid" : 6,
+	"cname" : "Niranjan",
+	"oid" : 7,
+	"odetails" : [
+		{
+			"prodname" : "VRBox",
+			"price" : 1399,
+			"qty" : 1,
+			"prodid" : "71"
+		}
+	]
+}
+{
+	"_id" : ObjectId("5d834fd78a96e857a7043474"),
+	"cname" : "Kalpit",
+	"odetails" : {
+		"0" : {
+			"prodid" : "71"
+		}
+	}
+}
+
