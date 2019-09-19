@@ -1,0 +1,498 @@
+mllab12@mllab12:~$ mongo
+MongoDB shell version v4.0.12
+connecting to: mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("44fa8f69-c9e7-4a31-b21e-b777208c2cb8") }
+MongoDB server version: 4.0.12
+Server has startup warnings: 
+2019-09-19T14:01:08.639+0530 I STORAGE  [initandlisten] 
+2019-09-19T14:01:08.639+0530 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2019-09-19T14:01:08.639+0530 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2019-09-19T14:01:11.587+0530 I CONTROL  [initandlisten] 
+2019-09-19T14:01:11.587+0530 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-09-19T14:01:11.587+0530 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-09-19T14:01:11.587+0530 I CONTROL  [initandlisten] 
+
+> show dbs;
+OMS          0.000GB
+SMS          0.000GB
+admin        0.000GB
+config       0.000GB
+database1    0.000GB
+demo         0.000GB
+local        0.000GB
+order_mgmnt  0.000GB
+test         0.000GB
+y            0.000GB
+
+> use OMS;
+switched to db OMS
+
+> show collections
+OrderM
+
+> db.OrderM.find();
+{ "_id" : ObjectId("5d806e768df2fc6983796602"), "cid" : 1, "cname" : "Sahil", "oid" : 1, "odetails" : [ { "prodid" : 2, "prodname" : "Keyboard", "price" : 800, "qty" : 1 }, { "prodid" : 3, "prodname" : "Mouse", "price" : 900, "qty" : 1 } ], "tamount" : 0 }
+
+> db.OrderM.find().pretty();
+{
+	"_id" : ObjectId("5d806e768df2fc6983796602"),
+	"cid" : 1,
+	"cname" : "Sahil",
+	"oid" : 1,
+	"odetails" : [
+		{
+			"prodid" : 2,
+			"prodname" : "Keyboard",
+			"price" : 800,
+			"qty" : 1
+		},
+		{
+			"prodid" : 3,
+			"prodname" : "Mouse",
+			"price" : 900,
+			"qty" : 1
+		}
+	],
+	"tamount" : 0
+}
+
+> db.OrderM.insert({cid:2,cname:"Manas",oid:2,odetails:[{prodid:13,prodname:"HeadPhone",price:1200,qty:2}],tamount:0})
+WriteResult({ "nInserted" : 1 })
+
+> db.OrderM.find().pretty();
+{
+	"_id" : ObjectId("5d806e768df2fc6983796602"),
+	"cid" : 1,
+	"cname" : "Sahil",
+	"oid" : 1,
+	"odetails" : [
+		{
+			"prodid" : 2,
+			"prodname" : "Keyboard",
+			"price" : 800,
+			"qty" : 1
+		},
+		{
+			"prodid" : 3,
+			"prodname" : "Mouse",
+			"price" : 900,
+			"qty" : 1
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d833e30ba4941577a601240"),
+	"cid" : 2,
+	"cname" : "Manas",
+	"oid" : 2,
+	"odetails" : [
+		{
+			"prodid" : 13,
+			"prodname" : "HeadPhone",
+			"price" : 1200,
+			"qty" : 2
+		}
+	],
+	"tamount" : 0
+}
+
+> db.OrderM.insert({cid:3,cname:"Rupesh",oid:3,odetails:[{prodid:41,prodname:"SceenGuard",price:100,qty:1},{prodid:52,prodname:"MobileCase",price:280,qty:2}],tamount:0})
+WriteResult({ "nInserted" : 1 })
+
+> db.OrderM.find().pretty();
+{
+	"_id" : ObjectId("5d806e768df2fc6983796602"),
+	"cid" : 1,
+	"cname" : "Sahil",
+	"oid" : 1,
+	"odetails" : [
+		{
+			"prodid" : 2,
+			"prodname" : "Keyboard",
+			"price" : 800,
+			"qty" : 1
+		},
+		{
+			"prodid" : 3,
+			"prodname" : "Mouse",
+			"price" : 900,
+			"qty" : 1
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d833e30ba4941577a601240"),
+	"cid" : 2,
+	"cname" : "Manas",
+	"oid" : 2,
+	"odetails" : [
+		{
+			"prodid" : 13,
+			"prodname" : "HeadPhone",
+			"price" : 1200,
+			"qty" : 2
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d833eaeba4941577a601241"),
+	"cid" : 3,
+	"cname" : "Rupesh",
+	"oid" : 3,
+	"odetails" : [
+		{
+			"prodid" : 41,
+			"prodname" : "SceenGuard",
+			"price" : 100,
+			"qty" : 1
+		},
+		{
+			"prodid" : 52,
+			"prodname" : "MobileCase",
+			"price" : 280,
+			"qty" : 2
+		}
+	],
+	"tamount" : 0
+}
+
+> db.OrderM.insertMany([{cid:4,cname:"Saurabh",oid:4,odetails:[{prodid:66,prodname:"IPhone11",price:120000,qty:1}]},{cid:5,cname:"Sanket",oid:5,odetails:[{prodid:78,prodname:"SamsungNote10",price:89000,qty:2}]}])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("5d8341c8eefe758082fc2cec"),
+		ObjectId("5d8341c8eefe758082fc2ced")
+	]
+}
+
+> db.OrderM.find().pretty();
+{
+	"_id" : ObjectId("5d806e768df2fc6983796602"),
+	"cid" : 1,
+	"cname" : "Sahil",
+	"oid" : 1,
+	"odetails" : [
+		{
+			"prodid" : 2,
+			"prodname" : "Keyboard",
+			"price" : 800,
+			"qty" : 1
+		},
+		{
+			"prodid" : 3,
+			"prodname" : "Mouse",
+			"price" : 900,
+			"qty" : 1
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d833e30ba4941577a601240"),
+	"cid" : 2,
+	"cname" : "Manas",
+	"oid" : 2,
+	"odetails" : [
+		{
+			"prodid" : 13,
+			"prodname" : "HeadPhone",
+			"price" : 1200,
+			"qty" : 2
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d833eaeba4941577a601241"),
+	"cid" : 3,
+	"cname" : "Rupesh",
+	"oid" : 3,
+	"odetails" : [
+		{
+			"prodid" : 41,
+			"prodname" : "SceenGuard",
+			"price" : 100,
+			"qty" : 1
+		},
+		{
+			"prodid" : 52,
+			"prodname" : "MobileCase",
+			"price" : 280,
+			"qty" : 2
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d8341c8eefe758082fc2cec"),
+	"cid" : 4,
+	"cname" : "Saurabh",
+	"oid" : 4,
+	"odetails" : [
+		{
+			"prodid" : 66,
+			"prodname" : "IPhone11",
+			"price" : 120000,
+			"qty" : 1
+		}
+	]
+}
+{
+	"_id" : ObjectId("5d8341c8eefe758082fc2ced"),
+	"cid" : 5,
+	"cname" : "Sanket",
+	"oid" : 5,
+	"odetails" : [
+		{
+			"prodid" : 78,
+			"prodname" : "SamsungNote10",
+			"price" : 89000,
+			"qty" : 2
+		}
+	]
+}
+
+
+> var bulk=db.OrderM.initializeUnorderedBulkOp();
+
+> bulk.insert({cid:5,cname:"Jayesh",oid:51,odetails:[{prodid:4,prodname:"SceenGuard",price:120,qty:3},{prodid:23,prodname:"MobileCase",price:280,qty:1}],tamount:0});
+
+> bulk.insert({cid:6,cname:"Niranjan",oid:7,odetails:[{prodid:13,prodname:"VRBox",price:1399,qty:1}]});
+
+> bulk.execute();
+BulkWriteResult({
+	"writeErrors" : [ ],
+	"writeConcernErrors" : [ ],
+	"nInserted" : 2,
+	"nUpserted" : 0,
+	"nMatched" : 0,
+	"nModified" : 0,
+	"nRemoved" : 0,
+	"upserted" : [ ]
+})
+
+> db.OrderM.find().pretty();
+
+> db.OrderM.update( {cname:"Niranjan"}, {$unset: {"odetails.0.prodid":'71'} } )
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.OrderM.find({cname:"Niranjan"}).pretty();
+{
+	"_id" : ObjectId("5d83445c983f0ebecebff6bc"),
+	"cid" : 6,
+	"cname" : "Niranjan",
+	"oid" : 7,
+	"odetails" : [
+		{
+			"prodname" : "VRBox",
+			"price" : 1399,
+			"qty" : 1
+		}
+	]
+}
+
+
+{
+	"_id" : ObjectId("5d806e768df2fc6983796602"),
+	"cid" : 1,
+	"cname" : "Sahil",
+	"oid" : 1,
+	"odetails" : [
+		{
+			"prodid" : 2,
+			"prodname" : "Keyboard",
+			"price" : 800,
+			"qty" : 1
+		},
+		{
+			"prodid" : 3,
+			"prodname" : "Mouse",
+			"price" : 900,
+			"qty" : 1
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d833e30ba4941577a601240"),
+	"cid" : 2,
+	"cname" : "Manas",
+	"oid" : 2,
+	"odetails" : [
+		{
+			"prodid" : 13,
+			"prodname" : "HeadPhone",
+			"price" : 1200,
+			"qty" : 2
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d833eaeba4941577a601241"),
+	"cid" : 3,
+	"cname" : "Rupesh",
+	"oid" : 3,
+	"odetails" : [
+		{
+			"prodid" : 41,
+			"prodname" : "SceenGuard",
+			"price" : 100,
+			"qty" : 1
+		},
+		{
+			"prodid" : 52,
+			"prodname" : "MobileCase",
+			"price" : 280,
+			"qty" : 2
+		}> db.OrderM.update( {cname:"Kalpit"}, {$set: {"odetails.0.prodid":'71'}}, {upsert:true});
+WriteResult({
+	"nMatched" : 0,
+	"nUpserted" : 1,
+	"nModified" : 0,
+	"_id" : ObjectId("5d834fd78a96e857a7043474")
+})
+> db.OrderM.find({cname:"Kalpit"}).pretty();
+{
+	"_id" : ObjectId("5d834fd78a96e857a7043474"),
+	"cname" : "Kalpit",
+	"odetails" : {
+		"0" : {
+			"prodid" : "71"
+		}
+	}
+}
+> 
+
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d8341c8eefe758082fc2cec"),
+	"cid" : 4,
+	"cname" : "Saurabh",
+	"oid" : 4,
+	"odetails" : [
+		{
+			"prodid" : 66,
+			"prodname" : "IPhone11",
+			"price" : 120000,
+			"qty" : 1
+		}
+	]
+}
+{
+	"_id" : ObjectId("5d8341c8eefe758082fc2ced"),
+	"cid" : 5,
+	"cname" : "Sanket",
+	"oid" : 5,
+	"odetails" : [
+		{
+			"prodid" : 78,
+			"prodname" : "SamsungNote10",
+			"price" : 89000,
+			"qty" : 2
+		}
+	]
+}
+{
+	"_id" : ObjectId("5d83445c983f0ebecebff6bb"),
+	"cid" : 5,
+	"cname" : "Jayesh",
+	"oid" : 51,
+	"odetails" : [
+		{
+			"prodid" : 4,
+			"prodname" : "SceenGuard",
+			"price" : 120,
+			"qty" : 3
+		},
+		{
+			"prodid" : 23,
+			"prodname" : "MobileCase",
+			"price" : 280,
+			"qty" : 1
+		}
+	],
+	"tamount" : 0
+}
+{
+	"_id" : ObjectId("5d83445c983f0ebecebff6bc"),
+	"cid" : 6,
+	"cname" : "Niranjan",
+	"oid" : 7,
+	"odetails" : [
+		{
+			"prodid" : 13,
+			"prodname" : "VRBox",
+			"price" : 1399,
+			"qty" : 1
+		}
+	]
+}
+
+> db.OrderM.update( {cname:"Niranjan"}, {$set: {"odetails.0.prodid":'71'} } )
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+> db.OrderM.find({cname:"Niranjan"}).pretty();
+{
+	"_id" : ObjectId("5d83445c983f0ebecebff6bc"),
+	"cid" : 6,
+	"cname" : "Niranjan",
+	"oid" : 7,
+	"odetails" : [
+		{
+			"prodid" : "71",
+			"prodname" : "VRBox",
+			"price" : 1399,
+			"qty" : 1
+		}
+	]
+}
+
+
+> db.OrderM.update( {cname:"Kalpit"}, {$set: {"odetails.0.prodid":'71'}}, {upsert:true});
+WriteResult({
+	"nMatched" : 0,
+	"nUpserted" : 1,
+	"nModified" : 0,
+	"_id" : ObjectId("5d834fd78a96e857a7043474")
+})
+> db.OrderM.find({cname:"Kalpit"}).pretty();
+{
+	"_id" : ObjectId("5d834fd78a96e857a7043474"),
+	"cname" : "Kalpit",
+	"odetails" : {
+		"0" : {
+			"prodid" : "71"
+		}
+	}
+}
+ 
+> db.OrderM.update({cname:"Jayesh"},{$inc:{oid:1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.OrderM.find({cname:"Jayesh"}).pretty();
+{
+	"_id" : ObjectId("5d83445c983f0ebecebff6bb"),
+	"cid" : 5,
+	"cname" : "Jayesh",
+	"oid" : 52,
+	"odetails" : [
+		{
+			"prodid" : 4,
+			"prodname" : "SceenGuard",
+			"price" : 120,
+			"qty" : 3
+		},
+		{
+			"prodid" : 23,
+			"prodname" : "MobileCase",
+			"price" : 280,
+			"qty" : 1
+		}
+	],
+	"tamount" : 0
+}
+
