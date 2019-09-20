@@ -26,7 +26,7 @@
 
 
         if (empty($_POST["email"])) {
-            $emailErr = "Email is required";
+            //$emailErr = "Email is required";
             } else {
                 $email = test_input($_POST["email"]);
                 // check if e-mail address is well-formed
@@ -105,10 +105,10 @@
                        
                     <label style="float: left; width: 35%; margin-right: -50%; text-align: right;"> Name<a class="error">*</a>: </label><input type="text" name="name" value="<?php echo $name;?>"><br><span class="error"> <?php echo $nameErr;?></span>
                     <br><br><br>
-                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Email<a class="error">*</a>: </label><input id="email" placeholder="Ex: abcd@gmail.com" type="text" value="<?php echo $email;?>" autocomplete="off"><br>
-                    <span class="error">* <?php echo $emailErr;?></span>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Email<a class="error">*</a>: </label><input id="email" name="email" placeholder="Ex: abcd@gmail.com" type="text" value="<?php echo $email;?>" autocomplete="off"><br>
+                    <span class="error"><?php echo $emailErr;?></span>
                     <br><br><br>
-                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Website<a class="error">*</a>: </label><input type="text"  id="website" autocomplete="off" value="<?php echo $email;?>"><br>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Website<a class="error">*</a>: </label><input type="text"  id="website" name="website" autocomplete="off" value="<?php echo $website;?>"><br>
                     <span class="error"><?php echo $websiteErr;?></span>
 					<br><br><br>
                    
