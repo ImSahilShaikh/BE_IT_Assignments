@@ -1,0 +1,67 @@
+<!DOCTYPE HTML5>
+<html>
+        <script src="myScript.js"></script>
+        <link rel="stylesheet" type="text/css " href="style.css">
+    <head>
+        <title>
+            WELCOME TO MUSIC STREAMINGs
+        </title>    
+    </head>
+    <body onload="init()">
+        <header>
+    <div class="header">
+        
+        <h2 class="logo">Music streaming</h2>
+            
+             <div class="navbar">
+                 <a href="register.html">REGISTER</a>
+                <div class="dropdown" style="float: right;">
+                    <button class="dropbtn">
+                    ABOUT US
+                    </button>
+	                <div class="dropdown-content">
+	                    <a href="Info.html">Info</a>
+	                    <a href="Contact.html">Contact</a>
+
+
+	                </div>
+                </div>
+                <div class="dropdown" style="float: right;"> 
+                    <button class="dropbtn">
+                        GENRES
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="pop.html">Pop</a>
+                        <a href="romantic.html">Romantic</a>
+                        <a href="jazz.html">Jazz</a>
+                    </div>
+                </div>
+                <a href="index.html">HOME</a>
+            </div>
+            </div>              
+    </header>
+        <form id="myform" action="login">
+            
+            <div style="padding-left: 3%">
+                <br><h1 style="text-align: float"> Sign In</h1>
+            </div>
+
+            <div style="margin: 10px; padding:20px ; text-align: center">
+                <fieldset  style="margin-left: 20%; margin-right: 20%; padding: 5% 5%; ">
+                <legend>
+                	<h3>Enter username and password </h3>
+                </legend>
+                       
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Name: </label> <input type="text" id="uname" name="uname" placeholder="Username" autocomplete="off"> <br> <span class="error" id="nameerror"> </span><br><br><br>
+                    <label style="float: left; width: 35%; margin-right: -50%; text-align: right;">Password: </label><input type="password" placeholder="password" id="password" name="password" autocomplete="off"><br><span class="error" id="passerror"> </span><br><br><br>
+                    
+                </fieldset>
+                                 	
+                <br>
+                <button class="gbtn" style="margin-right:20px" >SUBMIT</button>                
+            
+            </div>
+        </form>
+    </body>
+    <footer> &copy All rights reserved</footer>
+</html>
