@@ -1,0 +1,194 @@
+
+> db.Employee.insert({"name":"abc","address":"pune","dept":"IT","sal":50000})
+WriteResult({ "nInserted" : 1 })
+> db.Employee.insert({"name":"sahil","address":"pune","dept":"IT","sal":80000})
+WriteResult({ "nInserted" : 1 })
+
+> db.Employee.insertMany([{"name":"jayesh","address":"malegaon","dept":"COMP","sal":80000},{"name":"sanket","address":"pune","dept":"COMP","sal":75000}])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("5d899437bd3848d351530751"),
+		ObjectId("5d899437bd3848d351530752")
+	]
+}
+
+
+> db.Employee.find().pretty().sort({sal:-1})
+{
+	"_id" : ObjectId("5d899374bd3848d351530750"),
+	"name" : "sahil",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530751"),
+	"name" : "jayesh",
+	"address" : "malegaon",
+	"dept" : "COMP",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530752"),
+	"name" : "sanket",
+	"address" : "pune",
+	"dept" : "COMP",
+	"sal" : 75000
+}
+{
+	"_id" : ObjectId("5d8992d2bd3848d35153074f"),
+	"name" : "abc",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 50000
+}
+> db.Employee.find().pretty().sort({sal:-1})
+{
+	"_id" : ObjectId("5d899374bd3848d351530750"),
+	"name" : "sahil",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530751"),
+	"name" : "jayesh",
+	"address" : "malegaon",
+	"dept" : "COMP",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530752"),
+	"name" : "sanket",
+	"address" : "pune",
+	"dept" : "COMP",
+	"sal" : 75000
+}
+{
+	"_id" : ObjectId("5d8992d2bd3848d35153074f"),
+	"name" : "abc",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 50000
+}
+> db.Employee.find().pretty().sort({sal:1})
+{
+	"_id" : ObjectId("5d8992d2bd3848d35153074f"),
+	"name" : "abc",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 50000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530752"),
+	"name" : "sanket",
+	"address" : "pune",
+	"dept" : "COMP",
+	"sal" : 75000
+}
+{
+	"_id" : ObjectId("5d899374bd3848d351530750"),
+	"name" : "sahil",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530751"),
+	"name" : "jayesh",
+	"address" : "malegaon",
+	"dept" : "COMP",
+	"sal" : 80000
+}
+
+> db.Employee.find().pretty().sort({sal:-1}).limit(2);
+{
+	"_id" : ObjectId("5d899374bd3848d351530750"),
+	"name" : "sahil",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530751"),
+	"name" : "jayesh",
+	"address" : "malegaon",
+	"dept" : "COMP",
+	"sal" : 80000
+}
+
+> db.Employee.find().pretty().sort({$natural:-1});
+{
+	"_id" : ObjectId("5d899437bd3848d351530752"),
+	"name" : "sanket",
+	"address" : "pune",
+	"dept" : "COMP",
+	"sal" : 75000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530751"),
+	"name" : "jayesh",
+	"address" : "malegaon",
+	"dept" : "COMP",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899374bd3848d351530750"),
+	"name" : "sahil",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d8992d2bd3848d35153074f"),
+	"name" : "abc",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 50000
+}
+> db.Employee.find().pretty().sort({$natural:1});
+{
+	"_id" : ObjectId("5d8992d2bd3848d35153074f"),
+	"name" : "abc",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 50000
+}
+{
+	"_id" : ObjectId("5d899374bd3848d351530750"),
+	"name" : "sahil",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530751"),
+	"name" : "jayesh",
+	"address" : "malegaon",
+	"dept" : "COMP",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530752"),
+	"name" : "sanket",
+	"address" : "pune",
+	"dept" : "COMP",
+	"sal" : 75000
+}
+
+> db.Employee.find().pretty().skip(2)
+{
+	"_id" : ObjectId("5d899437bd3848d351530751"),
+	"name" : "jayesh",
+	"address" : "malegaon",
+	"dept" : "COMP",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530752"),
+	"name" : "sanket",
+	"address" : "pune",
+	"dept" : "COMP",
+	"sal" : 75000
+}
