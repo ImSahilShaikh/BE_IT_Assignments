@@ -1,0 +1,49 @@
+
+//Total number of employees in collection
+> db.Employee.mapReduce(function() {emit(this.name,1);}, function(key,values){return Array.sum(values)},{out:"post_total"})
+{
+	"result" : "post_total",
+	"timeMillis" : 499,
+	"counts" : {
+		"input" : 4,
+		"emit" : 4,
+		"reduce" : 0,
+		"output" : 4
+	},
+	"ok" : 1
+}
+
+//Total number of employees from city pune
+> db.Employee.mapReduce(function() {emit(this.name,1);}, function(key,values){return Array.sum(values)},{query:{address:"pune"},out:"post_total"})
+{
+	"result" : "post_total",
+	"timeMillis" : 374,
+	"counts" : {
+		"input" : 3,
+		"emit" : 3,
+		"reduce" : 0,
+		"output" : 3
+	},
+	"ok" : 1
+}
+
+//Total number of employees having salary greater than 60000
+> db.Employee.mapReduce(function() {emit(this.name,1);}, function(key,values){return Array.sum(values)},{query:{sal:{$gt:60000}},out:"post_total"})
+{
+	"result" : "post_total",
+	"timeMillis" : 356,
+	"counts" : {
+		"input" : 3,
+		"emit" : 3,
+		"reduce" : 0,
+		"output" : 3
+	},
+	"ok" : 1
+}
+
+//Name of employees having salary greater than 60000
+> db.Employee.mapReduce(function() {emit(this.name,1);}, function(key,values){return Array.sum(values)},{query:{sal:{$gt:60000}},out:"post_total"}).find().pretty()
+
+{ "_id" : "jayesh", "value" : 1 }
+{ "_id" : "sahil", "value" : 1 }
+{ "_id" : "sanket", "value" : 1 }
