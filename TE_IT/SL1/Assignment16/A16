@@ -24,8 +24,9 @@
 { "_id" : "COMP", "min_salary" : 75000 }
 { "_id" : "IT", "min_salary" : 50000 }
 
-> db.Employee.aggregate({$project:{_id:"$dept",name:"$name",min_salary:{$min:"$sal"}}})
-{ "_id" : "IT", "name" : "abc", "min_salary" : 50000 }
-{ "_id" : "IT", "name" : "sahil", "min_salary" : 80000 }
-{ "_id" : "COMP", "name" : "jayesh", "min_salary" : 80000 }
-{ "_id" : "COMP", "name" : "sanket", "min_salary" : 75000 }
+> db.Employee.aggregate({$project:{_id:"$dept",name:"$name",salary:"$sal"}})
+{ "_id" : "IT", "name" : "abc", "salary" : 50000 }
+{ "_id" : "IT", "name" : "sahil", "salary" : 80000 }
+{ "_id" : "COMP", "name" : "jayesh", "salary" : 80000 }
+{ "_id" : "COMP", "name" : "sanket", "salary" : 75000 }
+
