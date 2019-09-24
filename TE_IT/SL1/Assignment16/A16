@@ -1,0 +1,31 @@
+> db.Employee.aggregate({$group:{_id:"$dept"}})
+{ "_id" : "COMP" }
+{ "_id" : "IT" }
+
+> db.Employee.aggregate({$group:{_id:"$dept",totalsalary:{$sum:"$sal"}}})
+{ "_id" : "COMP", "totalsalary" : 155000 }
+{ "_id" : "IT", "totalsalary" : 130000 }
+
+> db.Employee.aggregate({$group:{_id:"$dept",totalsalary:{$sum:"$sal"}}},{$match:{totalsalary:{$lte:140000}}})
+{ "_id" : "IT", "totalsalary" : 130000 }
+
+> db.Employee.aggregate({$group:{_id:"$dept",totalsalary:{$sum:"$sal"}}},{$match:{totalsalary:{$gte:140000}}})
+{ "_id" : "COMP", "totalsalary" : 155000 }
+
+> db.Employee.aggregate({$group:{_id:"$dept",average_salary:{$avg:"$sal"}}})
+{ "_id" : "COMP", "average_salary" : 77500 }
+{ "_id" : "IT", "average_salary" : 65000 }
+
+> db.Employee.aggregate({$group:{_id:"$dept",max_salary:{$max:"$sal"}}})
+{ "_id" : "COMP", "max_salary" : 80000 }
+{ "_id" : "IT", "max_salary" : 80000 }
+
+> db.Employee.aggregate({$group:{_id:"$dept",min_salary:{$min:"$sal"}}})
+{ "_id" : "COMP", "min_salary" : 75000 }
+{ "_id" : "IT", "min_salary" : 50000 }
+
+> db.Employee.aggregate({$project:{_id:"$dept",name:"$name",min_salary:{$min:"$sal"}}})
+{ "_id" : "IT", "name" : "abc", "min_salary" : 50000 }
+{ "_id" : "IT", "name" : "sahil", "min_salary" : 80000 }
+{ "_id" : "COMP", "name" : "jayesh", "min_salary" : 80000 }
+{ "_id" : "COMP", "name" : "sanket", "min_salary" : 75000 }
