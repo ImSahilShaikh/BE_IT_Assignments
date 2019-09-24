@@ -192,3 +192,29 @@ WriteResult({ "nInserted" : 1 })
 	"dept" : "COMP",
 	"sal" : 75000
 }
+
+> db.Employee.find({$where:function(){return this.name=="sahil"}}).pretty()
+{
+	"_id" : ObjectId("5d899374bd3848d351530750"),
+	"name" : "sahil",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 80000
+}
+
+> db.Employee.find({$where:function(){return this.dept=="COMP"}}).pretty()
+{
+	"_id" : ObjectId("5d899437bd3848d351530751"),
+	"name" : "jayesh",
+	"address" : "malegaon",
+	"dept" : "COMP",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530752"),
+	"name" : "sanket",
+	"address" : "pune",
+	"dept" : "COMP",
+	"sal" : 75000
+}
+
