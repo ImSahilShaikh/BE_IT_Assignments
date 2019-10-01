@@ -79,7 +79,7 @@
 { "_id" : "sahil", "value" : 1 }
 { "_id" : "sanket", "value" : 1 }
 
-//if we don't want to write find method after mapReduce function then 
+//if we don't want to write find method after mapReduce function then use out:collection_name to get the output
 
 > db.post_total.find().pretty()
 { "_id" : "jayesh", "value" : 1 }
