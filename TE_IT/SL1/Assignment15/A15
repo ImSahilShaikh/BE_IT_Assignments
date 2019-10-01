@@ -1,3 +1,33 @@
+//Employee collection for this assignment
+> db.Employee.find().pretty()
+{
+	"_id" : ObjectId("5d8992d2bd3848d35153074f"),
+	"name" : "abc",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 50000
+}
+{
+	"_id" : ObjectId("5d899374bd3848d351530750"),
+	"name" : "sahil",
+	"address" : "pune",
+	"dept" : "IT",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530751"),
+	"name" : "jayesh",
+	"address" : "malegaon",
+	"dept" : "COMP",
+	"sal" : 80000
+}
+{
+	"_id" : ObjectId("5d899437bd3848d351530752"),
+	"name" : "sanket",
+	"address" : "pune",
+	"dept" : "COMP",
+	"sal" : 75000
+}
 
 //Total number of employees in collection
 > db.Employee.mapReduce(function() {emit(this.name,1);}, function(key,values){return Array.sum(values)},{out:"post_total"})
@@ -12,6 +42,12 @@
 	},
 	"ok" : 1
 }
+
+> db.post_total.find().pretty()
+{ "_id" : "jayesh", "value" : 1 }
+{ "_id" : "sahil", "value" : 1 }
+{ "_id" : "sanket", "value" : 1 }
+
 
 //Total number of employees from city pune
 > db.Employee.mapReduce(function() {emit(this.name,1);}, function(key,values){return Array.sum(values)},{query:{address:"pune"},out:"post_total"})
