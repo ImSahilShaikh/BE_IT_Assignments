@@ -43,11 +43,6 @@
 	"ok" : 1
 }
 
-> db.post_total.find().pretty()
-{ "_id" : "jayesh", "value" : 1 }
-{ "_id" : "sahil", "value" : 1 }
-{ "_id" : "sanket", "value" : 1 }
-
 
 //Total number of employees from city pune
 > db.Employee.mapReduce(function() {emit(this.name,1);}, function(key,values){return Array.sum(values)},{query:{address:"pune"},out:"post_total"})
@@ -83,3 +78,11 @@
 { "_id" : "jayesh", "value" : 1 }
 { "_id" : "sahil", "value" : 1 }
 { "_id" : "sanket", "value" : 1 }
+
+//if we don't want to write find method after mapReduce function then 
+
+> db.post_total.find().pretty()
+{ "_id" : "jayesh", "value" : 1 }
+{ "_id" : "sahil", "value" : 1 }
+{ "_id" : "sanket", "value" : 1 }
+
