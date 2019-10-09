@@ -1,0 +1,104 @@
+wget https://www.kernel.org/pub/linux/kernel/v4.x/linux-4.17.4.tar.xz ---------wget retrieves content from web server
+
+sudo tar -xvf linux-4.17.4.tar.xz -C/usr/src/  ----user folder src we are unzipping downloaded tar file ----xvf google x:extract the archive v: display info while extracting f:using file archive
+
+cd /usr/src/linux-4.17.4/  --------working directory is linux-4.17.4
+
+sudo -s   -----google sudo -s
+
+mkdir hello  ------creating directory
+
+cd hello  ------working directory is hello
+
+gedit hello.c  ---------code
+
+---------adding code to kernel
+#include <linux/kernel.h> 
+
+asmlinkage long sys_hello(void)
+{
+        printk("Hello world\n"); ---------printing to kernel
+        return 0;
+}
+
+------------end of code adding to kernel
+gedit Makefile   ---------------create gedit makefile which will be used startup of our code
+
+obj-y := hello.o  ------------------hello.c makefile is created
+
+cd ..  -------------------moving out of hello directory
+
+gedit Makefile   --------------kernel system makefile
+
+core-y += kernel/ mm/ fs/ ipc/ security/ crypto/ block/ hello/ (add hello/ after block/ , use ctrl+f to find core-y in file)  --------add our directory after block/ , find core-y
+
+cd arch/x86/entry/syscalls/ ----------go to this directory
+
+gedit syscall_64.tbl ----this is table add the directory at 548 line
+
+548       64        hello          sys_hello (add at the end of the table)
+
+cd ..
+
+cd ..
+
+cd ..
+
+cd ..  ----------moving out of arch/x86/entry/syscalls/
+
+cd include/linux/
+
+gedit syscalls.h ------adding following to this file
+
+asmlinkage long sys_hello(void);(add before end if statement at end of file)
+
+sudo apt-get install gcc
+
+sudo apt-get install libncurses5-dev
+
+sudo apt-get install bison
+
+sudo apt-get install flex
+
+sudo apt-get install libssl-dev
+
+sudo apt-get install libelf-dev
+
+sudo apt-get update
+
+sudo apt-get upgrade
+
+cd.. 
+
+cd..
+
+sudo make menuconfig (check if ext4 is selected in File system) -------needs full screen; save and exit use right arrow to go to filesystem and save ext4
+
+sudo make -j4
+
+sudo make modules_install install
+
+shutdown -r now
+
+uname -r
+
+cd 33241/ass10
+
+gedit userspace.c
+
+#include <stdio.h>
+#include <linux/kernel.h>
+#include <sys/syscall.h>
+#include <unistd.h>
+int main()
+{
+         long int amma = syscall(548);
+         printf("System call sys_hello returned %ld\n", amma);
+         return 0;
+}
+
+gcc userspace.c
+
+./a.out
+
+dmesg
