@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <script src="myScript.js"></script>
+    <title></title>
+    <style media="screen">
+      *{
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+      }
+      .header{
+        /* background: url("sun.jpg"); */
+		    background: white;
+        padding: 10px;
+		    margin-right: 0.5%;
+		    margin-left: 0.5%;
+        padding-top: 0px;
+        opacity: 0.5
+        position: absolute;
+        z-index: 0;
+        border-radius: 5px;
+        box-shadow: 1px 5px 6px black;
+      }
+      .img-logo{
+		    margin-left: -70%;
+        width: 7%;
+        height: 9%;
+        background: none;
+      }
+
+      .navbar{
+        margin-top: 0.5%;
+        box-shadow: 1px 2px 5px black;
+        width: 15%;
+        height: 100%;
+		    margin-right: 0.5%;
+		    margin-left: 0.5%;
+        background: rgba(240,240,240);
+
+        color: black;
+        position:absolute;
+      }
+      a{
+        text-decoration: none;
+        color: black;
+        }
+        a:hover{
+          color: dodgerblue;
+        }
+      .login{
+		outline: none;
+        border-radius: 4px;
+        border: none;
+        color: black;
+        box-shadow: 0px 2px 4px black;
+        background-color: #ffcfdf;
+        background-image: linear-gradient(315deg, #ffcfdf 0%, #b0f3f1 74%);
+        font-weight: bolder;
+        text-transform:uppercase;
+        float: right;
+        margin-right: 0%;
+        margin-top: -3.6%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 15%;
+        font-size: 18px;
+        transition: all 500ms;
+      }
+      .container
+      {
+        padding: 2px 16px;
+      }
+
+      .flex1{
+         height: 100px;
+        width: 100px;
+        background: url("back.jpg");
+        background-size: cover;
+      }
+	  .inner-container{
+    overflow: auto;
+    margin-top: 0.5%;
+		margin-right: 0.5%;
+		margin-left: 16.2%;
+    margin-bottom: 200px;
+		border: none;
+		background-image: linear-gradient(white,smokewhite);
+		height: 100vh;
+		box-shadow: 1px 2px 5px black;
+	  }
+    .menu-item{
+      text-align: justify;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: left;
+      color: black;
+      background: inherit;
+      padding: 10px;
+      transition: all 0.3s;
+    }
+    .menu-item:hover{
+      /* background:rgb(238, 238, 255,1); */
+      background: lightgrey;
+      color: dodgerblue;
+    }
+    .card {
+      margin: auto;
+      margin-bottom: 10%;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.6);
+      width: 50%;
+
+}
+</style>
+  </head>
+<center>
+  <header class="header">
+    <div>
+        <center><h1> Creativitas </h1><h3>The Book Lovers</h3></center>
+    </div>  
+    <button type="button" class="login" name="button" onclick="document.location.href='home.html';">Logout</button> 
+  </center>
+  <a href="index.html">
+  <div class="navbar">
+  <div class="menu-item" style="margin-top:20%">
+        Home
+  </div>
+  </a>
+  <a href="domestic.html">
+    <div class="menu-item">
+    Login
+  </div></a>
+  <a href="register.html">
+  <div class="menu-item">
+    Register
+  </div>
+</a>
+<a href="aboutus.html">
+  <div class="menu-item">
+    Aboout Us
+  </div>
+</a>
+<a href="contactus.html">
+  <div class="menu-item">
+    Contact Us
+  </div>
+</a>
+  </div>
+  </header>
+  <body onload="init()">
+	<div class="inner-container">
+	
+    <br>
+                <div style="margin: 10px; padding:20px ; text-align: center">
+                <center><h2>Contact Us</h2></center>
+            <fieldset  style="margin-left: 20%; margin-right: 20%; padding: 5% 5%; ">
+            
+                   
+                <label style="float: left; width: 32%; margin-right: -18%; text-align: right;">Name*: </label> <input type="text" id="name" onkeyup="nameValidation()" placeholder="First Middle Last" autocomplete="off"> <br> <span class="error" id="nameerror"> </span>
+                <br><br><br>
+                <label style="float: left; width: 32%; margin-right: -18%; text-align: right;">Email*: </label><input id="email" placeholder="Ex: abcd@gmail.com" type="text" onkeyup="emailValidation()" autocomplete="off"><br><span class="error" id="emailerror"></span>
+                <br><br><br>
+           		<label style="float: left; width: 32%; margin-right: -18%; text-align: right;">Phone*: </label><input type="text" onkeyup="phoneValid()" onKeyDown="if(this.value.length==10 && event.keyCode!=8) return false;" id="phno" autocomplete="off"><br><span class="error" id="phoneerror"> </span>
+                <br><br><br>
+<button  onclick=" return onSub();" style="margin-right:20px" >SUBMIT</button>
+            <button  type="Clear" onclick="Clear();">RESET</button>
+            </fieldset>
+            <br>
+    <br><br><br> 
+        
+        </div>
+</form>
+    
+    
+
+        </div>
+    </body>
+</html>
