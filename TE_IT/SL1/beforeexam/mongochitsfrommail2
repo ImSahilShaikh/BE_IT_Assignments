@@ -1,5 +1,6 @@
 ---------------------------------------Mail 2:Mongo chit 1---------------------------------------
-
+Statement 1:
+---------------------------------------------------------------------------------------------------------------------
 > db.games.insert({name:"NFSMW",genre:"Racing",rating:98})
 WriteResult({ "nInserted" : 1 })
 > db.games.find().pretty()
@@ -409,3 +410,120 @@ WriteResult({ "nMatched" : 2, "nUpserted" : 0, "nModified" : 2 })
 	"sal" : 60500.000000000015,
 	"status" : "no"
 }
+
+
+---------------------------------------Statement 3---------------------------------------
+
+> db.emp.insert({"empid":1,"name":"rupesh","city":"jalgaon","state":"maharashtra","salary":50000,"age":24,"hdate":"2019-10-24"});
+WriteResult({ "nInserted" : 1 })
+> db.emp.find();
+{ "_id" : ObjectId("5db0cf0658530927a76e3a85"), "empid" : 1, "name" : "rupesh", "city" : "jalgaon", "state" : "maharashtra", "salary" : 50000, "age" : 24, "hdate" : "2019-10-24" }
+> db.emp.find().pretty();
+{
+	"_id" : ObjectId("5db0cf0658530927a76e3a85"),
+	"empid" : 1,
+	"name" : "rupesh",
+	"city" : "jalgaon",
+	"state" : "maharashtra",
+	"salary" : 50000,
+	"age" : 24,
+	"hdate" : "2019-10-24"
+}
+> db.emp.insertMany([{"empid":2,"name":"sanket","city":"nashik","state":"maharashtra","salary":55000,"age":21,"hdate":"2019-10-23"},{"empid":3,"name":"manas","city":"dhule","state":"maharashtra","salary":45000,"age":22,"hdate":"2019-10-25"},{"empid":4,"name":"jayesh","city":"malegaon","state":"maharashtra","salary":70000,"age":24,"hdate":"2019-10-24"}]); 
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("5db0d00558530927a76e3a86"),
+		ObjectId("5db0d00558530927a76e3a87"),
+		ObjectId("5db0d00558530927a76e3a88")
+	]
+}
+> db.emp.find().pretty();
+{
+	"_id" : ObjectId("5db0cf0658530927a76e3a85"),
+	"empid" : 1,
+	"name" : "rupesh",
+	"city" : "jalgaon",
+	"state" : "maharashtra",
+	"salary" : 50000,
+	"age" : 24,
+	"hdate" : "2019-10-24"
+}
+{
+	"_id" : ObjectId("5db0d00558530927a76e3a86"),
+	"empid" : 2,
+	"name" : "sanket",
+	"city" : "nashik",
+	"state" : "maharashtra",
+	"salary" : 55000,
+	"age" : 21,
+	"hdate" : "2019-10-23"
+}
+{
+	"_id" : ObjectId("5db0d00558530927a76e3a87"),
+	"empid" : 3,
+	"name" : "manas",
+	"city" : "dhule",
+	"state" : "maharashtra",
+	"salary" : 45000,
+	"age" : 22,
+	"hdate" : "2019-10-25"
+}
+{
+	"_id" : ObjectId("5db0d00558530927a76e3a88"),
+	"empid" : 4,
+	"name" : "jayesh",
+	"city" : "malegaon",
+	"state" : "maharashtra",
+	"salary" : 70000,
+	"age" : 24,
+	"hdate" : "2019-10-24"
+}
+> db.emp.find({name:{$regex:/^Sa/}})
+> db.emp.find({name:{$regex:/^Sa/}});
+> db.emp.find({"name":{"$regex":/^Sa/}});
+> db.emp.find({"name":{"$regex":/^Sa/}}).pretty();
+> db.emp.find().pretty();
+{
+	"_id" : ObjectId("5db0cf0658530927a76e3a85"),
+	"empid" : 1,
+	"name" : "rupesh",
+	"city" : "jalgaon",
+	"state" : "maharashtra",
+	"salary" : 50000,
+	"age" : 24,
+	"hdate" : "2019-10-24"
+}
+{
+	"_id" : ObjectId("5db0d00558530927a76e3a86"),
+	"empid" : 2,
+	"name" : "sanket",
+	"city" : "nashik",
+	"state" : "maharashtra",
+	"salary" : 55000,
+	"age" : 21,
+	"hdate" : "2019-10-23"
+}
+{
+	"_id" : ObjectId("5db0d00558530927a76e3a87"),
+	"empid" : 3,
+	"name" : "manas",
+	"city" : "dhule",
+	"state" : "maharashtra",
+	"salary" : 45000,
+	"age" : 22,
+	"hdate" : "2019-10-25"
+}
+{
+	"_id" : ObjectId("5db0d00558530927a76e3a88"),
+	"empid" : 4,
+	"name" : "jayesh",
+	"city" : "malegaon",
+	"state" : "maharashtra",
+	"salary" : 70000,
+	"age" : 24,
+	"hdate" : "2019-10-24"
+}
+> db.emp.find({"name":{"$regex":/^sa/}});
+{ "_id" : ObjectId("5db0d00558530927a76e3a86"), "empid" : 2, "name" : "sanket", "city" : "nashik", "state" : "maharashtra", "salary" : 55000, "age" : 21, "hdate" : "2019-10-23" }
+
