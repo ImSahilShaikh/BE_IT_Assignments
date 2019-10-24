@@ -1,0 +1,411 @@
+---------------------------------------Mail 2:Mongo chit 1---------------------------------------
+
+> db.games.insert({name:"NFSMW",genre:"Racing",rating:98})
+WriteResult({ "nInserted" : 1 })
+> db.games.find().pretty()
+{
+	"_id" : ObjectId("5db1344291179f08d4888ec2"),
+	"name" : "NFSMW",
+	"genre" : "Racing",
+	"rating" : 98
+}
+> db.games.insert({name:"POP",genre:"Story/Action",rating:78})
+WriteResult({ "nInserted" : 1 })
+> db.games.insertMany([{name:"GTA5",genre:"Open World",rating:87},{name:"PUBG",genre:"Shooting",rating:99}])
+{
+	"acknowledged" : true,
+	"insertedIds" : [
+		ObjectId("5db134d491179f08d4888ec4"),
+		ObjectId("5db134d491179f08d4888ec5")
+	]
+}
+> db.games.find().pretty()
+{
+	"_id" : ObjectId("5db1344291179f08d4888ec2"),
+	"name" : "NFSMW",
+	"genre" : "Racing",
+	"rating" : 98
+}
+{
+	"_id" : ObjectId("5db1348d91179f08d4888ec3"),
+	"name" : "POP",
+	"genre" : "Story/Action",
+	"rating" : 78
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec4"),
+	"name" : "GTA5",
+	"genre" : "Open World",
+	"rating" : 87
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec5"),
+	"name" : "PUBG",
+	"genre" : "Shooting",
+	"rating" : 99
+}
+> db.games.find().sort(rating:-1)
+2019-10-24T10:51:58.166+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:27
+> db.games.find().sort("rating":-1)
+2019-10-24T10:52:05.530+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:29
+> db.games.find()
+{ "_id" : ObjectId("5db1344291179f08d4888ec2"), "name" : "NFSMW", "genre" : "Racing", "rating" : 98 }
+{ "_id" : ObjectId("5db1348d91179f08d4888ec3"), "name" : "POP", "genre" : "Story/Action", "rating" : 78 }
+{ "_id" : ObjectId("5db134d491179f08d4888ec4"), "name" : "GTA5", "genre" : "Open World", "rating" : 87 }
+{ "_id" : ObjectId("5db134d491179f08d4888ec5"), "name" : "PUBG", "genre" : "Shooting", "rating" : 99 }
+> db.games.find().sort()
+Error: error: {
+	"ok" : 0,
+	"errmsg" : "Failed to parse: sort: undefined. 'sort' field must be of BSON type object.",
+	"code" : 9,
+	"codeName" : "FailedToParse"
+}
+> db.games.find().pretty().sort({rating:-1})
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec5"),
+	"name" : "PUBG",
+	"genre" : "Shooting",
+	"rating" : 99
+}
+{
+	"_id" : ObjectId("5db1344291179f08d4888ec2"),
+	"name" : "NFSMW",
+	"genre" : "Racing",
+	"rating" : 98
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec4"),
+	"name" : "GTA5",
+	"genre" : "Open World",
+	"rating" : 87
+}
+{
+	"_id" : ObjectId("5db1348d91179f08d4888ec3"),
+	"name" : "POP",
+	"genre" : "Story/Action",
+	"rating" : 78
+}
+> db.games.find().pretty().sort({rating:-1}).limit(3)
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec5"),
+	"name" : "PUBG",
+	"genre" : "Shooting",
+	"rating" : 99
+}
+{
+	"_id" : ObjectId("5db1344291179f08d4888ec2"),
+	"name" : "NFSMW",
+	"genre" : "Racing",
+	"rating" : 98
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec4"),
+	"name" : "GTA5",
+	"genre" : "Open World",
+	"rating" : 87
+}
+> db.games.find().pre
+> db.games.find().pretty();
+{
+	"_id" : ObjectId("5db1344291179f08d4888ec2"),
+	"name" : "NFSMW",
+	"genre" : "Racing",
+	"rating" : 98
+}
+{
+	"_id" : ObjectId("5db1348d91179f08d4888ec3"),
+	"name" : "POP",
+	"genre" : "Story/Action",
+	"rating" : 78
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec4"),
+	"name" : "GTA5",
+	"genre" : "Open World",
+	"rating" : 87
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec5"),
+	"name" : "PUBG",
+	"genre" : "Shooting",
+	"rating" : 99
+}
+> db.games.find({"name":"PUBG"}).pretty();
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec5"),
+	"name" : "PUBG",
+	"genre" : "Shooting",
+	"rating" : 99
+}
+> db.games.find({"name":"PUBG"}).pretty();
+> db.games.find().pretty();
+{
+	"_id" : ObjectId("5db1344291179f08d4888ec2"),
+	"name" : "NFSMW",
+	"genre" : "Racing",
+	"rating" : 98
+}
+{
+	"_id" : ObjectId("5db1348d91179f08d4888ec3"),
+	"name" : "POP",
+	"genre" : "Story/Action",
+	"rating" : 78
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec4"),
+	"name" : "GTA5",
+	"genre" : "Open World",
+	"rating" : 87
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec5"),
+	"name" : "PUBG",
+	"genre" : "Shooting",
+	"rating" : 99
+}
+> db.games.find().pretty().sort({rating:-1}).limit(3);
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec5"),
+	"name" : "PUBG",
+	"genre" : "Shooting",
+	"rating" : 99
+}
+{
+	"_id" : ObjectId("5db1344291179f08d4888ec2"),
+	"name" : "NFSMW",
+	"genre" : "Racing",
+	"rating" : 98
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec4"),
+	"name" : "GTA5",
+	"genre" : "Open World",
+	"rating" : 87
+}
+> db.games.update({"name":"NFSMW"},{$set:{"achievement":"Speed Demon"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.games.find().pretty().sort({rating:-1}).limit(3);
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec5"),
+	"name" : "PUBG",
+	"genre" : "Shooting",
+	"rating" : 99
+}
+{
+	"_id" : ObjectId("5db1344291179f08d4888ec2"),
+	"name" : "NFSMW",
+	"genre" : "Racing",
+	"rating" : 98,
+	"achievement" : "Speed Demon"
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec4"),
+	"name" : "GTA5",
+	"genre" : "Open World",
+	"rating" : 87
+}
+> db.games.update({"name":"PUBG"},{$set:{"achievement":"GameMaster"}});
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.games.find().pretty();
+{
+	"_id" : ObjectId("5db1344291179f08d4888ec2"),
+	"name" : "NFSMW",
+	"genre" : "Racing",
+	"rating" : 98,
+	"achievement" : "Speed Demon"
+}
+{
+	"_id" : ObjectId("5db1348d91179f08d4888ec3"),
+	"name" : "POP",
+	"genre" : "Story/Action",
+	"rating" : 78
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec4"),
+	"name" : "GTA5",
+	"genre" : "Open World",
+	"rating" : 87
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec5"),
+	"name" : "PUBG",
+	"genre" : "Shooting",
+	"rating" : 99,
+	"achievement" : "GameMaster"
+}
+> db.games.find({$and:[{"achievement":"Speed Demon"},{"achievement":"GameMaster"}]});
+> db.games.find({$or:[{"achievement":"Speed Demon"},{"achievement":"GameMaster"}]});
+{ "_id" : ObjectId("5db1344291179f08d4888ec2"), "name" : "NFSMW", "genre" : "Racing", "rating" : 98, "achievement" : "Speed Demon" }
+{ "_id" : ObjectId("5db134d491179f08d4888ec5"), "name" : "PUBG", "genre" : "Shooting", "rating" : 99, "achievement" : "GameMaster" }
+> 
+> db.games.find({},{"achievement":1}).pretty();
+{
+	"_id" : ObjectId("5db1344291179f08d4888ec2"),
+	"achievement" : "Speed Demon"
+}
+{ "_id" : ObjectId("5db1348d91179f08d4888ec3") }
+{ "_id" : ObjectId("5db134d491179f08d4888ec4") }
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec5"),
+	"achievement" : "GameMaster"
+}
+> db.games.find($exists:{"achievement":1}).pretty();
+2019-10-24T11:07:25.016+0530 E  QUERY    [js] uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:21
+> db.games.find({},{$exists:{"achievement":1}}).pretty();
+Error: error: {
+	"ok" : 0,
+	"errmsg" : "Unsupported projection option: $exists: { achievement: 1.0 }",
+	"code" : 2,
+	"codeName" : "BadValue"
+}
+> db.games.find({},{"achievement":{"$exist":true}}).pretty();
+Error: error: {
+	"ok" : 0,
+	"errmsg" : "Unsupported projection option: achievement: { $exist: true }",
+	"code" : 2,
+	"codeName" : "BadValue"
+}
+> db.games.find({"achievement":{"$exist":true}}).pretty();
+Error: error: {
+	"ok" : 0,
+	"errmsg" : "unknown operator: $exist",
+	"code" : 2,
+	"codeName" : "BadValue"
+}
+> 
+> db.games.find({"achievement":{"$exist":true}}).pretty();
+Error: error: {
+	"ok" : 0,
+	"errmsg" : "unknown operator: $exist",
+	"code" : 2,
+	"codeName" : "BadValue"
+}
+> db.games.find({"achievement":{"$exists":true}}).pretty();
+{
+	"_id" : ObjectId("5db1344291179f08d4888ec2"),
+	"name" : "NFSMW",
+	"genre" : "Racing",
+	"rating" : 98,
+	"achievement" : "Speed Demon"
+}
+{
+	"_id" : ObjectId("5db134d491179f08d4888ec5"),
+	"name" : "PUBG",
+	"genre" : "Shooting",
+	"rating" : 99,
+	"achievement" : "GameMaster"
+}
+---------------------------------------Mail 2:Mongo chit 2---------------------------------------	
+--bulk insert
+> var b=db.teacher.initializeUnorderedBulkOp();
+ b.insert({"teacherid":2,"name":"Sanket","dept":"it","sal":55000,"status":"no"});
+> db.teacher.find().pretty()
+{
+	"_id" : ObjectId("5db139f291179f08d4888ec6"),
+	"teacherid" : 1,
+	"name" : "Rupesh",
+	"dept" : "cm",
+	"sal" : 50000,
+	"status" : "yes"
+}
+> b.insert({"teacherid":3,"name":"Sahil","dept":"cm","sal":50000,"status":"no"});
+> b.execute();
+BulkWriteResult({
+	"writeErrors" : [ ],
+	"writeConcernErrors" : [ ],
+	"nInserted" : 2,
+	"nUpserted" : 0,
+	"nMatched" : 0,
+	"nModified" : 0,
+	"nRemoved" : 0,
+	"upserted" : [ ]
+})
+> db.teacher.find().pretty()
+{
+	"_id" : ObjectId("5db139f291179f08d4888ec6"),
+	"teacherid" : 1,
+	"name" : "Rupesh",
+	"dept" : "cm",
+	"sal" : 50000,
+	"status" : "yes"
+}
+{
+	"_id" : ObjectId("5db13b3391179f08d4888ec7"),
+	"teacherid" : 2,
+	"name" : "Sanket",
+	"dept" : "it",
+	"sal" : 55000,
+	"status" : "no"
+}
+{
+	"_id" : ObjectId("5db13b3391179f08d4888ec8"),
+	"teacherid" : 3,
+	"name" : "Sahil",
+	"dept" : "cm",
+	"sal" : 50000,
+	"status" : "no"
+}
+
+------------------------------increment salary by 10%------------------------------
+> db.teacher.update({"dept":"cm"},{$mul:{sal:1.1}},{multi:true})
+WriteResult({ "nMatched" : 2, "nUpserted" : 0, "nModified" : 2 })
+
+
+> db.teacher.aggregate({$group:{_id:"$dept",budget:{$sum:"$sal"}}})
+{ "_id" : "cm", "budget" : 127050.00000000003 }
+{ "_id" : "it", "budget" : 55000 }
+
+> db.teacher.find().sort({sal:-1}).limit(1); 
+{ "_id" : ObjectId("5db139f291179f08d4888ec6"), "teacherid" : 1, "name" : "Rupesh", "dept" : "cm", "sal" : 66550.00000000001, "status" : "yes" }
+
+--------------------teacher info according to status--------------------
+
+> db.teacher.find({"status":"yes"}).pretty();
+{
+	"_id" : ObjectId("5db139f291179f08d4888ec6"),
+	"teacherid" : 1,
+	"name" : "Rupesh",
+	"dept" : "cm",
+	"sal" : 66550.00000000001,
+	"status" : "yes"
+}
+> db.teacher.find({"status":"no"}).pretty();
+{
+	"_id" : ObjectId("5db13b3391179f08d4888ec7"),
+	"teacherid" : 2,
+	"name" : "Sanket",
+	"dept" : "it",
+	"sal" : 55000,
+	"status" : "no"
+}
+{
+	"_id" : ObjectId("5db13b3391179f08d4888ec8"),
+	"teacherid" : 3,
+	"name" : "Sahil",
+	"dept" : "cm",
+	"sal" : 60500.000000000015,
+	"status" : "no"
+}
+
+-----_Find name which starts with Sa
+
+> db.teacher.find({name:{$regex:/^Sa/}}).pretty();
+{
+	"_id" : ObjectId("5db13b3391179f08d4888ec7"),
+	"teacherid" : 2,
+	"name" : "Sanket",
+	"dept" : "it",
+	"sal" : 55000,
+	"status" : "no"
+}
+{
+	"_id" : ObjectId("5db13b3391179f08d4888ec8"),
+	"teacherid" : 3,
+	"name" : "Sahil",
+	"dept" : "cm",
+	"sal" : 60500.000000000015,
+	"status" : "no"
+}
