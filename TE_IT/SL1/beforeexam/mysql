@@ -423,3 +423,5 @@ MariaDB [ship_management]> select sname from sailor where rating > all(select ra
 | anirudha |
 +----------+
 1 row in set (0.001 sec)
+
+----------
