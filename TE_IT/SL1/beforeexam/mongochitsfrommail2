@@ -527,3 +527,31 @@ WriteResult({ "nInserted" : 1 })
 > db.emp.find({"name":{"$regex":/^sa/}});
 { "_id" : ObjectId("5db0d00558530927a76e3a86"), "empid" : 2, "name" : "sanket", "city" : "nashik", "state" : "maharashtra", "salary" : 55000, "age" : 21, "hdate" : "2019-10-23" }
 
+> db.emp.find({$and:[{"age":{$gt:20}},{"salary":{$gt:50000}}]}).pretty();
+{
+	"_id" : ObjectId("5db0d00558530927a76e3a86"),
+	"empid" : 2,
+	"name" : "sanket",
+	"city" : "nashik",
+	"state" : "maharashtra",
+	"salary" : 55000,
+	"age" : 21,
+	"hdate" : "2019-10-23"
+}
+{
+	"_id" : ObjectId("5db0d00558530927a76e3a88"),
+	"empid" : 4,
+	"name" : "jayesh",
+	"city" : "malegaon",
+	"state" : "maharashtra",
+	"salary" : 70000,
+	"age" : 24,
+	"hdate" : "2019-10-24"
+}
+> db.emp.find({},{empid:1,name:1}).sort({salary:-1}).limit(1).pretty();
+{
+	"_id" : ObjectId("5db0d00558530927a76e3a88"),
+	"empid" : 4,
+	"name" : "jayesh"
+}
+
