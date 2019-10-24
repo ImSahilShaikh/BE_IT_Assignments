@@ -1,0 +1,382 @@
+MariaDB [(none)]> create database ship_management;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> use ship_management;
+Database changed
+MariaDB [ship_management]> create table sailor(sid int,sname varchar(30),rating  int check (rating between 0 and 10), age int);
+Query OK, 0 rows affected (0.248 sec)
+
+MariaDB [ship_management]> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sid    | int(11)     | YES  |     | NULL    |       |
+| sname  | varchar(30) | YES  |     | NULL    |       |
+| rating | int(11)     | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.013 sec)
+
+MariaDB [ship_management]> insert into sailor values(1,"Rupesh",12,12);
+ERROR 4025 (23000): CONSTRAINT `sailor.rating` failed for `ship_management`.`sailor`
+MariaDB [ship_management]> insert into sailor values(1,"Rupesh",11,12);
+ERROR 4025 (23000): CONSTRAINT `sailor.rating` failed for `ship_management`.`sailor`
+MariaDB [ship_management]> insert into sailor values(1,"Rupesh",10,12);
+Query OK, 1 row affected (0.046 sec)
+
+MariaDB [ship_management]> insert into sailor values(1,"Rupesh",-1,12);
+ERROR 4025 (23000): CONSTRAINT `sailor.rating` failed for `ship_management`.`sailor`
+MariaDB [ship_management]> insert into sailor values(1,"Rupesh",1,12);
+Query OK, 1 row affected (0.051 sec)
+
+MariaDB [ship_management]> select * from sailor;
++------+--------+--------+------+
+| sid  | sname  | rating | age  |
++------+--------+--------+------+
+|    1 | Rupesh |     10 |   12 |
+|    1 | Rupesh |      1 |   12 |
++------+--------+--------+------+
+2 rows in set (0.001 sec)
+
+MariaDB [ship_management]> delete from sailor where sid=1;
+Query OK, 2 rows affected (0.036 sec)
+
+MariaDB [ship_management]> create table boat(bid int, bname varchar(30),color varchar(30));
+Query OK, 0 rows affected (0.211 sec)
+
+MariaDB [ship_management]> desc boat;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| bid   | int(11)     | YES  |     | NULL    |       |
+| bname | varchar(30) | YES  |     | NULL    |       |
+| color | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+MariaDB [ship_management]> create table reserves(sid int,bid int,day date);
+Query OK, 0 rows affected (0.244 sec)
+
+MariaDB [ship_management]> alter table reserves add constraint fk1 foreign key(sid) references sailor;
+
+ERROR 1005 (HY000): Can't create table `ship_management`.`reserves` (errno: 150 "Foreign key constraint is incorrectly formed")
+MariaDB [ship_management]> 
+MariaDB [ship_management]> alter table sailor add constraint sid_pk primary key(sid);
+Query OK, 0 rows affected (0.738 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sid    | int(11)     | NO   | PRI | NULL    |       |
+| sname  | varchar(30) | YES  |     | NULL    |       |
+| rating | int(11)     | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.002 sec)
+
+MariaDB [ship_management]> alter table boat add constraint bid_pk primary key(bid);
+Query OK, 0 rows affected (0.583 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> alter table reserves add constraint sid_fk foreign key(sid) references sailor(sid
+    -> );
+Query OK, 0 rows affected (0.873 sec)              
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> desc reservers
+    -> desc reservers;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'desc reservers' at line 2
+MariaDB [ship_management]> desc reserves;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| sid   | int(11) | YES  | MUL | NULL    |       |
+| bid   | int(11) | YES  |     | NULL    |       |
+| day   | date    | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+3 rows in set (0.003 sec)
+
+MariaDB [ship_management]> alter table reserves add constraint bid_fk foreign key(bid) references boat(bid);
+Query OK, 0 rows affected (0.816 sec)              
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> alter table reserves add constraint bid_fk foreign key(bid) references boat(bid) on delete cascade;
+ERROR 1005 (HY000): Can't create table `ship_management`.`reserves` (errno: 121 "Duplicate key on write or update")
+MariaDB [ship_management]> alter table drop constraint bid_fk;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'drop constraint bid_fk' at line 1
+MariaDB [ship_management]> alter table reserves drop constraint bid_fk;
+Query OK, 0 rows affected (0.034 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> alter table reserves drop constraint sid_fk;
+Query OK, 0 rows affected (0.040 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> alter table reserves add constraint bid_fk foreign key(bid) references boat(bid) on delete cascade;
+Query OK, 0 rows affected (0.895 sec)              
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> alter table reserves add constraint sid_fk foreign key(sid) references sailor(sid) on delete cascade;
+Query OK, 0 rows affected (1.247 sec)              
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> desc reserves;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| sid   | int(11) | YES  | MUL | NULL    |       |
+| bid   | int(11) | YES  | MUL | NULL    |       |
+| day   | date    | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+3 rows in set (0.002 sec)
+
+MariaDB [ship_management]> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sid    | int(11)     | NO   | PRI | NULL    |       |
+| sname  | varchar(30) | YES  |     | NULL    |       |
+| rating | int(11)     | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.002 sec)
+
+MariaDB [ship_management]> desc boat;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| bid   | int(11)     | NO   | PRI | NULL    |       |
+| bname | varchar(30) | YES  |     | NULL    |       |
+| color | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.002 sec)
+
+MariaDB [ship_management]> insert into sailor values(1,"rupesh",12,18);
+ERROR 4025 (23000): CONSTRAINT `sailor.rating` failed for `ship_management`.`sailor`
+MariaDB [ship_management]> insert into sailor values(1,"rupesh",8,18);
+Query OK, 1 row affected (0.049 sec)
+
+MariaDB [ship_management]> alter table sailor change sname sname1 varchar(20);
+Query OK, 1 row affected (0.908 sec)               
+Records: 1  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> desc boat;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| bid   | int(11)     | NO   | PRI | NULL    |       |
+| bname | varchar(30) | YES  |     | NULL    |       |
+| color | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.002 sec)
+
+MariaDB [ship_management]> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sid    | int(11)     | NO   | PRI | NULL    |       |
+| sname1 | varchar(20) | YES  |     | NULL    |       |
+| rating | int(11)     | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.002 sec)
+
+MariaDB [ship_management]> alter table sailor change sname1 sname varchar(30);
+Query OK, 0 rows affected (0.041 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> desc sailor;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| sid    | int(11)     | NO   | PRI | NULL    |       |
+| sname  | varchar(30) | YES  |     | NULL    |       |
+| rating | int(11)     | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.002 sec)
+
+MariaDB [ship_management]> alter table sailor modify sname sname1 varchar(30);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'sname1 varchar(30)' at line 1
+MariaDB [ship_management]> alter table sailor change sname sname1 varchar(30);
+Query OK, 0 rows affected (0.046 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> alter table sailor change sname1 sname varchar(30);
+Query OK, 0 rows affected (0.049 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> set foreign_key_checks=0;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [ship_management]> set foreign_key_checks=1;
+Query OK, 0 rows affected (0.000 sec)
+
+MariaDB [ship_management]> insert into sailor values
+    -> 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [ship_management]> select * from sailor
+    -> ;
++-----+--------+--------+------+
+| sid | sname  | rating | age  |
++-----+--------+--------+------+
+|   1 | rupesh |      8 |   18 |
++-----+--------+--------+------+
+1 row in set (0.001 sec)
+
+MariaDB [ship_management]> insert into sailor values(2,"sanket",9,15);
+Query OK, 1 row affected (0.063 sec)
+
+MariaDB [ship_management]> insert into sailor values(3,"anirudha",10,25);
+Query OK, 1 row affected (0.048 sec)
+
+MariaDB [ship_management]> select * from sailor;
++-----+----------+--------+------+
+| sid | sname    | rating | age  |
++-----+----------+--------+------+
+|   1 | rupesh   |      8 |   18 |
+|   2 | sanket   |      9 |   15 |
+|   3 | anirudha |     10 |   25 |
++-----+----------+--------+------+
+3 rows in set (0.001 sec)
+
+MariaDB [ship_management]> desc boat;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| bid   | int(11)     | NO   | PRI | NULL    |       |
+| bname | varchar(30) | YES  |     | NULL    |       |
+| color | varchar(30) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.043 sec)
+
+MariaDB [ship_management]> insert into boat values(1,"titanic","red");
+Query OK, 1 row affected (0.040 sec)
+
+MariaDB [ship_management]> insert into boat values(2,"jal","green"),(3,"vikrant","red");
+Query OK, 2 rows affected (0.052 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> select * from boat;
++-----+---------+-------+
+| bid | bname   | color |
++-----+---------+-------+
+|   1 | titanic | red   |
+|   2 | jal     | green |
+|   3 | vikrant | red   |
++-----+---------+-------+
+3 rows in set (0.000 sec)
+
+MariaDB [ship_management]> insert into reserves values();
+Query OK, 1 row affected (0.039 sec)
+
+MariaDB [ship_management]> select * from reserves;
++------+------+------+
+| sid  | bid  | day  |
++------+------+------+
+| NULL | NULL | NULL |
++------+------+------+
+1 row in set (0.001 sec)
+
+MariaDB [ship_management]> desc reserves;
++-------+---------+------+-----+---------+-------+
+| Field | Type    | Null | Key | Default | Extra |
++-------+---------+------+-----+---------+-------+
+| sid   | int(11) | YES  | MUL | NULL    |       |
+| bid   | int(11) | YES  | MUL | NULL    |       |
+| day   | date    | YES  |     | NULL    |       |
++-------+---------+------+-----+---------+-------+
+3 rows in set (0.002 sec)
+
+MariaDB [ship_management]> delete from reserves;
+Query OK, 1 row affected (0.044 sec)
+
+MariaDB [ship_management]> select * from reserves;
+Empty set (0.001 sec)
+
+MariaDB [ship_management]> insert into reserves values(1,1,"2019-10-24");
+Query OK, 1 row affected (0.039 sec)
+
+MariaDB [ship_management]> select * from reserves;
++------+------+------------+
+| sid  | bid  | day        |
++------+------+------------+
+|    1 |    1 | 2019-10-24 |
++------+------+------------+
+1 row in set (0.001 sec)
+
+MariaDB [ship_management]> insert into reserves values(1,1,"2019-10-24"),(2,3,"2019-10-23");
+Query OK, 2 rows affected (0.045 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [ship_management]> select * from reserves;
++------+------+------------+
+| sid  | bid  | day        |
++------+------+------------+
+|    1 |    1 | 2019-10-24 |
+|    1 |    1 | 2019-10-24 |
+|    2 |    3 | 2019-10-23 |
++------+------+------------+
+3 rows in set (0.001 sec)
+
+MariaDB [ship_management]> insert into reserves values(3,2,"2019-10-12");
+Query OK, 1 row affected (0.040 sec)
+
+MariaDB [ship_management]> select * from reserves;
++------+------+------------+
+| sid  | bid  | day        |
++------+------+------------+
+|    1 |    1 | 2019-10-24 |
+|    1 |    1 | 2019-10-24 |
+|    2 |    3 | 2019-10-23 |
+|    3 |    2 | 2019-10-12 |
++------+------+------------+
+4 rows in set (0.001 sec)
+
+MariaDB [ship_management]> select name from sailor where sid=(select sid from reserves where bid=(select bid from boat where color="red" or color="green"));
+ERROR 1054 (42S22): Unknown column 'name' in 'field list'
+MariaDB [ship_management]> select sname from sailor where sid=(select sid from reserves where bid=(select bid from boat where color="red" or color="green"));
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [ship_management]> select sname from sailor where sid in(select sid from reserves where bid in (select bid from boat where color="red" or color="green"));
++----------+
+| sname    |
++----------+
+| rupesh   |
+| sanket   |
+| anirudha |
++----------+
+3 rows in set (0.023 sec)
+
+MariaDB [ship_management]> insert into sailor values(4,"sahil",8,23);
+Query OK, 1 row affected (0.037 sec)
+
+MariaDB [ship_management]> insert into boat values(4,"myboat","blue");
+Query OK, 1 row affected (0.041 sec)
+
+MariaDB [ship_management]> insert into reserves values(4,4,"2019-10-25");
+Query OK, 1 row affected (0.045 sec)
+
+MariaDB [ship_management]> select sname from sailor where sid=(select sid from reserves where bid=(select bid from boat where color="red" or color="green"));
+ERROR 1242 (21000): Subquery returns more than 1 row
+MariaDB [ship_management]> select sname from sailor where sid in(select sid from reserves where bid in (select bid from boat where color="red" or color="green"));
++----------+
+| sname    |
++----------+
+| rupesh   |
+| sanket   |
+| anirudha |
++----------+
+3 rows in set (0.001 sec)
+
+MariaDB [ship_management]> select sname from sailor where sid in(select sid from reserves where bid in (select bid from boat where color="red" or color="blue"));
++--------+
+| sname  |
++--------+
+| rupesh |
+| sanket |
+| sahil  |
++--------+
+3 rows in set (0.001 sec)
