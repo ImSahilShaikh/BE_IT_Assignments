@@ -416,3 +416,10 @@ MariaDB [ship_management]> select sname from sailor where sid in(select sid from
 +-------+
 1 row in set (0.002 sec)
 
+MariaDB [ship_management]> select sname from sailor where rating > all(select rating from sailor where rating not in (select max(rating) from sailor));
++----------+
+| sname    |
++----------+
+| anirudha |
++----------+
+1 row in set (0.001 sec)
