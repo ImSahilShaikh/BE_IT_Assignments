@@ -555,3 +555,8 @@ WriteResult({ "nInserted" : 1 })
 	"name" : "jayesh"
 }
 
+----------mapReduce
+> db.emp.mapReduce(function() {emit(this.name,1);},function(key,values){return Array.sum(values)},{query:{city:"malegaon"},out:"post"}).find();
+{ "_id" : "jayesh", "value" : 1 }
+
+
