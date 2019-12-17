@@ -42,17 +42,22 @@ int main()
 	fclose(fp);
 
 	printf("\nINFO: File Closed");
+	//display summary i.e character word and line count
 	printf("\n\n*********SUMMARY*********\n1)Characters: %d\n2)Words: %d\n3)Lines: %d\n*************************",characters,word,lines);	
 	
+	//opening second file to store the summary 
 	fop=fopen("fileinfo.dat","w");
 	if(fop==NULL)
 		printf("\nWARNING: Failed to open the file");
 	else
+	{
 		printf("\nINFO: File opened");
 		printf("\nINFO: Writing in the file");
+		//write the file summary into fileinfo.dat
 		s=fprintf(fop,"*********SUMMARY*********\n1)Characters: %d\n2)Words: %d\n3)Lines: %d\n*************************",characters,word,lines);
-		
-		printf("\nINFO: File Closed");
+	}
+	//close file using argument filepointer
 	fclose(fop);	
+	printf("\nINFO: File Closed");
 	return 0;
 }
