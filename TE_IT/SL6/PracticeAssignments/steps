@@ -1,0 +1,94 @@
+1) Move input file to HDFS :
+
+hduser@DBMSLAB-A3-305-22:~$ hadoop fs -put wordcount wordcount
+19/12/18 13:51:20 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+
+2) Run the JAR file:
+
+hduser@DBMSLAB-A3-305-22:~$ hadoop jar WordCount.jar wc.WordCount wordcount Dir
+19/12/18 13:55:45 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+19/12/18 13:55:46 INFO client.RMProxy: Connecting to ResourceManager at /0.0.0.0:8032
+19/12/18 13:55:46 INFO input.FileInputFormat: Total input files to process : 1
+19/12/18 13:55:46 INFO mapreduce.JobSubmitter: number of splits:1
+19/12/18 13:55:47 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_1576656223848_0001
+19/12/18 13:55:47 INFO impl.YarnClientImpl: Submitted application application_1576656223848_0001
+19/12/18 13:55:47 INFO mapreduce.Job: The url to track the job: http://localhost:8088/proxy/application_1576656223848_0001/
+19/12/18 13:55:47 INFO mapreduce.Job: Running job: job_1576656223848_0001
+19/12/18 13:55:51 INFO mapreduce.Job: Job job_1576656223848_0001 running in uber mode : false
+19/12/18 13:55:51 INFO mapreduce.Job:  map 0% reduce 0%
+19/12/18 13:55:55 INFO mapreduce.Job:  map 100% reduce 0%
+19/12/18 13:56:00 INFO mapreduce.Job:  map 100% reduce 100%
+19/12/18 13:56:00 INFO mapreduce.Job: Job job_1576656223848_0001 completed successfully
+19/12/18 13:56:00 INFO mapreduce.Job: Counters: 49
+	File System Counters
+		FILE: Number of bytes read=159
+		FILE: Number of bytes written=314799
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		HDFS: Number of bytes read=178
+		HDFS: Number of bytes written=43
+		HDFS: Number of read operations=6
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=2
+	Job Counters 
+		Launched map tasks=1
+		Launched reduce tasks=1
+		Data-local map tasks=1
+		Total time spent by all maps in occupied slots (ms)=1228
+		Total time spent by all reduces in occupied slots (ms)=1483
+		Total time spent by all map tasks (ms)=1228
+		Total time spent by all reduce tasks (ms)=1483
+		Total vcore-milliseconds taken by all map tasks=1228
+		Total vcore-milliseconds taken by all reduce tasks=1483
+		Total megabyte-milliseconds taken by all map tasks=1257472
+		Total megabyte-milliseconds taken by all reduce tasks=1518592
+	Map-Reduce Framework
+		Map input records=1
+		Map output records=14
+		Map output bytes=125
+		Map output materialized bytes=159
+		Input split bytes=109
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=6
+		Reduce shuffle bytes=159
+		Reduce input records=14
+		Reduce output records=6
+		Spilled Records=28
+		Shuffled Maps =1
+		Failed Shuffles=0
+		Merged Map outputs=1
+		GC time elapsed (ms)=59
+		CPU time spent (ms)=640
+		Physical memory (bytes) snapshot=436531200
+		Virtual memory (bytes) snapshot=3955339264
+		Total committed heap usage (bytes)=307757056
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters 
+		Bytes Read=69
+	File Output Format Counters 
+		Bytes Written=43
+
+3) Open Result
+
+hduser@DBMSLAB-A3-305-22:~$ hadoop fs -cat Dir/part-r-00000
+19/12/18 13:59:47 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+BIKE	1
+BUS	4
+CAR	3
+CYCLE	3
+PLANE	2
+TRAIN	1
+
+4) Delete output directory (to re-run the jar file again) :
+
+hduser@DBMSLAB-A3-305-22:~$ hadoop fs -rm -r Dir
+19/12/18 14:13:36 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Deleted Dir
