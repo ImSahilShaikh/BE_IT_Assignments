@@ -1,0 +1,33 @@
+#include<iostream>
+#include<string.h>
+#include<fstream>
+
+using namespace std;
+
+int main()
+{
+	fstream file;
+	string word;
+	char c;
+	int flag=0;
+	file.open("assembly_file.txt");
+	
+	int linec=0,wordc=0;
+	
+	while(file.get(c))
+	{
+		if(c==' '|| c== '\n' || c==',')
+		{
+			flag=1;
+			cout<<word;
+			word="";
+			continue;
+		}
+		word+=c;
+		if(flag==1)
+		{
+			cout<<endl;
+			flag=0;
+		}	
+	}
+}
