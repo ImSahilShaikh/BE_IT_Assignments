@@ -1,3 +1,4 @@
+//Exception Handling
 import java.util.*;
 public class prac2 {
 public void divide(int a,int b)
