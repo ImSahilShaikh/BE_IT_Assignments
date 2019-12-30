@@ -1,3 +1,4 @@
+//Method overloading
 import java.util.*;
 public class prac1 extends a{
 	public void print(int a)
