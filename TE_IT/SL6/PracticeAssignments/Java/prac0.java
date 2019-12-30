@@ -1,3 +1,4 @@
+//Addition of two numbers using scanner
 import java.util.*;
 public class prac0 {
 	public static void main (String args[])
