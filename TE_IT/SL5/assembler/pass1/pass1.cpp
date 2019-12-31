@@ -12,16 +12,16 @@ string dl[]={"DS","DC"};
 string reg[]={"AREG","BREG","CREG","DREG"};
 
 //return 1 if word is mnemonic op code else return 0
-int isMnemonic(string word)
+void isMnemonic(string word)
 {
 	for(int i=0;i<11;i++)
 	{
 		if(!strcmp(word.c_str(),mop[i].c_str()))
 		{
 			cout<<"This is word"<<word<<"This is mnemonic"<<mop[i];
-			return 1;
+			//return 1;
 		}
-		return 0;
+		//return 0;
 	}
 }
 //return 2 if word is assembler directive else return 0
@@ -71,8 +71,9 @@ int main()
 		cout<<"\nINFO: File opened!!"<<endl;
 	
 	string myword="ADD";
-	int a=isMnemonic(myword);
-	cout<<a;
+	int a=0;
+	isMnemonic(myword);
+	cout<<"\n"<<a<<"\n";
 	
 	while(file.get(c))
 	{
