@@ -13,52 +13,12 @@ string dl[2]={"DS","DC"}; //STRING ARRAY for declarative statements
 string reg[4]={"AREG","BREG","CREG","DREG"}; //STRING ARRAY for registers
 
 //tokenization
+/*Following functions return -1 if no proper key found */
+int isMnemonic(string word);
+int isAD(string word);
+int isDL(string word);
+int isReg(string word);
 int isKey(string word);
-
-//return 1 if word is mnemonic op code else return -1
-int isMnemonic(string word)
-{
-	for(int i=0;i<11;i++)
-	{		
-		if(strcmp(word.c_str(),mop[i].c_str())==0)
-		{	
-			return 1;
-		}
-	}
-	//cout<<"a"<<word<<"a\n";
-	return -1;
-}
-//return 1 if word is assembler directive else return -1
-int isAD(string word)
-{
-	for(int i=0;i<6;i++)
-	{
-		if(!strcmp(word.c_str(),ad[i].c_str()))
-			return 1;
-		
-	}
-	return -1;
-}
-//return 1 if word is declarative statement else return -1
-int isDL(string word)
-{
-	for(int i=0;i<=2;i++)
-	{
-		if(!strcmp(word.c_str(),dl[i].c_str()))
-			return 1;
-	}		
-	return -1;	
-}
-//return 1 if word is register else return -1
-int isReg(string word)
-{
-	for(int i=0;i<4;i++)
-	{
-		if(!strcmp(word.c_str(),reg[i].c_str()))
-			return 1;
-	}
-	return -1;
-}
 
 int main()
 {
@@ -123,6 +83,50 @@ int main()
 		if(!strcmp(word.c_str(),"END"))
 			break;
 	}
+}
+//return 1 if word is mnemonic op code else return -1
+int isMnemonic(string word)
+{
+	for(int i=0;i<11;i++)
+	{		
+		if(strcmp(word.c_str(),mop[i].c_str())==0)
+		{	
+			return 1;
+		}
+	}
+	//cout<<"a"<<word<<"a\n";
+	return -1;
+}
+//return 1 if word is assembler directive else return -1
+int isAD(string word)
+{
+	for(int i=0;i<6;i++)
+	{
+		if(!strcmp(word.c_str(),ad[i].c_str()))
+			return 1;
+		
+	}
+	return -1;
+}
+//return 1 if word is declarative statement else return -1
+int isDL(string word)
+{
+	for(int i=0;i<=2;i++)
+	{
+		if(!strcmp(word.c_str(),dl[i].c_str()))
+			return 1;
+	}		
+	return -1;	
+}
+//return 1 if word is register else return -1
+int isReg(string word)
+{
+	for(int i=0;i<4;i++)
+	{
+		if(!strcmp(word.c_str(),reg[i].c_str()))
+			return 1;
+	}
+	return -1;
 }
 int isKey(string word)
 {
