@@ -2,58 +2,62 @@
 #include<stdlib.h>
 #include<string.h>
 #include<fstream>
-#include<string.h>
+#include<string>
 
 using namespace std;
+//string mop[]={"ADD"};
+//various keyword array for comparison
+string mop[12]={"STOP","ADD","MULT","MOVER","MOVEM","COMP","BC","DIV","READ","PRINT"}; //STRING ARRAY for machine opcode
+string ad[5]={"START","END","LTORG","ORIGIN","EQU"}; //STRING ARRAY for assembler directive
+string dl[2]={"DS","DC"}; //STRING ARRAY for declarative statements
+string reg[4]={"AREG","BREG","CREG","DREG"}; //STRING ARRAY for registers
 
-string mop[]={"STOP","ADD","MULT","MOVER","MOVEM","COMP","BC","DIV","READ","PRINT"};
-string ad[]={"START","END","LTORG","ORIGIN","EQU"};
-string dl[]={"DS","DC"};
-string reg[]={"AREG","BREG","CREG","DREG"};
+//tokenization
+int isKey(string word);
 
-//return 1 if word is mnemonic op code else return 0
-void isMnemonic(string word)
+//return 1 if word is mnemonic op code else return -1
+int isMnemonic(string word)
 {
 	for(int i=0;i<11;i++)
-	{
-		if(!strcmp(word.c_str(),mop[i].c_str()))
-		{
-			cout<<"This is word"<<word<<"This is mnemonic"<<mop[i];
-			//return 1;
+	{		
+		if(strcmp(word.c_str(),mop[i].c_str())==0)
+		{	
+			return 1;
 		}
-		//return 0;
 	}
+	//cout<<"a"<<word<<"a\n";
+	return -1;
 }
-//return 2 if word is assembler directive else return 0
+//return 1 if word is assembler directive else return -1
 int isAD(string word)
 {
 	for(int i=0;i<6;i++)
 	{
 		if(!strcmp(word.c_str(),ad[i].c_str()))
-			return 2;
-		return 0;
+			return 1;
+		
 	}
+	return -1;
 }
-//return 3 if word is declarative statement else return 0
+//return 1 if word is declarative statement else return -1
 int isDL(string word)
 {
 	for(int i=0;i<=2;i++)
 	{
 		if(!strcmp(word.c_str(),dl[i].c_str()))
-			return 3;
-		return 0;
+			return 1;
 	}		
-		
+	return -1;	
 }
-//return 4 if word is register else return 0
+//return 1 if word is register else return -1
 int isReg(string word)
 {
-	for(int i=0;i<5;i++)
+	for(int i=0;i<4;i++)
 	{
 		if(!strcmp(word.c_str(),reg[i].c_str()))
-			return 4;
-		return 0;
+			return 1;
 	}
+	return -1;
 }
 
 int main()
@@ -68,20 +72,34 @@ int main()
 	if(file==NULL)
 		cout<<"\nERROR: CANNOT OPEN FILE";
 	else
-		cout<<"\nINFO: File opened!!"<<endl;
-	
-	string myword="ADD";
-	int a=0;
-	isMnemonic(myword);
-	cout<<"\n"<<a<<"\n";
-	
+		cout<<"\nINFO: File opened!!"<<endl;	
+	//Reading file character by character
 	while(file.get(c))
 	{
-		//initialse word to empty string to reset value of variable word
-		word="";
+	
 		//check for new word i.e when space,comma,new line or tab is encountered it is treated as new word
 		if(c==' ' || c==',' || c=='\n' || c=='\t')
 		{
+			cout<<endl<<word;
+			int check_mnemonic=isMnemonic(word);
+			{
+			if(check_mnemonic ==1)
+				cout<<"mnemonic: "<<check_mnemonic;
+			}
+			int check_ad=isAD(word);
+			if(check_ad ==1)
+				cout<<"ad: "<<check_ad;
+			
+			int check_reg=isReg(word);
+			if(check_reg==1)	
+				cout<<"reg : "<<check_reg<<endl;
+			
+			int check_dl=isDL(word);
+			if(check_dl==1)
+				cout<<"dl : "<<check_dl;
+			
+			//initialse word to empty string to reset value of variable word				
+			word="";
 			/*int i=isMnemonic(word);
 			cout<<i;
 			if((i=isMnemonic(word))==1)
@@ -97,9 +115,38 @@ int main()
 				cout<<"The word: "<<word <<" is declarative statement!";
 			}*/
 		}
-		word+=c;
-		cout<<word;
+		if(c!=' ' && c!=',' && c!='\n' && c!='\t')
+			word+=c;
+
+//		cout<<word;
+
 		if(!strcmp(word.c_str(),"END"))
 			break;
 	}
+}
+int isKey(string word)
+{
+	//returns 1 if the key is mnemonic opcode
+	if((int check=isMnemonic(word))==1)
+	{
+		return 1;
+	}
+	//return 2 if the key is assembler directive
+	else if(int check=isAD(word)==1)
+	{
+		return 2;
+	}
+	//return 3 if the key is declarative statement
+	else if(int check=isDL(word)==1)
+	{
+		return 3;
+	}
+	//return 4 if the key is register
+	else if(int check=isReg(word)==1)
+	{
+		return 4;
+	}
+	else
+	//return -1 if no proper key is found
+		return -1;
 }
