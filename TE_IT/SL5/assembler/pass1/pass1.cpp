@@ -1,3 +1,5 @@
+//header files
+
 #include<iostream>
 #include<stdlib.h>
 #include<string.h>
@@ -5,23 +7,32 @@
 #include<string>
 
 using namespace std;
-//string mop[]={"ADD"};
+
+//structure for all keywords
+struct keyword{
+
 //various keyword array for comparison
-string mop[12]={"STOP","ADD","MULT","MOVER","MOVEM","COMP","BC","DIV","READ","PRINT"}; //STRING ARRAY for machine opcode
-string ad[5]={"START","END","LTORG","ORIGIN","EQU"}; //STRING ARRAY for assembler directive
-string dl[2]={"DS","DC"}; //STRING ARRAY for declarative statements
-string reg[4]={"AREG","BREG","CREG","DREG"}; //STRING ARRAY for registers
+
+string mop[10]={"STOP","ADD","MULT","MOVER","MOVEM","COMP","BC","DIV","READ","PRINT"}; //STRING ARRAY for machine opcode
+string ad[6]={"START","END","LTORG","ORIGIN","EQU"}; //STRING ARRAY for assembler directive
+string reg[5]={"AREG","BREG","CREG","DREG"}; //STRING ARRAY for registers
+string dl[3]={"DS","DC"}; //STRING ARRAY for declarative statements
+}k;
 
 //tokenization
-/*Following functions return -1 if no proper key found */
-int isMnemonic(string word);
-int isAD(string word);
-int isDL(string word);
-int isReg(string word);
-int isKey(string word);
+//Following functions return -1 if no proper keyword is found
+int isMnemonic(string word,struct keyword k);
+int isAD(string word,struct keyword k);
+int isDL(string word,struct keyword k);
+int isReg(string word,struct keyword k);
 
+//all keywords are called in this function
+int isKey(string word,struct keyword k);
+
+//main function
 int main()
 {
+	struct keyword k;
 	int LC=0;
 	string word;
 	int count=0;
@@ -29,7 +40,7 @@ int main()
 	fstream file;
 	
 	file.open("pass1.txt");
-	if(file==NULL)
+	if(!file)
 		cout<<"\nERROR: CANNOT OPEN FILE";
 	else
 		cout<<"\nINFO: File opened!!"<<endl;	
@@ -41,116 +52,94 @@ int main()
 		if(c==' ' || c==',' || c=='\n' || c=='\t')
 		{
 			cout<<endl<<word;
-			int check_mnemonic=isMnemonic(word);
+			int check=isKey(word,k);
+			switch(check)
 			{
-			if(check_mnemonic ==1)
-				cout<<"mnemonic: "<<check_mnemonic;
+				case 1:
+					cout<<": mnemonic opcode";
+					break;
+				case 2:
+					cout<<": assembler directive";
+					break;
+				case 3:
+					cout<<": declarative statement";
+					break;
+				case 4:
+					cout<<": register";
+					break;
+				default:
+					break;
 			}
-			int check_ad=isAD(word);
-			if(check_ad ==1)
-				cout<<"ad: "<<check_ad;
-			
-			int check_reg=isReg(word);
-			if(check_reg==1)	
-				cout<<"reg : "<<check_reg<<endl;
-			
-			int check_dl=isDL(word);
-			if(check_dl==1)
-				cout<<"dl : "<<check_dl;
-			
+			if(word == "END")
+				break;
 			//initialse word to empty string to reset value of variable word				
-			word="";
-			/*int i=isMnemonic(word);
-			cout<<i;
-			if((i=isMnemonic(word))==1)
-			{
-				cout<<"The word: "<<word <<" is mnemonic opcode!";
-			}
-			else if(isAD(word)==2)
-			{
-				cout<<"The word: "<<word <<" is assembler directive!";
-			}
-			else if(isDL(word)==3)
-			{
-				cout<<"The word: "<<word <<" is declarative statement!";
-			}*/
+			word = "";			
 		}
+		//add characters to word till this condition is satisfied
 		if(c!=' ' && c!=',' && c!='\n' && c!='\t')
 			word+=c;
-
-//		cout<<word;
-
-		if(!strcmp(word.c_str(),"END"))
-			break;
 	}
 }
 //return 1 if word is mnemonic op code else return -1
-int isMnemonic(string word)
+int isMnemonic(string word,struct keyword k)
 {
 	for(int i=0;i<11;i++)
 	{		
-		if(strcmp(word.c_str(),mop[i].c_str())==0)
+		//alternative if condition can be word==k.mop[i]
+		if(!strcmp(word.c_str(),k.mop[i].c_str()))
 		{	
 			return 1;
 		}
 	}
-	//cout<<"a"<<word<<"a\n";
 	return -1;
 }
 //return 1 if word is assembler directive else return -1
-int isAD(string word)
+int isAD(string word,struct keyword k)
 {
 	for(int i=0;i<6;i++)
 	{
-		if(!strcmp(word.c_str(),ad[i].c_str()))
-			return 1;
-		
+		if(!strcmp(word.c_str(),k.ad[i].c_str()))
+			return 1;	
 	}
 	return -1;
 }
 //return 1 if word is declarative statement else return -1
-int isDL(string word)
+int isDL(string word,struct keyword k)
 {
-	for(int i=0;i<=2;i++)
+	for(int i=0;i<3;i++)
 	{
-		if(!strcmp(word.c_str(),dl[i].c_str()))
+		if(!strcmp(word.c_str(),k.dl[i].c_str()))
 			return 1;
 	}		
 	return -1;	
 }
 //return 1 if word is register else return -1
-int isReg(string word)
+int isReg(string word,struct keyword k)
 {
 	for(int i=0;i<4;i++)
 	{
-		if(!strcmp(word.c_str(),reg[i].c_str()))
+		if(!strcmp(word.c_str(),k.reg[i].c_str()))
 			return 1;
 	}
 	return -1;
 }
-int isKey(string word)
+
+//all the functions to check various keywords are available in this function
+int isKey(string word, struct keyword k)
 {
-	//returns 1 if the key is mnemonic opcode
-	if((int check=isMnemonic(word))==1)
-	{
+	//return 1 if keyword is mnemonic opcode
+	if(isMnemonic(word,k) != -1)
 		return 1;
-	}
-	//return 2 if the key is assembler directive
-	else if(int check=isAD(word)==1)
-	{
+	//return 2 if keyword is assembler directive
+	if(isAD(word,k) != -1)
 		return 2;
-	}
-	//return 3 if the key is declarative statement
-	else if(int check=isDL(word)==1)
-	{
+	//return 3 if keyword is declarative statement
+	if(isDL(word,k) != -1)
 		return 3;
-	}
-	//return 4 if the key is register
-	else if(int check=isReg(word)==1)
-	{
+	//return 4 if keyword is register
+	if(isReg(word,k) != -1)
 		return 4;
-	}
+	//return -1 if no proper keyword is found
 	else
-	//return -1 if no proper key is found
 		return -1;
 }
