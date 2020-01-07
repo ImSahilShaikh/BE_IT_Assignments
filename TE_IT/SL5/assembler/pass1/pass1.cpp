@@ -5,39 +5,36 @@
 #include<string.h>
 #include<fstream>
 #include<string>
-#include<ctype.h>
 
 using namespace std;
 
 //structure for all keywords
 struct keyword{
-
 //various keyword array for comparison
-
-string mop[13]={"STOP","ADD","SUB","MULT","MOVER","MOVEM","COMP","BC","DIV","READ","PRINT","STORE","LOAD"}; //STRING ARRAY for machine opcode
-string ad[6]={"START","END","EQU","ORIGIN","LTORG"}; //STRING ARRAY for assembler directive
-string reg[5]={"AREG","BREG","CREG","DREG"}; //STRING ARRAY for registers
-string dl[3]={"DS","DC"}; //STRING ARRAY for declarative statements
+	string mop[13]={"STOP","ADD","SUB","MULT","MOVER","MOVEM","COMP","BC","DIV","READ","PRINT","STORE","LOAD"}; //STRING ARRAY for machine opcode
+	string ad[6]={"START","END","EQU","ORIGIN","LTORG"}; //STRING ARRAY for assembler directive
+	string reg[5]={"AREG","BREG","CREG","DREG"}; //STRING ARRAY for registers
+	string dl[3]={"DS","DC"}; //STRING ARRAY for declarative statements
 }k;
 
-//literal pool
+//string array to maintain literal pool
 string literal_pool[10];
 
-//structure for literal table
+//structure to maintain literal table
 struct literal_table{
 	int index; //index
 	string lit; //actual literal
 	int addresss; //address of the literal
 }littab[20];
 
-//structure for symbol table
+//structure to maintain symbol table
 struct symbol_table{
 	string symbol; //symbol
 	int address; //address of sybmol
 	int length; //length of the symbol
 }symtab[20];
 
-// pool table
+//array to maintain pool table
 int pooltab[20];
 
 //tokenization
@@ -48,6 +45,7 @@ int isDL(string word,struct keyword k);
 int isReg(string word,struct keyword k);
 int isLiteral(string word);
 int isNumber(string word);
+void print_symbol_table();
 
 //all keywords are called in this function
 int isKey(string word,struct keyword k);
@@ -55,11 +53,17 @@ int isKey(string word,struct keyword k);
 //main function
 int main()
 {
+	//variable declaration
+	
 	struct keyword k;
-	int LC=0;
-	string word;
-	int count=0;
+	struct symbol_table symtab[20];
+	struct literal_table littab[20];
+	int LC=0; //Location counter
+	int lc_flag=0; //lc_flag used to assign proper address to LC
+	string word; //buffer to store seperated words
+	int symtab_i=0;
 	char c;
+	//fstream object to operate the file
 	fstream file;
 	
 	file.open("pass1.txt");
@@ -70,20 +74,40 @@ int main()
 	//Reading file character by character
 	while(file.get(c))
 	{
-	
 		//check for new word i.e when space,comma,new line or tab is encountered it is treated as new word
 		if(c==' ' || c==',' || c=='\n' || c=='\t')
 		{
+			//set the lc_flag when START is encountered
+			if(word=="START")
+			{
+				lc_flag=1;
+			}
+			//printing all seperated words
 			cout<<endl<<word;
-			
+			//check if lc_flag is set and the word is a number			
+			if(lc_flag==1 && isNumber(word) ==1)
+			{
+				//convert string to integer
+				//assign the given address to LC
+				LC=atoi(word.c_str());
+				//reset the lc_flag
+				lc_flag=0;
+			}
+			//Increment the Location counter whenever newline is encountered and don't increment when word is assembler directive
+			if(c=='\n' && isAD(word,k)!=1)
+			{
+					LC++;
+			}
 			//function isKey() is called for tokenization
 			int check=isKey(word,k);
+			//checking for all types of keyword
 			if(check!=-1)
 			{
 				switch(check)
 				{
 					case 1:
 						cout<<": mnemonic opcode";
+						//loop to print the insrtuction opcode
 						for(int i=0;i<11;i++)
 						{
 							if(word==k.mop[i])
@@ -97,6 +121,7 @@ int main()
 						break;
 					case 2:
 						cout<<": assembler directive";
+						//loop to print the insrtuction opcode
 						for(int i=0;i<6;i++)
 						{
 							if(word==k.ad[i])
@@ -110,6 +135,7 @@ int main()
 						break;
 					case 3:
 						cout<<": declarative statement";
+						//loop to print the insrtuction opcode
 						for(int i=0;i<3;i++)
 						{
 							if(word==k.mop[i])
@@ -123,6 +149,7 @@ int main()
 						break;
 					case 4:
 						cout<<": register";
+						//loop to print the insrtuction opcode
 						for(int i=0;i<4;i++)
 						{
 							if(word==k.reg[i])
@@ -150,7 +177,13 @@ int main()
 			else
 			{
 				cout<<": Label";
+				
+				symtab[symtab_i].symbol=word;
+				symtab[symtab_i].address=LC;
+				symtab[symtab_i].length=1;
+				symtab_i++;	
 			}
+			
 			if(word == "END")
 				break;
 			//initialse word to empty string to reset value of variable word				
@@ -160,6 +193,16 @@ int main()
 		if(c!=' ' && c!=',' && c!='\n' && c!='\t')
 			word+=c;
 	}
+	cout<<"\nLC value is: "<<LC;
+	cout<<"\n-------------------SYMBOL TABLE-------------------";
+	cout<<"\n\tSYMBOL\t\tADDRESS\t\tLENGTH";
+	cout<<"\n--------------------------------------------------";
+	
+	for(int i=0;i<symtab_i;i++)
+	{
+		cout<<"\n\t"<<symtab[i].symbol<<"\t\t"<<symtab[i].address<<"\t\t"<<symtab[i].length;
+	}
+	cout<<"\n--------------------------------------------------";
 }
 //return 1 if word is mnemonic op code else return -1
 int isMnemonic(string word,struct keyword k)
@@ -244,4 +287,13 @@ int isKey(string word, struct keyword k)
 	//return -1 if no proper keyword is found
 	else
 		return -1;
+}
+void print_symbol_table(struct symbol_table symtab[])
+{
+	cout<<"\n-------------------SYMBOL TABLE-------------------";
+	cout<<"\n\tSYMBOL\t\tADDRESS\t\tLENGTH";
+	for(int i=0;i<symtab[i].symbol.length();i++)
+	{
+		cout<<symtab[i].symbol<<"\t\t"<<symtab[i].address<<"\t\t"<<symtab[i].length;
+	}
 }
