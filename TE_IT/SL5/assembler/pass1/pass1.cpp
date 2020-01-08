@@ -58,10 +58,12 @@ int main()
 	struct keyword k;
 	struct symbol_table symtab[20];
 	struct literal_table littab[20];
+
 	int LC=0; //Location counter
-	int lc_flag=0; //lc_flag used to assign proper address to LC
+	bool lc_flag=0, ds_flag=0,end_flag=0; //lc_flag used to assign proper address to LC
+	
 	string word; //buffer to store seperated words
-	int symtab_i=0;
+	int symtab_i=0,littab_i=0,litpool_i=0,pooltab_i=0; //all iterator variables for structures
 	char c;
 	//fstream object to operate the file
 	fstream file;
@@ -80,23 +82,38 @@ int main()
 			//set the lc_flag when START is encountered
 			if(word=="START")
 			{
-				lc_flag=1;
+				lc_flag=true;
 			}
 			//printing all seperated words
 			cout<<endl<<word;
 			//check if lc_flag is set and the word is a number			
-			if(lc_flag==1 && isNumber(word) ==1)
+			
+			
+			if(lc_flag && isNumber(word) ==1 )
 			{
 				//convert string to integer
 				//assign the given address to LC
 				LC=atoi(word.c_str());
+				LC-=2;
 				//reset the lc_flag
 				lc_flag=0;
 			}
+			if(word=="DS")
+			{
+				ds_flag=1;
+				LC--;
+			}
+			if(ds_flag && isNumber(word))
+			{
+				LC=LC+(atoi(word.c_str()));
+			}
+			
 			//Increment the Location counter whenever newline is encountered and don't increment when word is assembler directive
 			if(c=='\n' && isAD(word,k)!=1)
 			{
+				if(LC)
 					LC++;
+					//cout<<"LC for this line is : "<<LC;
 			}
 			//function isKey() is called for tokenization
 			int check=isKey(word,k);
@@ -168,7 +185,10 @@ int main()
 			//literals are checked here
 			else if(check=isLiteral(word)==1)
 			{
-					cout<<": literal";	
+					cout<<": literal";
+					
+					literal_pool[litpool_i]=word;
+					litpool_i++;
 			}
 			else if(check=isNumber(word)==1)
 			{
@@ -176,22 +196,37 @@ int main()
 			}
 			else
 			{
-				cout<<": Label";
+				int i=0;
+				if(symtab[i].symbol==word)
+				{
+					cout<<": Duplicate Label";
+					i++;	
+				}
+				else
+				{
+					cout<<": Label";
+					symtab[symtab_i].symbol=word;
+					symtab[symtab_i].address=LC;
+					symtab[symtab_i].length=1;
+					symtab_i++;
+					i++;
+				}
+				i++;
 				
-				symtab[symtab_i].symbol=word;
-				symtab[symtab_i].address=LC;
-				symtab[symtab_i].length=1;
-				symtab_i++;	
-			}
-			
+			}			
 			if(word == "END")
+			{
 				break;
+				end_flag=1;
+			}
 			//initialse word to empty string to reset value of variable word				
 			word = "";			
 		}
 		//add characters to word till this condition is satisfied
 		if(c!=' ' && c!=',' && c!='\n' && c!='\t')
-			word+=c;
+		{
+			word+=c;			
+		}
 	}
 	cout<<"\nLC value is: "<<LC;
 	cout<<"\n-------------------SYMBOL TABLE-------------------";
@@ -203,6 +238,17 @@ int main()
 		cout<<"\n\t"<<symtab[i].symbol<<"\t\t"<<symtab[i].address<<"\t\t"<<symtab[i].length;
 	}
 	cout<<"\n--------------------------------------------------";
+	
+	cout<<"\n-------------------LITERAL POOL-------------------";
+	cout<<"\n\tLITERAL";
+	cout<<"\n--------------------------------------------------";
+	
+	for(int i=0;i<litpool_i;i++)
+	{
+		cout<<"\n\t"<<literal_pool[i];
+	}
+	cout<<"\n--------------------------------------------------";
+	
 }
 //return 1 if word is mnemonic op code else return -1
 int isMnemonic(string word,struct keyword k)
