@@ -31,7 +31,7 @@ public class wc {
 		public void map(LongWritable Key, Text value, Context con) throws IOException, InterruptedException
 		{
 			String line = value.toString();
-			String words[] = line.split(",");
+			String words[] = line.split(",");PracticeAssignments
 			for(String word:words)
 			{
 				Text opKey = new Text (word.toLowerCase().trim());
