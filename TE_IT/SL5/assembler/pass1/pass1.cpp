@@ -38,60 +38,70 @@ struct symbol_table{
 int pooltab[20];
 
 //all iterator variables for structures
-int symtab_i=0,littab_i=0,litpool_i=0,pooltab_i=0,sym_check=0; 
+int symtab_i=0,littab_i=0,litpool_i=0,pooltab_i=0;
 
-//tokenization
-//Following functions return -1 if no proper keyword is found
+
+//Following functions are used for tokenization return -1 if no proper keyword is found
 int isMnemonic(string word,struct keyword k);
 int isAD(string word,struct keyword k);
 int isDL(string word,struct keyword k);
 int isReg(string word,struct keyword k);
 int isLiteral(string word);
 int isNumber(string word);
-int isSym(string word,struct symbol_table symtab[])
-{
-	if(symtab_i==0)
-	{
-		return 0;
-	}
-	for(sym_check=0;sym_check<symtab_i;sym_check++)
-	{
-		if(!symtab[sym_check].symbol.compare(word))
-		{
-			return sym_check;
-		}
-	}
-	return -1;
-}
+void print_symbol_table(struct symbol_table symtab[]);
+void print_literal_pool(string literal_pool[]);
 
 //all keywords are called in this function
 int isKey(string word,struct keyword k);
 
-//checking symbol redundancy
-int symbol_check=0;
+//this function is used to check for duplicate labels in the symbol table
+bool isSym(string word,struct symbol_table symtab[])
+{
+	for(int sym_check=0;sym_check<symtab_i;sym_check++)
+	{
+		if(!symtab[sym_check].symbol.compare(word))
+		{
+			return false;
+		}
+	}
+	return true;
+}
+
 //main function
 int main()
 {
 	//variable declaration
 	
+	//structure for all available keyword arrays
 	struct keyword k;
+	//structure array for symbol table
 	struct symbol_table symtab[20];
+	//structure array for literal table
 	struct literal_table littab[20];
 
 	int LC=0; //Location counter
-	bool lc_flag=0, ds_flag=0,end_flag=0,start_flag=0,symbol_flag=0; //lc_flag used to assign proper address to LC
+	bool lc_flag=0, ds_flag=0,end_flag=0; //lc_flag used to assign proper address to LC
 	
 	string word; //buffer to store seperated words
+	char c;//buffer for all characters to be stored in buffer of word
 	
-	char c;
-	//fstream object to operate the file
-	fstream file;
+	//fstream object to operate the code file and output ic file
+	fstream file,out;
 	
+	//ic code file i.e output file is opened here
+	out.open("intermediate_code.txt" , ios :: out);
+	if(!out)
+		cout<<"\nERROR: CANNOT OPEN FILE";
+	else
+		cout<<"\nINFO: Output File opened!!"<<endl;
+	
+	//input assembly code file is opened here
 	file.open("pass1.txt");
 	if(!file)
 		cout<<"\nERROR: CANNOT OPEN FILE";
 	else
-		cout<<"\nINFO: File opened!!"<<endl;	
+		cout<<"\nINFO:Code File opened!!"<<endl;
+	
 	//Reading file character by character
 	while(file.get(c))
 	{
@@ -102,10 +112,9 @@ int main()
 			if(word=="START")
 			{
 				lc_flag=true;
-				start_flag=1;
 			}
 			//printing all seperated words
-			//cout<<endl<<word;
+			cout<<endl<<word;
 			//check if lc_flag is set and the word is a number			
 			
 			
@@ -118,20 +127,21 @@ int main()
 				//reset the lc_flag
 				lc_flag=0;
 			}
+			//if the word encountered is Declarative statement then set the ds_flag and decrement lc by one
 			if(word=="DS")
 			{
 				ds_flag=1;
 				LC--;
 			}
+			//if declarative flag is set and word is number add the constant to the lc
 			if(ds_flag && isNumber(word))
 			{
 				LC=LC+(atoi(word.c_str()));
 			}
-			
-			//Symbol table: set this flag to 1 and reset if word is not a symbol
+			//if newline is encountered in input code write same in output ic code file
 			if(c=='\n')
 			{
-				symbol_flag=1;
+				out<<"\n";
 			}
 			//Increment the Location counter whenever newline is encountered and don't increment when word is assembler directive
 			if(c=='\n' && isAD(word,k)!=1)
@@ -148,58 +158,55 @@ int main()
 				switch(check)
 				{
 					case 1:
-						//cout<<": mnemonic opcode";
-						//loop to print the insrtuction opcode
+						cout<<": mnemonic opcode";
+						//loop to print the instruction opcode
 						for(int i=0;i<11;i++)
 						{
 							if(word==k.mop[i])
 							{
-								if(i<9){}
-							//		cout<<0<<""<<i+1;
-								else{}
-							//		cout<<i+1;
+								if(i<9)
+									out<<"(IS"<<","<<0<<""<<i+1<<")";
+								else
+									out<<"(IS"<<","<<i+1<<")";
 							}
 						}
 						break;
 					case 2:
-						//cout<<": assembler directive";
-						//loop to print the insrtuction opcode
+						cout<<": assembler directive";
+						//loop to print the instruction opcode
 						for(int i=0;i<6;i++)
 						{
 							if(word==k.ad[i])
 							{
-								if(i<9){}
-							//		cout<<0<<""<<i+1;
-								else{}
-							//		cout<<i+1;
+								if(i<9)
+									out<<"(AD"<<","<<0<<""<<i+1<<")";
+								else
+									out<<"(AD"<<","<<i+1<<")";
 							}
 						}
 						break;
 					case 3:
-						//cout<<": declarative statement";
-						//loop to print the insrtuction opcode
+						cout<<": declarative statement";
+						//loop to print the instruction opcode
 						for(int i=0;i<3;i++)
 						{
-							if(word==k.mop[i])
+							if(word==k.dl[i])
 							{
-								if(i<9){}
-							//		cout<<0<<""<<i+1;
-								else{}
-							//		cout<<i+1;
+								if(i<9)
+									out<<"(DL"<<","<<0<<""<<i+1<<")";
+								else
+									out<<"(DL"<<","<<i+1<<")";
 							}
 						}
 						break;
 					case 4:
-						//cout<<": register";
-						//loop to print the insrtuction opcode
+						cout<<": register";
+						//loop to print the instruction opcode
 						for(int i=0;i<4;i++)
 						{
 							if(word==k.reg[i])
 							{
-								if(i<9){}
-							//		cout<<0<<""<<i+1;
-								else{}
-							//		cout<<i+1;
+									out<<"("<<i+1<<")";
 							}
 						}
 						break;
@@ -210,52 +217,33 @@ int main()
 			//literals are checked here
 			else if(check=isLiteral(word)==1)
 			{
-					//cout<<": literal";
+					out<<"(L,"<<word<<")";
 					
 					literal_pool[litpool_i]=word;
 					litpool_i++;
 			}
+			//check that is the encountered word is number i.e constant
 			else if(check=isNumber(word)==1)
 			{
-				//cout<<": Number(constant)";
+				out<<"(C,"<<word<<")";
 			}
 			else
 			{
-				
-				
-				//if symbol is repeated
-				cout<<"\n checking word: "<<word<<endl;
-				if(isSym(word,symtab)>0)
+				//if the condition is satified then label is valid symbol and not duplicate
+				if(isSym(word,symtab) && ((word[0]!='\'' && word[2]!='\'') || word[0]!='\'' && word[3]!='\''))
 				{
-					cout<<": Duplicate Label";			
-				}
-				else
-				{
-					//cout<<": Label";
+					cout<<": Label";
 					symtab[symtab_i].symbol=word;
 					symtab[symtab_i].address=LC;
 					symtab[symtab_i].length=1;
-					symtab_i++;					
+					symtab_i++;
 				}
-				
-				
-			}	
-			int check1=isKey(word,k);
-//			cout<<"\nvalue of check is: "<<check1;
-			if(check1>4)
-				{
-//					cout<<"\nbefore check"<<symbol_flag;
-					int z=isSym(word,symtab);
-					cout<<"\nZ: "<<z;
-					if(symbol_flag==1 && z!=-1)
-					{
-						cout<<"\nInside";						
-						symtab[z].address=LC;
-
-					}
-				}
+				//label is not valid symbol or label is duplicate
 				else
-					symbol_flag=0;			
+				{
+					cout<<" : Duplicate Symbol\n";
+				}
+			}			
 			if(word == "END")
 			{
 				break;
@@ -271,26 +259,12 @@ int main()
 		}
 	}
 	cout<<"\nLC value is: "<<LC;
-	cout<<"\n-------------------SYMBOL TABLE-------------------";
-	cout<<"\n\tSYMBOL\t\tADDRESS\t\tLENGTH";
-	cout<<"\n--------------------------------------------------";
 	
-	for(int i=0;i<symtab_i;i++)
-	{
-		cout<<"\n\t"<<symtab[i].symbol<<"\t\t"<<symtab[i].address<<"\t\t"<<symtab[i].length;
-	}
-	cout<<"\n--------------------------------------------------";
-	
-	cout<<"\n-------------------LITERAL POOL-------------------";
-	cout<<"\n\tLITERAL";
-	cout<<"\n--------------------------------------------------";
-	
-	for(int i=0;i<litpool_i;i++)
-	{
-		cout<<"\n\t"<<literal_pool[i];
-	}
-	cout<<"\n--------------------------------------------------";
-	
+	//calling print_symbol_table function here
+	print_symbol_table(symtab);
+	//calling print_literal_pool function here
+	print_literal_pool(literal_pool);
+
 }
 //return 1 if word is mnemonic op code else return -1
 int isMnemonic(string word,struct keyword k)
@@ -335,6 +309,7 @@ int isReg(string word,struct keyword k)
 	}
 	return -1;
 }
+//return 1 if word is literal else return -1
 int isLiteral(string word)
 {
 	if(word[0]=='=' && word[1]=='\'')
@@ -344,6 +319,7 @@ int isLiteral(string word)
 	else 
 		return -1;
 }
+//return 1 if word is number else return -1
 int isNumber(string word)
 {
 	int flag=0;
@@ -357,6 +333,7 @@ int isNumber(string word)
 			return 1;
 	}
 }
+
 //all the functions to check various keywords are available in this function
 int isKey(string word, struct keyword k)
 {
@@ -374,15 +351,30 @@ int isKey(string word, struct keyword k)
 		return 4;
 	//return -1 if no proper keyword is found
 	else
-		return 5;
+		return -1;
 }
-/*
+//function to print symbol table
 void print_symbol_table(struct symbol_table symtab[])
 {
 	cout<<"\n-------------------SYMBOL TABLE-------------------";
 	cout<<"\n\tSYMBOL\t\tADDRESS\t\tLENGTH";
-	for(int i=0;i<symtab[i].symbol.length();i++)
+	cout<<"\n--------------------------------------------------\n";
+	for(int i=0;i<symtab_i;i++)
 	{
-		cout<<symtab[i].symbol<<"\t\t"<<symtab[i].address<<"\t\t"<<symtab[i].length;
+		cout<<"\n\t"<<symtab[i].symbol<<"\t\t"<<symtab[i].address<<"\t\t"<<symtab[i].length;
 	}
-}*/
+	cout<<"\n--------------------------------------------------\n";
+}
+//function to print literal table
+void print_literal_pool(string literal_pool[])
+{
+	cout<<"\n-------------------LITERAL POOL-------------------";
+	cout<<"\n\n\t\tLITERAL";
+	cout<<"\n--------------------------------------------------";
+	
+	for(int i=0;i<litpool_i;i++)
+	{
+		cout<<"\n\t\t"<<literal_pool[i];
+	}
+	cout<<"\n--------------------------------------------------";
+}
