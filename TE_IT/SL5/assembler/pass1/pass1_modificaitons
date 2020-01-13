@@ -237,8 +237,8 @@ int main()
 					littab[littab_i].literal=literal_pool[i];
 					
 					littab[littab_i].address=LC;
-					
-					LC++;
+					//don't increment LC here, check again after not incrementing the value of LC here
+					//LC++;
 					littab_i++;
 					literal_pool[i]="";
 					litpool_i--;
