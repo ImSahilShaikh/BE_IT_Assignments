@@ -1,3 +1,25 @@
+/*			LC : manually calculated
+START 400
+READ X 			400
+READ Y			401
+MOVER AREG,X		402
+ADD AREG,Y		403
+MOVEM AREG,Z		404
+MULT AREG,='5'		405	409
+MOVEM CREG,='6'		406	410
+SUM AREG,A		407
+COMP AREG,ONE		408
+LTORG
+PRINT Z			411
+STOP			412
+X DS 100		512
+Y DS 2			514
+ONE DC '0'		515
+Z DS 3			518
+A DS 1			519
+END
+*/
+
 //header files
 
 #include<iostream>
@@ -23,8 +45,8 @@ string literal_pool[10];
 //structure to maintain literal table
 struct literal_table{
 	int index; //index
-	string lit; //actual literal
-	int addresss; //address of the literal
+	string literal; //actual literal
+	int address; //address of the literal
 }littab[20];
 
 //structure to maintain symbol table
@@ -50,6 +72,8 @@ int isLiteral(string word);
 int isNumber(string word);
 void print_symbol_table(struct symbol_table symtab[]);
 void print_literal_pool(string literal_pool[]);
+void print_literal_table(struct literal_table littab[]);
+void print_pool_table(int pool_table[]);
 
 //all keywords are called in this function
 int isKey(string word,struct keyword k);
@@ -80,7 +104,11 @@ int main()
 	struct literal_table littab[20];
 
 	int LC=0; //Location counter
-	bool lc_flag=0, ds_flag=0,end_flag=0; //lc_flag used to assign proper address to LC
+	
+	int lp_to_lt_i=0; //iterator for pushing literals from literal pool to literal table
+	
+	//all flag variables are here
+	bool lc_flag=0, ds_flag=0,end_flag=0,ltorg_flag=0,symbol_flag=0; //lc_flag used to assign proper address to LC
 	
 	string word; //buffer to store seperated words
 	char c;//buffer for all characters to be stored in buffer of word
@@ -115,9 +143,10 @@ int main()
 			}
 			//printing all seperated words
 			cout<<endl<<word;
+			
+			
+			
 			//check if lc_flag is set and the word is a number			
-			
-			
 			if(lc_flag && isNumber(word) ==1 )
 			{
 				//convert string to integer
@@ -143,6 +172,20 @@ int main()
 			{
 				out<<"\n";
 			}
+			if(isSym(word,symtab)==0)
+			{
+				symbol_flag=1;
+			}
+			for(int i=0;i<symtab_i;i++)
+			{
+				if(symbol_flag && ds_flag )//&& symtab[i].address==0)
+				{
+					if(word==symtab[i].symbol)
+					{
+						symtab[i].address=LC;
+					}
+				}
+			}
 			//Increment the Location counter whenever newline is encountered and don't increment when word is assembler directive
 			if(c=='\n' && isAD(word,k)!=1)
 			{
@@ -150,6 +193,12 @@ int main()
 					LC++;
 					//cout<<"LC for this line is : "<<LC;
 			}
+			//ltorg_flag to set proper address to literals
+			if(word=="LTORG")
+			{
+				ltorg_flag=1;
+			}
+			
 			//function isKey() is called for tokenization
 			int check=isKey(word,k);
 			//checking for all types of keyword
@@ -222,6 +271,23 @@ int main()
 					literal_pool[litpool_i]=word;
 					litpool_i++;
 			}
+			else if(ltorg_flag)
+			{	
+				
+				for(lp_to_lt_i ;lp_to_lt_i<litpool_i;lp_to_lt_i++)
+				{
+					littab[littab_i].index=lp_to_lt_i+1;
+					littab[littab_i].literal=literal_pool[lp_to_lt_i];
+					littab[littab_i].address=LC;
+					
+					LC++;
+					littab_i++;
+					literal_pool[lp_to_lt_i]="";
+				}	
+				int i;
+				pooltab[i]=litpool_i;
+				i++;			
+			}
 			//check that is the encountered word is number i.e constant
 			else if(check=isNumber(word)==1)
 			{
@@ -234,7 +300,7 @@ int main()
 				{
 					cout<<": Label";
 					symtab[symtab_i].symbol=word;
-					symtab[symtab_i].address=LC;
+					symtab[symtab_i].address=0;
 					symtab[symtab_i].length=1;
 					symtab_i++;
 				}
@@ -257,13 +323,22 @@ int main()
 		{
 			word+=c;			
 		}
+		if(c=='\n')
+			cout<<"LC is: "<<LC;
 	}
 	cout<<"\nLC value is: "<<LC;
 	
 	//calling print_symbol_table function here
 	print_symbol_table(symtab);
+	
 	//calling print_literal_pool function here
-	print_literal_pool(literal_pool);
+	//print_literal_pool(literal_pool);
+	
+	//calling print_literal_table function here
+	print_literal_table(littab);
+	
+	//print pool table
+	print_pool_table(pooltab);
 
 }
 //return 1 if word is mnemonic op code else return -1
@@ -365,7 +440,7 @@ void print_symbol_table(struct symbol_table symtab[])
 	}
 	cout<<"\n--------------------------------------------------\n";
 }
-//function to print literal table
+//function to print literal pool
 void print_literal_pool(string literal_pool[])
 {
 	cout<<"\n-------------------LITERAL POOL-------------------";
@@ -377,4 +452,28 @@ void print_literal_pool(string literal_pool[])
 		cout<<"\n\t\t"<<literal_pool[i];
 	}
 	cout<<"\n--------------------------------------------------";
+}
+//function to print literal table
+void print_literal_table(struct literal_table littab[])
+{
+	cout<<"\n-------------------LITERAL TABLE-------------------";
+	cout<<"\n\tINDEX\t\tLITERAL\t\tADDRESS";
+	cout<<"\n--------------------------------------------------\n";
+	for(int i=0;i<littab_i;i++)
+	{
+		cout<<"\n\t"<<littab[i].index<<"\t\t"<<littab[i].literal<<"\t\t"<<littab[i].address;
+	}
+	cout<<"\n--------------------------------------------------\n";
+}
+//function to print pool table
+void print_pool_table(int pool_table[])
+{
+	cout<<"\n-------------------POOL TABLE-------------------";
+	cout<<"\n\tINDEX";
+	cout<<"\n--------------------------------------------------\n";
+	for(int i=0;i<pooltab_i;i++)
+	{
+		cout<<"\n\t"<<pool_table[i];
+	}
+	cout<<"\n--------------------------------------------------\n";
 }
