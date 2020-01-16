@@ -27,6 +27,7 @@ END
 #include<string.h>
 #include<fstream>
 #include<string>
+#include<vector>
 
 using namespace std;
 
@@ -57,7 +58,7 @@ struct symbol_table{
 }symtab[20];
 
 //array to maintain pool table
-int pooltab[20];
+int pooltab[20],littab_temp;
 
 //all iterator variables for structures
 int symtab_i=0,littab_i=0,litpool_i=0,pooltab_i=0;
@@ -79,10 +80,11 @@ void print_pool_table(int pool_table[]);
 int isKey(string word,struct keyword k);
 
 //this function is used to check for duplicate labels in the symbol table
-bool isSym(string word,struct symbol_table symtab[])
+bool isSym(string word,struct symbol_table symtab[],int LC)
 {
 	for(int sym_check=0;sym_check<symtab_i;sym_check++)
 	{
+		//return false if word is equal
 		if(!symtab[sym_check].symbol.compare(word))
 		{
 			return false;
@@ -90,7 +92,31 @@ bool isSym(string word,struct symbol_table symtab[])
 	}
 	return true;
 }
-
+int assignAdd(string word,struct symbol_table symtab[],int LC)
+{
+	for(int i=0;i<symtab_i;i++)
+	{
+		if(!symtab[i].symbol.compare(word))
+		{
+			if(symtab[i].address==0 && LC!=0)
+			{
+				symtab[i].address=LC;
+				return -1;
+			}
+		}
+	}
+	return 1;
+}
+void literalIndex(string word,struct literal_table littab[])
+{
+	for(int i=0;i<littab_i;i++)
+	{
+		if(!littab[i].literal.compare(word))
+		{	
+			littab_temp=i;
+		}
+	}
+}
 //main function
 int main()
 {
@@ -103,10 +129,12 @@ int main()
 	//structure array for literal table
 	struct literal_table littab[20];
 
+	vector<string> temp1;	
+	
 	int LC=0; //Location counter
 	
-	int lp_to_lt_i=0; //iterator for pushing literals from literal pool to literal table
-	
+	int lp_to_lt_i=0,i=0; //iterator for pushing literals from literal pool to literal table
+	string temp;
 	//all flag variables are here
 	bool lc_flag=0, ds_flag=0,end_flag=0,ltorg_flag=0,symbol_flag=0; //lc_flag used to assign proper address to LC
 	
@@ -136,16 +164,13 @@ int main()
 		//check for new word i.e when space,comma,new line or tab is encountered it is treated as new word
 		if(c==' ' || c==',' || c=='\n' || c=='\t')
 		{
+			temp1.push_back(word);
 			//set the lc_flag when START is encountered
 			if(word=="START")
 			{
+				out<<"(AD,01)";
 				lc_flag=true;
 			}
-			//printing all seperated words
-			cout<<endl<<word;
-			
-			
-			
 			//check if lc_flag is set and the word is a number			
 			if(lc_flag && isNumber(word) ==1 )
 			{
@@ -155,6 +180,10 @@ int main()
 				LC-=2;
 				//reset the lc_flag
 				lc_flag=0;
+			}
+			if(isSym(word,symtab,LC)==0)
+			{
+				symbol_flag=1;				
 			}
 			//if the word encountered is Declarative statement then set the ds_flag and decrement lc by one
 			if(word=="DS")
@@ -167,38 +196,28 @@ int main()
 			{
 				LC=LC+(atoi(word.c_str()));
 			}
-			//if newline is encountered in input code write same in output ic code file
-			if(c=='\n')
-			{
-				out<<"\n";
-			}
-			if(isSym(word,symtab)==0)
-			{
-				symbol_flag=1;
-			}
-			for(int i=0;i<symtab_i;i++)
-			{
-				if(symbol_flag && ds_flag )//&& symtab[i].address==0)
-				{
-					if(word==symtab[i].symbol)
-					{
-						symtab[i].address=LC;
-					}
-				}
-			}
 			//Increment the Location counter whenever newline is encountered and don't increment when word is assembler directive
 			if(c=='\n' && isAD(word,k)!=1)
 			{
-				if(LC)
 					LC++;
 					//cout<<"LC for this line is : "<<LC;
 			}
+			//if newline is encountered in input code write same in output ic code file
+			if(temp1.size()==3)
+			{
+				if(temp1[1]=="DS"||temp1[1]=="DC")
+				{
+					if(assignAdd(temp1[0],symtab,LC))
+					{
+					}					
+				}
+			}
+						
 			//ltorg_flag to set proper address to literals
 			if(word=="LTORG")
 			{
 				ltorg_flag=1;
-			}
-			
+			}			
 			//function isKey() is called for tokenization
 			int check=isKey(word,k);
 			//checking for all types of keyword
@@ -207,7 +226,6 @@ int main()
 				switch(check)
 				{
 					case 1:
-						cout<<": mnemonic opcode";
 						//loop to print the instruction opcode
 						for(int i=0;i<11;i++)
 						{
@@ -221,7 +239,6 @@ int main()
 						}
 						break;
 					case 2:
-						cout<<": assembler directive";
 						//loop to print the instruction opcode
 						for(int i=0;i<6;i++)
 						{
@@ -235,7 +252,6 @@ int main()
 						}
 						break;
 					case 3:
-						cout<<": declarative statement";
 						//loop to print the instruction opcode
 						for(int i=0;i<3;i++)
 						{
@@ -249,7 +265,6 @@ int main()
 						}
 						break;
 					case 4:
-						cout<<": register";
 						//loop to print the instruction opcode
 						for(int i=0;i<4;i++)
 						{
@@ -266,14 +281,14 @@ int main()
 			//literals are checked here
 			else if(check=isLiteral(word)==1)
 			{
-					out<<"(L,"<<word<<")";
+				literalIndex(word,littab);
+				out<<"(L,"<<word<<")";
 					
-					literal_pool[litpool_i]=word;
-					litpool_i++;
+				literal_pool[litpool_i]=word;
+				litpool_i++;
 			}
 			else if(ltorg_flag)
 			{	
-				
 				for(lp_to_lt_i ;lp_to_lt_i<litpool_i;lp_to_lt_i++)
 				{
 					littab[littab_i].index=lp_to_lt_i+1;
@@ -284,30 +299,28 @@ int main()
 					littab_i++;
 					literal_pool[lp_to_lt_i]="";
 				}	
-				int i;
-				pooltab[i]=litpool_i;
-				i++;			
 			}
 			//check that is the encountered word is number i.e constant
 			else if(check=isNumber(word)==1)
 			{
-				out<<"(C,"<<word<<")";
+				
 			}
 			else
 			{
 				//if the condition is satified then label is valid symbol and not duplicate
-				if(isSym(word,symtab) && ((word[0]!='\'' && word[2]!='\'') || word[0]!='\'' && word[3]!='\''))
+				if(isSym(word,symtab,LC) && ((word[0]!='\'' && word[2]!='\'') || word[0]!='\'' && word[3]!='\'') && !isAD(word,k)==0)
 				{
 					cout<<": Label";
 					symtab[symtab_i].symbol=word;
 					symtab[symtab_i].address=0;
 					symtab[symtab_i].length=1;
 					symtab_i++;
+					out<<"(S,"<<symtab_i<<")";
+					
 				}
 				//label is not valid symbol or label is duplicate
 				else
 				{
-					cout<<" : Duplicate Symbol\n";
 				}
 			}			
 			if(word == "END")
@@ -315,18 +328,26 @@ int main()
 				break;
 				end_flag=1;
 			}
+			if(check=isNumber(word)==1)
+			{
+				out<<"(C,"<<word<<")";
+			}
+			//if input buffer character is \n then clear the buffer vector and print newline in output file
+			if(c=='\n')
+			{
+				temp1.clear();
+				out<<"\n";
+			}
 			//initialse word to empty string to reset value of variable word				
-			word = "";			
+			word = "";
+ 			
 		}
 		//add characters to word till this condition is satisfied
 		if(c!=' ' && c!=',' && c!='\n' && c!='\t')
 		{
 			word+=c;			
 		}
-		if(c=='\n')
-			cout<<"LC is: "<<LC;
 	}
-	cout<<"\nLC value is: "<<LC;
 	
 	//calling print_symbol_table function here
 	print_symbol_table(symtab);
