@@ -1,9 +1,6 @@
 package log;
 
-import java.io.IOExcepti1901	48
-1901	48
-1901	48
-on;
+import java.io.IOException;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
