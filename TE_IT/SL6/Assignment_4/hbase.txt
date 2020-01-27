@@ -1,0 +1,88 @@
+1.	Starting/Stopping Hbase service:
+		i)	start-hbase.sh
+		ii)	stop-hbase.sh
+		
+2.	Verification that hbase is working properly
+		this command will show all available tables in the system
+		
+		> list
+		
+3.	Create table
+	
+	syntax:
+	> create ‘<table name>’,’<column family>’ 
+	
+	example:
+	> create 'demo','personal data','professional data'
+	
+	above example will create a schema like :
+	
+	Row Key		Personal Data		Professional Data
+
+4.	Disable table //Before deleting table we have to disable it
+
+	syntax:
+	> disable '<table name>'
+	
+	example: 
+	> disable 'demo'
+	
+	after disabling the table we cannot perform any operations like scanning over them
+	
+5.	Enable Table //To perform any task
+
+	syntax:
+	> enable '<table name>'
+	
+	example: 
+	> enable 'demo'
+	
+6.	Describe //return description of the table
+
+	syntax:
+	> describe '<table name>'
+	
+	example: 
+	> descrbie 'demo'
+	
+	Output:
+	
+		Table demo is ENABLED                                                           
+	demo                                                                            
+	COLUMN FAMILIES DESCRIPTION                                                     
+	{NAME => 'personal data', BLOOMFILTER => 'ROW', VERSIONS => '1', IN_MEMORY => 'f
+	alse', KEEP_DELETED_CELLS => 'FALSE', DATA_BLOCK_ENCODING => 'NONE', TTL => 'FOR
+	EVER', COMPRESSION => 'NONE', MIN_VERSIONS => '0', BLOCKCACHE => 'true', BLOCKSI
+	ZE => '65536', REPLICATION_SCOPE => '0'}                                        
+	{NAME => 'professional data', BLOOMFILTER => 'ROW', VERSIONS => '1', IN_MEMORY =
+	> 'false', KEEP_DELETED_CELLS => 'FALSE', DATA_BLOCK_ENCODING => 'NONE', TTL => 
+	'FOREVER', COMPRESSION => 'NONE', MIN_VERSIONS => '0', BLOCKCACHE => 'true', BLO
+	CKSIZE => '65536', REPLICATION_SCOPE => '0'}                                    
+	2 row(s) in 0.0230 seconds
+	
+7.	alter //To add/remove/modify column family or to change max number of cells in column family
+
+	i)	Delete a column family:
+	
+		syntax	: alter '<table name>', 'delete' => 'column family'
+		
+		example	: alter 'demo', 'delete' => 'professional data'					
+							
+							OR
+							
+		syntax	: alter '<table name>',{NAME => 'column family', METHOD => 'delete'}
+		
+		example	: alter 'demo',{NAME => 'professional data', METHOD => 'delete'}
+		
+	ii) Add a column family:
+	
+		syntax : alter '<table name>',{NAME => 'column faimly'}
+
+		example: alter 'demo', {NAME => 'professional data'} 
+		
+8. Dropping a table
+	NOTE: before dropping a table we must disable it
+	
+	syntax	: drop '<table name>'
+ 	
+	example	: drop 'demo' 
