@@ -1,0 +1,16 @@
+hive> create table demo (eid int, ename string,designation string) row format delimited fields terminated by ',' lines terminated by '\n' stored as textfile;
+
+note : delimited fields are must!
+
+hive> select * from demo;
+OK
+1201	Sahil	45000
+1202	Manish	45000
+1203	Kalpit	40000
+1204	Manas	40000
+1205	Jayesh	30000
+Time taken: 0.123 seconds, Fetched: 5 row(s)
+
+check why desgination is not being stored
+
+note : never exit from hive directly always use exit command else you've to reboot the system
