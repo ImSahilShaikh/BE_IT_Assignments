@@ -1,0 +1,155 @@
+Download apache-hive-2.2.0-bin.tar.gz and extract it
+
+hduser@deepali-Lenovo-ideapad-320-15IKB:~/Downloads/apache-hive-2.2.0-bin$ sudo mkdir /usr/local/hive
+hduser@deepali-Lenovo-ideapad-320-15IKB:~/Downloads/apache-hive-2.2.0-bin$ sudo mv * /usr/local/hive
+
+Edit bashrc file and add HIVE_PATH
+export HIVE_HOME=/usr/local/hive
+export PATH=$PATH:$HIVE_HOME/bin
+
+hduser@deepali-Lenovo-ideapad-320-15IKB:~$ gedit ~/.bashrc
+hduser@deepali-Lenovo-ideapad-320-15IKB:~$ source ~/.bashrc
+hduser@deepali-Lenovo-ideapad-320-15IKB:~$ echo $HIVE_HOME
+/usr/local/hive
+
+
+#Start Hadoop
+hduser@oslab-13:~$ start-all.sh
+
+#Create directory on Hadoop file system
+
+hduser@oslab-13:~$ hdfs dfs -mkdir -p /user/hive/warehouse
+hduser@oslab-13:~$  hdfs dfs -mkdir -p /tmp/hive
+hduser@oslab-13:~$  hdfs dfs -chmod 777 /tmp
+hduser@oslab-13:~$  hdfs dfs -chmod 777 /user/hive/warehouse
+hduser@oslab-13:~$  hdfs dfs -chmod 777 /tmp/hive
+
+#delete file 
+hduser@oslab-13:~$ rm /usr/local/hive/lib/log4j-slf4j-impl-2.6.2.jar
+
+#Initialize schema tool
+hduser@oslab-13:~$ schematool -initSchema -dbType derby
+
+#if error while initializing schema tool
+#then.......
+hduser@oslab-13:~$ ls -l |grep meta
+hduser@oslab-13:~$ mv metastore_db metastore_db.tmp
+
+#re-run schematool initialization command
+hduser@oslab-13:~$ schematool -initSchema -dbType derby
+Metastore connection URL:	 jdbc:derby:;databaseName=metastore_db;create=true
+Metastore Connection Driver :	 org.apache.derby.jdbc.EmbeddedDriver
+Metastore connection User:	 APP
+Starting metastore schema initialization to 1.2.0
+Initialization script hive-schema-1.2.0.derby.sql
+Initialization script completed
+schemaTool completed
+
+
+#Run hive
+hduser@oslab-13:~$ hive
+
+
+
+
+# To Check integration of Hive and Hbase(run Hbase on other terminal)
+CREATE TABLE ddl_hive(key int, val string) 
+STORED BY 'org.apache.hadoop.hive.hbase.HBaseStorageHandler'
+WITH SERDEPROPERTIES ("hbase.columns.mapping" = ":key,cf1:val")
+TBLPROPERTIES ("hbase.table.name" = "ddl_hbase","hbase.mapred.output.outputtable"="ddl_hbase");
+
+
+
+
+hive> show databases;
+OK
+default
+Time taken: 1.038 seconds, Fetched: 1 row(s)
+hive> show databases;
+OK
+default
+Time taken: 0.029 seconds, Fetched: 1 row(s)
+hive> show tables;
+OK
+Time taken: 0.092 seconds
+
+hive> create database db1;
+OK
+Time taken: 0.549 seconds
+hive> show tables;
+OK
+Time taken: 0.044 seconds
+hive> show databases;
+OK
+db1
+default
+Time taken: 0.028 seconds, Fetched: 2 row(s)
+hive> create table emp(ename string, esal int) row format delimited fields terminated by ',' stored as textfile;
+OK
+Time taken: 0.653 seconds
+hive> show tables;
+OK
+emp
+Time taken: 0.048 seconds, Fetched: 1 row(s)
+hive> load data local inpath '/home/hduser/Desktop/empdb.txt' into table emp;
+Loading data to table default.emp
+Table default.emp stats: [numFiles=1, totalSize=79]
+OK
+Time taken: 1.962 seconds
+hive> select * from emp;
+OK
+deepali	120000
+mahesh	30000
+mangesh	25000
+ram	39000
+brijesh	40000
+john	NULL
+Time taken: 0.539 seconds, Fetched: 6 row(s)
+hive> load data local inpath '/home/hduser/Desktop/empdb.txt' into table emp;
+Loading data to table default.emp
+Table default.emp stats: [numFiles=2, totalSize=157]
+OK
+Time taken: 0.581 seconds
+hive> select * from emp;
+OK
+deepali	120000
+mahesh	30000
+mangesh	25000
+ram	39000
+brijesh	40000
+john	NULL
+deepali	120000
+mahesh	30000
+mangesh	25000
+ram	39000
+brijesh	40000
+john	300000
+Time taken: 0.124 seconds, Fetched: 12 row(s)
+hive> drop table emp;
+OK
+Time taken: 0.938 seconds
+hive> create table emp(ename string, esal int) row format delimited fields terminated by ',' stored as textfile;
+OK
+Time taken: 0.3 seconds
+hive> select * from emp;
+OK
+Time taken: 0.133 seconds
+hive> load data local inpath '/home/hduser/Desktop/empdb.txt' into table emp;
+Loading data to table default.emp
+Table default.emp stats: [numFiles=1, totalSize=78]
+OK
+Time taken: 0.581 seconds
+hive> select * from emp;
+OK
+deepali	120000
+mahesh	30000
+mangesh	25000
+ram	39000
+brijesh	40000
+john	300000
+Time taken: 0.13 seconds, Fetched: 6 row(s)
+hive> 
+
+
+
+
