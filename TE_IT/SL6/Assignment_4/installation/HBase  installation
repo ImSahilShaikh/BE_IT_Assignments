@@ -1,0 +1,112 @@
+Download HBase stable version from Apache mirrors
+Download hbase-1.2.6-bin.tar.gz
+
+
+sudo mv hbase- /usr/local/HBase/
+
+gedit ~/.bashrc
+Add-
+export HBASE_HOME=/usr/local/HBase
+export PATH=$PATH:$HBASE_HOME/bin
+
+echo $HBASE_HOME
+/usr/local/HBase
+
+/HBase/config directory---- edit hbase-site.xml
+add
+
+<configuration>
+#Localhost of hdfs has to be checked and given as same, which will decide where you want to store hbase data
+   <property>
+      <name>hbase.rootdir</name>
+      <value>hdfs://localhost:54310/hbase</value>
+   </property>
+	
+#Psudo mode- value=false, cluster mode value=true  
+   <property>
+     <name>hbase.cluster.distributed</name>
+     <value>false</value>
+   </property>
+
+</configuration>
+
+check cat /etc/hosts
+This will give IP of Hadoop and localhost.
+Both IP has to be same for psudo mode
+
+change IP by editing hosts file, then only Hbase will start
+sudo gedit /etc/hosts
+
+Start Hadoop first, check no. of processes using jps command
+Now start hbase by using following command
+start-hbase.sh
+again check Hbase HMaster is added or not by using jps command
+
+Stop hbase using following command
+stop-hbase.sh
+
+# To make clustered mode true edit hbase-site.xml
+change distributed property true
+ <property>
+     <name>hbase.cluster.distributed</name>
+     <value>true</value>
+ </property>
+and add zookeeper data directory property
+<property>
+      <name>hbase.zookeeper.property.dataDir</name>
+      <value>/usr/local/hadoop/zoo_data</value>
+   </property>
+
+Update JAVA_HOME in hbase-env.sh, and uncomment it
+
+now start hbase
+start-hbase.sh
+jps
+5827 HMaster
+3287 NameNode
+3816 ResourceManager
+3945 NodeManager
+6298 Jps
+3419 DataNode
+5964 HRegionServer
+5757 HQuorumPeer
+3647 SecondaryNameNode
+
+You will find HregionServer with HMaster 
+
+Start using HBase using
+hbase shell
+hbase(main):001:0> list
+TABLE                                                                           
+0 row(s) in 0.2990 seconds
+
+=> []
+hbase(main):002:0> create 'table1', 'cf'
+0 row(s) in 4.8030 seconds
+
+=> Hbase::Table - table1
+hbase(main):003:0> create 'table2', 'cf1', 'cf2'
+0 row(s) in 4.3620 seconds
+
+=> Hbase::Table - table2
+hbase(main):004:0> list
+TABLE                                                                           
+table1                                                                          
+table2                                                                          
+2 row(s) in 0.0090 seconds
+
+=> ["table1", "table2"]
+hbase(main):005:0> put 'table1','row1','cf:a','v1'
+0 row(s) in 0.2280 seconds
+
+hbase(main):006:0> put 'table1','row2','cf:b','v2'
+0 row(s) in 0.0140 seconds
+
+hbase(main):007:0> scan 'table1'
+ROW                   COLUMN+CELL                                               
+ row1                 column=cf:a, timestamp=1521272126886, value=v1            
+ row2                 column=cf:b, timestamp=1521272159280, value=v2            
+2 row(s) in 0.0310 seconds
+
+
+
