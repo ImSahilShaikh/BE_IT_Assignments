@@ -20,6 +20,29 @@ void display(vector <int> v)
 	cout<<"\n";
 }
 
+void RR_Store(vector <int> prog,tape tape[],int tape_count)
+{
+	int j,count=0;
+	for(int i=0;i<prog.size();i++)
+	{
+		for(j=0;i<tape_count;j++)
+		{
+			if(tape[j].capacity>=prog[i])
+			{
+				tape[j].tape.push_back(prog[i]);
+				tape[j].capacity=tape[j].capacity-prog[i];
+				count=j+1;
+				if(count==tape_count)
+					count=0;
+				break;
+			}
+			else
+				continue;
+		}
+	}
+	
+}
+
 int main()
 {
 	vector <int> temp_tape;
@@ -56,6 +79,30 @@ int main()
 	
 	cout<<"\nDisplaying sorted programs: \n";
 	display(temp_tape);
+	
+	cout<<"Store: \n";
+	
+	/*for(int i=0;i<temp_tape.size();i++)
+	{
+		cout<<"\nhere";
+		for(int j=0;j<n;j++)
+		{
+			cout<<"\n\ninner";
+			if(t[j].capacity>=0)
+			{
+				t[j].tape.push_back(temp_tape[i]);
+				t[j].capacity=t[j].capacity-temp_tape[i];
+				break;
+			}
+			else
+				continue;
+		}
+	}	
+	
+	display(t[1].tape);
+	*/
+	
+	RR_Store(temp_tape,t,tape_count);
 	
 	return 0;
 }
