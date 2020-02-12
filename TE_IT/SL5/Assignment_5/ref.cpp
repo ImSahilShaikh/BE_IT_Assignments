@@ -1,134 +1,119 @@
-#include<stdio.h>
 #include<iostream>
-#include<bits/stdc++.h>
+#include<vector>
+#include<algorithm>
 
 using namespace std;
 
 struct tape
 {
-	vector<int> t;
-	int cap;
-	float mrt;
+	vector <int> stored_prog;
+	int capacity;
+	float mrt; 
 };
-            
-void MRT_hor(vector<int> v,tape tap[],int n)
-{
-	sort(v.begin(),v.end());
-	int j;
-	for(int i=0;i<v.size();i++)
-	{
-		
-		for(j=0;j<n;j++)
-		{
-			if(tap[j].cap>=v[i])
-			{
-				tap[j].t.push_back(v[i]);
-				tap[j].cap = tap[j].cap - v[i];
-				break;
-			}
-			else
-			   {continue;}
-		}
-		/*if(j==n-1)
-		{
-			cout<<"The program "<<v[i]<<" not stored anywhere\n";
-		}*/
-	}
-	
-	for(int i=0;i<n;i++)
-	{
-		int sum=0;float mtr=0;
-		cout<<"\nTape number "<<i+1<<" is:: | ";
-		for(int j=0;j<tap[i].t.size();j++)
-		{
-				sum = sum + tap[i].t[j];
-				mtr=mtr+sum;
-				cout<<tap[i].t[j]<<" | ";
-		}
-		tap[i].mrt=mtr/tap[i].t.size();
-		cout<<"\n The MRT of tape number "<<i+1<<" is::"<<tap[i].mrt<<"\n";
-	}
-}        
 
-void MRT_ver(vector<int> v,tape tap[],int n)
+void display(vector <int> v)
 {
-	sort(v.begin(),v.end());
-	int j,count=0;
 	for(int i=0;i<v.size();i++)
 	{
-		
-		for(j=count;j<n;j++)
+		cout<<v[i]<<"\t";
+	}	
+	cout<<"\n";
+}
+
+void RR_Store(vector <int> prog,tape tape[],int tape_count)
+{
+	int j,count=0;
+	for(int i=0;i<prog.size();i++)
+	{
+		for(j=0;i<tape_count;j++)
 		{
-			
-			if(tap[j].cap>=v[i])
+			if(tape[j].capacity>=prog[i])
 			{
-				tap[j].t.push_back(v[i]);
-				tap[j].cap = tap[j].cap - v[i];
+				tape[j].stored_prog.push_back(prog[i]);
+				tape[j].capacity=tape[j].capacity-prog[i];
 				count=j+1;
-				if(count==n)
+				if(count==tape_count)
 				{
-					count = 0;
+					count=0;
 				}
 				break;
 			}
 			else
-			{
-			    continue;
-			}   
-			
+				continue;
 		}
-		
-		/*if(j==n-1)
-		{
-			cout<<"The program "<<v[i]<<" not stored anywhere\n";
-		}*/
 	}
-	
-	for(int i=0;i<n;i++)
+	for(int i=0;i<tape_count;i++)
 	{
-		int sum=0;float mtr=0;
-		cout<<"\nTape number "<<i+1<<" is:: | ";
-		for(int j=0;j<tap[i].t.size();j++)
+		int sum=0;
+		float mrt;
+		cout<<"Tape ["<<i+1<<"] : ";
+		for(int j=0;j<tape[i].stored_prog.size();j++)
 		{
-				sum = sum + tap[i].t[j];
-				mtr=mtr+sum;
-				cout<<tap[i].t[j]<<" | ";
+			sum = sum + tape[i].stored_prog[j];
+			mrt = mrt + sum;
+			cout<<" | "<<tape[i].stored_prog[j]<<" | ";
 		}
-		tap[i].mrt=mtr/tap[i].t.size();
-		cout<<"\n The MRT of tape number "<<i+1<<" is::"<<tap[i].mrt<<"\n";
+		tape[i].mrt=mrt/tape[i].stored_prog.size();
+		cout<<"\nMRT of the tape is : "<<tape[i].mrt;
 	}
-	
-	
-}           
-            
+}
+
 int main()
 {
-	int nt,np,x,n; 
-	vector<int> prog;
-	cout<<"Enter number of tapes::";
-	cin>>nt;
-	cout<<"Enter tape capacities::";
-	struct tape taph[nt];
-	struct tape tapv[nt];
-	for(int i=0;i<nt;i++)
+	vector <int> temp_tape;
+	
+	int temp,n,tape_count;
+
+	cout<<"\nEnter the number of tapes: ";
+	cin>>tape_count;
+	
+	struct tape t[tape_count];
+	
+	cout<<"\nEnter the capacity of tape: ";
+	for(int i=0;i<tape_count;i++)
 	{
-		cin>>n;
-		taph[i].cap=n;
-		tapv[i].cap=n;
+		cout<<"\nTape "<<i+1<<" : ";	
+		cin>>t[i].capacity;
 	}
-	cout<<"enter number of programs::";
-	cin>>np;
-	cout<<"enter programs::";
-	for(int i=0;i<np;i++)
+	
+	cout<<"\nEnter the number of programs you want to store: ";
+	cin>>n;
+	
+	cout<<"\nEnter the program(s) (size(s)) you want to store: -\n";
+	for(int i=0;i<n;i++)
 	{
-		cin>>x;
-		prog.push_back(x);
-	}		
-	cout<<"\nFor horizontal storage::\n";
-	MRT_hor(prog,taph,nt);
+		cin>>temp;
+		temp_tape.push_back(temp);
+	}
 	
-	cout<<"\nFor vertical storage::\n";
-	MRT_ver(prog,tapv,nt);
-	
+	cout<<"\nDisplaying Temporary Tape: -\n";
+	display(temp_tape);
+
+	sort(temp_tape.begin(),temp_tape.end());
 		
-}                     
+	cout<<"Store: \n";
+	
+	/*for(int i=0;i<temp_tape.size();i++)
+	{
+		cout<<"\nhere";
+		for(int j=0;j<n;j++)
+		{
+			cout<<"\n\ninner";
+			if(t[j].capacity>=0)
+			{
+				t[j].tape.push_back(temp_tape[i]);
+				t[j].capacity=t[j].capacity-temp_tape[i];
+				break;
+			}
+			else
+				continue;
+		}
+	}	
+	
+	display(t[1].tape);
+	*/
+	
+	RR_Store(temp_tape,t,tape_count);
+	
+	return 0;
+}
