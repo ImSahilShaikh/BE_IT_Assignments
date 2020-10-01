@@ -1,6 +1,6 @@
 import java.util.*;
 
-class crt
+class Crt
 {
     int findXi(int Ni,int ni)
     {
@@ -13,7 +13,7 @@ class crt
     }
     public static void main(String args[]) throws Exception
     {
-        crt c = new crt();
+        Crt c = new Crt();
         ArrayList<Integer> b = new ArrayList<Integer>(Arrays.asList(2,3,1));
         ArrayList<Integer> n = new ArrayList<Integer>(Arrays.asList(3,4,5));
 

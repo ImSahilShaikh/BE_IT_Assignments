@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-class rsa
+class Rsa
 {
     static double gcd(double num1, double num2)
     {
