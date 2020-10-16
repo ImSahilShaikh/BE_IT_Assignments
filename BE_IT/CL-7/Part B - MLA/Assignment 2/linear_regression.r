@@ -1,5 +1,9 @@
+#Name : Sahil Shaikh
+#Roll no: 43365
+#Problem Statement: Supervised Learning - Regression (Using R)
+
 #import dataset
-df <- read.delim("D:/CL7/LungCapData.txt",header = TRUE, sep = '\t')
+df <- read.delim("C:/Users/ImSahil/OneDrive/Desktop/BE_IT_Assignments/BE_IT/CL-7/Part B - MLA/Assignment 2/LungCapData.txt",header = TRUE, sep = '\t')
 
 #for random splitting using set seed function
 set.seed(10)
