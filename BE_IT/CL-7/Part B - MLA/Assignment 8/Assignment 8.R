@@ -21,7 +21,7 @@ df <- df[,2:13]
 colSums(is.na(df))
 
 #removing all na values
-df$fixed.acidity[is.na(df$fixed.acidity)] <- mean(df$fixed.acidity,na.rm = TRUE)
+df $ fixed.acidity [is.na(df $ fixed.acidity)] <- mean(df$fixed.acidity,na.rm = TRUE)
 df$volatile.acidity[is.na(df$volatile.acidity)] <- mean(df$volatile.acidity,na.rm = TRUE)
 df$citric.acid[is.na(df$citric.acid)] <- mean(df$citric.acid,na.rm = TRUE)
 df$residual.sugar[is.na(df$residual.sugar)] <- mean(df$residual.sugar,na.rm = TRUE)
@@ -41,7 +41,7 @@ is.numeric(as.matrix(df))
 pca <- prcomp(df,scale. = TRUE)
 
 #we are squaring the std deviation to calculate how much variation in original data each principal component does
-pca.var <- pca$sdev^2
+pca.var <- pca $ sdev ^ 2
 
 #converting the variation into percentage
 pca.var.per <- round(pca.var/sum(pca.var)*100,1)
