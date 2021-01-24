@@ -1,6 +1,7 @@
 /* 
-
-
+Name: Sahil A. Shaikh
+Roll no: 43365
+Problem Statement: To develop any distributed application through implementing client-server communication programs based on Java Sockets.
 */
 
 import java.net.*;
@@ -66,6 +67,6 @@ public class MyServer {
         istream.close();
         ostream.close();
 
-        System.out.println("Communication Terminated");
+        System.out.println("Connection Terminated");
     }    
 }
