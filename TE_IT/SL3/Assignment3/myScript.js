@@ -74,7 +74,8 @@ function nameValidation()
 		return false;
 	}
 	if(regstr.test(name))
-	{		document.getElementById("name").style.borderColor = "green";
+	{		
+		document.getElementById("name").style.borderColor = "green";
 	}
 
 }
