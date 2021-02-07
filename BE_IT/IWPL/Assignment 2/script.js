@@ -1,59 +1,95 @@
-// function init()
-// {
-//     document.getElementById("name").style.borderColor="red";
-//     document.getElementById("email").style.borderColor="red";
-//     document.getElementById("p1").style.borderColor="red";
-//     document.getElementById("p2").style.borderColor="red";
-//     document.getElementById("contact").style.borderColor="red";
-// }
-
-// function nameValidation()
-// {
-//     var name = document.getElementById("name");
-    
-//     var nameregex = /^[a-zA-Z\s]+$/;
-
-//     if(!nameregex.test(name))
-//     {
-//         document.getElementById("name").style.borderColor = "rgba(255, 0 , 0, 0.5)";
-//         //document.getElementById("name").style.boxShadow = "10px 10px 20px 10px rgba(255, 0 , 0, 0.08)";
-//         return false;
-//     }
-//     if(nameregex.test(name)){
-//         document.getElementById("name").style.borderColor = green;//"rgba(102, 255 , 0, 0.5)";
-//         //document.getElementById("name").style.boxShadow = "10px 10px 20px 10px rgba(102, 255 , 0, 0.08)";
-//     }
-// }
-
-
-function nv()
+function passwordValidation()
 {
-    var name = document.getElementById("name");
-    var nameregex = /^[a-zA-Z\s]+$/;
+    var password = document.getElementById("p1").value;
+    var pass_reg = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 
-    if(!nameregex.test(name))
+
+    if(!pass_reg.test(password))
     {
-        document.getElementById("name").style.borderColor="red";
+        document.getElementById("p1").style.borderColor = "red";
         return false;
     }
-    if(nameregex.test(name))
+    if(pass_reg.test(password))
     {
-        document.getElementById("name").style.borderColor="green";
+        document.getElementById("p1").style.borderColor = "rgba(77, 255, 77)";
     }
 }
 
-function n()
+function confirmPassword()
 {
-    var name = document.getElementById('name');
-    var reg = /^[A-Za-z]+$/;
+    var password = document.getElementById("p1").value;
+    var confirmPassword = document.getElementById("p2").value;
 
-    if(!reg.test(name))
+    if(password == confirmPassword)
     {
-        name.style.borderColor="green";
+        document.getElementById("p2").style.borderColor ="rgba(77, 255, 77)";
     }
+    if(password != confirmPassword)
+    {
+        document.getElementById("p2").style.borderColor = "red";
+    }
+}
 
-    if(reg.test(name))
+
+
+function emailValidation()
+{
+    var email = document.getElementById("email").value;
+
+    const regemail1 = /^([A-Za-z0-9_\-\.])+@([A-Za-z0-9_\-])+\.([A-Za-z]{3})$/;
+    const regemail2 = /^([A-Za-z0-9_\-\.])+@([A-Za-z0-9_\-])+\.([A-Za-z]{2})+\.([A-Za-z]{2})$/;
+
+    if(regemail1.test(email) == true)
     {
-        name.style.borderColor="red";
+        document.getElementById("email").style.borderColor = "rgba(77, 255, 77)";
     }
+    else if(regemail2.test(email) == true)
+    {
+        document.getElementById("email").style.borderColor = "rgba(77, 255, 77)";
+    }
+    else
+    {
+        document.getElementById("email").style.borderColor = "red";
+        return false;
+    }   
+}
+
+function contactValidation()
+{
+    var contactno = document.getElementById("contact").value;
+    if(contactno.length!=10 || contactno.charAt(0)!='9' && contactno.charAt(0)!='8' && contactno.charAt(0)!='7')
+    {
+        document.getElementById("contact").style.borderColor = "red";
+        return false;
+    }
+    else
+    {  
+        document.getElementById("contact").style.borderColor = "rgba(77, 255, 77)";
+    }
+}
+
+function nameValidation()
+{
+	var name=document.getElementById("name").value;
+	const regstr = /^[A-Z][a-z\s]*$/;
+	if(!regstr.test(name))
+	{
+		document.getElementById("name").style.borderColor = "red";
+		return false;
+	}
+	if(regstr.test(name))
+	{		
+		document.getElementById("name").style.borderColor = "rgba(77, 255, 77)";
+	}
+}
+
+
+
+function init()
+{
+	document.getElementById("name").style.borderColor = "red";
+    document.getElementById("email").style.borderColor = "red";
+    document.getElementById("p1").style.borderColor ="red";
+    document.getElementById("p2").style.borderColor ="red";
+    document.getElementById("contact").style.borderColor ="red";
 }

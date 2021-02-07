@@ -60,13 +60,19 @@
     margin: 12px;
 }
 
+
+.input{
+    border: none;
+    outline: none;
+    padding: 15px 0px;
+}
+
 .form-row  input {
     flex: 2;
     margin: 10px;
-    padding: 5px;
+    padding: 10px 10px;
     outline: none;
     border-radius: 8px;
-    box-shadow: 10px 10px 20px 10px rgba(255, 0 , 0, 0.08)
     
 }
 .form-row  button {
