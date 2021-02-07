@@ -6,6 +6,21 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+    overflow: hidden;
+}
+
+.submit-row a{
+    text-decoration: none;
+    background-color: #303030;
+    color: #f4f4f4;
+}
+
+.submit-row a:hover{
+    box-shadow: 10px 10px 20px 10px rgba(0, 0 , 0, 0.05);
+    background-color: #606060;
+    color: #f4f4f4;
+    transition: 0.6s;
 }
 
 .container{
@@ -55,6 +70,18 @@
     padding: 10px;
 }
 
+.form-row{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+}
+
+.submit-row{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
 .form-row label{
     flex: 1;
     margin: 12px;
@@ -69,15 +96,14 @@
 
 .form-row  input {
     flex: 2;
-    margin: 10px;
+    margin: 5px;
     padding: 10px 10px;
     outline: none;
     border-radius: 8px;
     
 }
-.form-row  button {
+#button {
     flex: 5;
-    
     margin: 10px;
     padding: 10px;
     margin-top: 20px;
@@ -87,8 +113,28 @@
     outline: none;
 }
 
-.form-row button:hover{
-    box-shadow: 10px 10px 20px 10px rgba(0, 0 , 0, 0.15);
+#button:hover{
+    box-shadow: 10px 10px 20px 10px rgba(0, 0 , 0, 0.05);
     background-color: #606060;
     transition: 0.6s;
 }
+
+#backbutton {
+    flex: 5;
+    margin: 10px;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: #f4f4f4;
+    color: #303030;
+    outline: none;
+}
+
+#backbutton:hover{
+    box-shadow: 10px 10px 20px 10px rgba(0, 0 , 0, 0.05);
+    background-color: #606060;
+    color: #f4f4f4;
+    transition: 0.6s;
+}
+
+

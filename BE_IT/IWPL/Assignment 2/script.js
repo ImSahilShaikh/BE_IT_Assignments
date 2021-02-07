@@ -27,6 +27,7 @@ function confirmPassword()
     if(password != confirmPassword)
     {
         document.getElementById("p2").style.borderColor = "red";
+        return false;
     }
 }
 
@@ -83,8 +84,6 @@ function nameValidation()
 	}
 }
 
-
-
 function init()
 {
 	document.getElementById("name").style.borderColor = "red";
@@ -92,4 +91,9 @@ function init()
     document.getElementById("p1").style.borderColor ="red";
     document.getElementById("p2").style.borderColor ="red";
     document.getElementById("contact").style.borderColor ="red";
+}
+
+function gotoHome()
+{
+    window.location.replace("index.html")
 }
