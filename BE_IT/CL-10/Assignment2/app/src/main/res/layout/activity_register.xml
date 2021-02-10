@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Register"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/u"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:hint="Username"
+        android:drawableStart="@drawable/username"
+        tools:ignore="RtlCompat">
+    </EditText>
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5pt"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:hint="Password"
+        android:drawableStart="@drawable/pass"
+        android:inputType="textPassword"
+        tools:ignore="RtlCompat">
+    </EditText>
+
+    <EditText
+        android:id="@+id/confirmpass"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5pt"
+        android:layout_marginRight="30dp"
+        android:gravity="center"
+        android:hint="Confirm Password"
+        android:drawableStart="@drawable/pass"
+        android:inputType="textPassword"
+        tools:ignore="RtlCompat">
+    </EditText>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        >
+        <androidx.appcompat.widget.AppCompatButton
+
+            android:id="@+id/backtohome"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5pt"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="20dp"
+            android:text="Back">
+
+        </androidx.appcompat.widget.AppCompatButton>
+        <Button
+
+            android:id="@+id/submitreg"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5pt"
+            android:layout_marginLeft="10dp"
+            android:text="Submit">
+
+        </Button>
+
+    </LinearLayout>
+
+</LinearLayout>
