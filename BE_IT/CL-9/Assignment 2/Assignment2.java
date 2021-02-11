@@ -55,6 +55,5 @@ public class Assignment2 {
                 System.out.print(i+"\t");
             }
         }
-
     }
 }

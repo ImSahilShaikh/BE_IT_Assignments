@@ -14,11 +14,11 @@ public class a2 {
         
         //size of communicator: total number of processes inside the communicator
         int size = MPI.COMM_WORLD.Size();
+        
         //rank: a unique number for each process
         int rank = MPI.COMM_WORLD.Rank();
 
         System.out.println("Rank of process: "+rank);
-
 
         //Finalize MPI: cleans the mpi environment so that no mpi calls can be made after this
         MPI.Finalize();
