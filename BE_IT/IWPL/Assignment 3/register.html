@@ -17,18 +17,18 @@
                     <strong class="title-text">Register</strong>
                 </div>
                 <p class="content">
-                    <form class="registerform" id="myform" autocomplete="off" action="registered-banner.html">
+                    <form class="registerform" id="myform" autocomplete="off" action="registered-banner.php" method="POST">
                         <li class="form-row">
                             <label for="name">Name: </label>
-                            <input id="name" type="text" placeholder="Name" onkeyup="nameValidation()" required>
+                            <input id="name" name="name" type="text" placeholder="Name" onkeyup="nameValidation()" required>
                         </li>
                         <li class="form-row">
                             <label for="email">Email: </label>
-                            <input id="email" type="text" placeholder="Enter your Email" onkeyup="emailValidation()" required>
+                            <input id="email" name="email" type="text" placeholder="Enter your Email" onkeyup="emailValidation()" required>
                         </li>
                         <li class="form-row">
                             <label for="password">Password: </label>
-                            <input id="p1" type="password" placeholder="Enter your password" onkeyup="passwordValidation()" required>
+                            <input id="p1" name="p1" type="password" placeholder="Enter your password" onkeyup="passwordValidation()" required>
                         </li>
                         <li class="form-row">
                             <label for="passwordconfirm">Confirm Password: </label>
@@ -36,7 +36,7 @@
                         </li>
                         <li class="form-row">
                             <label for="Phone">Contact: </label>
-                            <input id="contact" type="text" placeholder="Enter your contact number" onkeyup="contactValidation()" required>
+                            <input id="contact" name="contact" type="text" placeholder="Enter your contact number" onkeyup="contactValidation()" required>
                         </li>
                         <li class="submit-row">
                             <button id="button"> <a href="index.html"> Back to Home </a></button>
