@@ -42,25 +42,27 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         
         if($row['username'] === $username && $row['password'] === $password)
         {            
-            $_SESSION['username'] = $row['user_name'];
-            $_SESSION['name'] = $row['name'];
-            $_SESSION['id'] = $row['id'];
-            header("Location: index.html");
+            $_SESSION['username'] = $row['username'];
+            // $_SESSION['id'] = $row['id'];
+            header("Location: index.php");
             exit();
         }
         else
         {
             $_SESSION["error"] = $error;
+            header("Location: login.php");
             exit();
         }
     } 
     else
     {
         $_SESSION["error"] = $error;
+        header("Location: login.php");
         exit();
     }
     
 } else {
     $_SESSION["error"] = $error;
+    header("Location: login.php");
     exit();
 }

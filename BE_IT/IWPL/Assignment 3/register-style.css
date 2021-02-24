@@ -6,23 +6,22 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    background-color: #f4f4f4;
     overflow: hidden;
 }
 
 .submit-row a{
     text-decoration: none;
-    background-color: #303030;
+    
     color: #f4f4f4;
 
 }
 
-.submit-row a:hover{
+/* .submit-row a:hover{
     box-shadow: 10px 10px 20px 10px rgba(0, 0 , 0, 0.05);
     background-color: #606060;
     color: #f4f4f4;
     transition: 0.6s;
-}
+} */
 
 .container{
     height: 100vh;

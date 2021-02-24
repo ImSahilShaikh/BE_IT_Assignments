@@ -24,7 +24,9 @@
    border-radius: 5px;
    
 }
-
+/* ::-webkit-scrollbar{
+    display: none;
+} */
 #login{
 
     text-decoration: none;
@@ -91,7 +93,7 @@ a.link{
 
 nav{
     background-color: #303030	;
-    height: 60px;
+    height: 8vh;
     padding: 0 20px;
     display: flex;
     align-items: center;
@@ -206,7 +208,7 @@ nav ul a:hover{
     width: inherit;
 }
 
-.contact-body p.content button{
+.contact-body p.content .button{
     display: block;
     align-content: center;
     justify-content: center;
@@ -219,14 +221,14 @@ nav ul a:hover{
     outline: none;
 }
 
-.contact-body p.content button:hover{
+.contact-body p.content .button:hover{
     box-shadow: 10px 10px 20px 10px rgba(0, 0 , 0, 0.15);
     background-color: #606060;
     transition: 0.6s;
 }
 
 .about-container{
-    height: 100vh;
+    min-height: 92vh;
     display: flex;
     flex-direction: column;
     align-items: center;

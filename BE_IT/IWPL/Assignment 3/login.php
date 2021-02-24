@@ -1,5 +1,7 @@
 <?php
 session_start();
+if(!isset($_SESSION["username"]))
+{
 ?>
 
 <!DOCTYPE html>
@@ -19,10 +21,7 @@ session_start();
                 <a class="alogo" href="index.html">EPIC REVIEW</a>
             </div>
         </div>
-        <ul>
-            <a class="link" href="index.html">HOME</a>
-            <a class="link" href="about.html">ABOUT</a>
-            <a class="link" href="contactus.html">CONTACT US</a>
+        <ul>            
             <a class="link" href="register.html">REGISTER</a>
         </ul>
     </nav>
@@ -62,5 +61,9 @@ session_start();
 </html>
 
 <?php
-unset($_SESSION["error"]);
+}
+else{
+    header("Location: ./index.php");
+}
+//unset($_SESSION["error"]);
 ?>

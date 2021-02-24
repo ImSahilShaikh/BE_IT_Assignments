@@ -1,3 +1,10 @@
+<?php
+session_start();
+if(isset($_SESSION['username']))
+{
+    $username = $_SESSION['username'];
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -18,17 +25,18 @@
             </div>
         </div>
         <ul>
-            <a class="link" href="index.html">HOME</a>
+            <!-- <a class="link"><?php echo $username; ?></a> -->
+            <a class="link" href="index.php">HOME</a>
             <a class="link" href="about.html">ABOUT</a>
-            <a class="link" href="contactus.html">CONTACT US</a>
-            <a class="link" href="register.html">REGISTER</a>
+            <a class="link" href="contactus.html">CONTACT US</a>            
+            <a class="link" href="./logout.php">LOGOUT</a>            
         </ul>
     </nav>
     <div class="container">
         <div class="intro-card">
             <div class="intro-card-body">
                 <div class="title">
-                    <strong class="title-text">Welcome to the EPIC REVIEW!</strong>
+                    <strong class="title-text">Welcome <?php echo $username;  ?> to the EPIC REVIEW!</strong>
                 </div>
                 <p class="content">
                     EPIC REVIEW will provide latest unbiased game reviews for the latest releases. Not every critic is
@@ -90,3 +98,11 @@
 </body>
 
 </html>
+
+<?php
+unset($_SESSION["error"]);
+}
+else{
+    header("Location: ./login.php");
+}
+?>
