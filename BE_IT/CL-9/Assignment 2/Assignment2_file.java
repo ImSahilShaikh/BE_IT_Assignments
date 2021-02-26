@@ -71,11 +71,11 @@ public class Assignment2_file {
             }
 
             //showing sendbuffer
-            System.out.println("Data to be scattered by process " + rank + ": ");
-            for (int i = 0; i < data_size; i++) {
-                System.out.println(send_buffer[i] + " ");
-            }
-            System.out.println();
+            // System.out.println("Data to be scattered by process " + rank + ": ");
+            // for (int i = 0; i < data_size; i++) {
+            //     System.out.println(send_buffer[i] + " ");
+            // }
+            // System.out.println();
         }
 
         //creating recieving buffer for processes to recieve all the scattered data
@@ -91,10 +91,10 @@ public class Assignment2_file {
         //printing which process has what data
         for(int i=0;i<chunk;i++)
         {
-            System.out.println("Process "+rank+" squaring "+recieve_buffer[i]);
+            //System.out.println("Process "+rank+" squaring "+recieve_buffer[i]);
 
             //Calculation square of the data
-            recieve_buffer[i] = recieve_buffer[i] * recieve_buffer[i];
+            recieve_buffer[i] = recieve_buffer[i] * recieve_buffer[i] * recieve_buffer[i] * recieve_buffer[i] * recieve_buffer[i] * recieve_buffer[i];
         }
         System.out.println();
 
@@ -103,19 +103,20 @@ public class Assignment2_file {
         MPI.COMM_WORLD.Gather(recieve_buffer,0,chunk,MPI.INT,send_buffer,0,chunk,MPI.INT,root);
 
         //calling nanoTime method again and substracting starttime from it to get elapsed time
-        long elapsedtime = System.nanoTime() - starttime;
-
-        //displaying elapsed time by each process
-        System.out.println("Time required to perform squaring task for process["+rank+"]: "+(elapsedtime/1000000)+"ms");
+        
 
         //displaying the data contained by root process after gather operation
         if(rank == root)
         {
-            System.out.println("The root ["+rank+"] process with squared numbers: ");
-            for(int i: send_buffer)
-            {
-                System.out.print(i+"\t");
-            }
+            // System.out.println("The root ["+rank+"] process with squared numbers: ");
+            // for(int i: send_buffer)
+            // {
+            //     System.out.print(i+"\t");
+            // }
+            long elapsedtime = System.nanoTime() - starttime;
+
+        //displaying elapsed time by each process
+        System.out.println("Time required to perform squaring task for process["+rank+"]: "+(elapsedtime/1000000)+"ms");
         }
 
         //Finalize MPI: cleans the mpi environment so that no mpi calls can be made after this
