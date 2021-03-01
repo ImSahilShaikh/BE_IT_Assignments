@@ -1,0 +1,54 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EPIC REVIEW REGISTRATION</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="validate.js"></script>
+    <!-- <script src="script.js"></script> -->
+    <link rel="stylesheet" href="register-style.css">
+
+</head>
+
+<body onload="init()">
+    <div class="container">
+        <div class="register">
+            <div class="register-body">
+                <div class="title">
+                    <strong class="title-text">Register</strong>
+                </div>
+                <p class="content">
+                    <form class="registerform" id="myform" autocomplete="off" action="registered-banner.html">
+                        <li class="form-row">
+                            <label for="name">Name: </label>
+                            <input id="name" name="name" type="text" placeholder="Name" required>
+                        </li>
+                        <li class="form-row">
+                            <label for="email">Email: </label>
+                            <input id="email" name="email" type="text" placeholder="Enter your Email" onkeyup="emailValidation()" required>
+                        </li>
+                        <li class="form-row">
+                            <label for="password">Password: </label>
+                            <input id="p1" type="password" placeholder="Enter your password" onkeyup="passwordValidation()" required>
+                        </li>
+                        <li class="form-row">
+                            <label for="passwordconfirm">Confirm Password: </label>
+                            <input id="p2" type="password" placeholder="Re-Enter your password" onkeyup="confirmPassword()" required>
+                        </li>
+                        <li class="form-row">
+                            <label for="Phone">Contact: </label>
+                            <input id="contact" type="text" placeholder="Enter your contact number" onkeyup="contactValidation()" required>
+                        </li>
+                        <li class="submit-row">
+                            <button id="button"> <a href="index.html"> Back to Home </a></button>
+                            <input type="submit" id="backbutton">
+                        </li>
+                    </form>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

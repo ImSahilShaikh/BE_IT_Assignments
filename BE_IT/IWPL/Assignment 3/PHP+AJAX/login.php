@@ -56,6 +56,9 @@ if (!isset($_SESSION["username"])) {
                                 ?> -->
                                 <span id="error" class='error'>incorrect Username or password</span>
                             </div>
+                            <div class="formrow">
+                                <a href="forgot-password.php">Forgot Password?</a>
+                            </div>
                         </form>
                     </div>
                     <!-- <div class="signup">

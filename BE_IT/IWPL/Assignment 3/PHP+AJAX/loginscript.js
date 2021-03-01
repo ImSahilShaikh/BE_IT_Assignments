@@ -17,7 +17,7 @@ $(document).ready(function() {
                 },
                 success: function(response) {
                     if (response) {
-                        $("body").load("index.php").hide().fadeIn(1500);
+                        $("body").load("index.php").hide().fadeIn(1100);
                     } else {
                         $("#error").show();
                     }
@@ -25,4 +25,5 @@ $(document).ready(function() {
             });
         }
     });
+
 });
