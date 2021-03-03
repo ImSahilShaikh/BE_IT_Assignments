@@ -1,0 +1,5 @@
+module HelloModule{
+    interface Hello{
+        string print_hello(in string s);
+    };
+};
