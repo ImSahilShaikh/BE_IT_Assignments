@@ -1,4 +1,4 @@
-import Hello.HelloPOA;
+import HelloModule.HelloPOA;
 
 class HelloImpl extends HelloPOA{
     HelloImpl()
@@ -9,6 +9,6 @@ class HelloImpl extends HelloPOA{
 
     public String print_hello(String s)
     {
-        return ("Hello"+s);
+        return("Hello "+s);
     }
 }
