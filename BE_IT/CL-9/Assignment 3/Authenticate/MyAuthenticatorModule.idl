@@ -1,0 +1,5 @@
+module MyAuthenticatorModule{
+    interface MyAuthenticator{
+        string chech_credentials(in string username,in string password);
+    };
+};
