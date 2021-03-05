@@ -10,7 +10,7 @@ This command will generate 6 helper files in one package with the given module n
 5. Hello.java - the signature file that implements the hello contract
 6. HelloOperations.java - operations specific to Hello
 
-- Step 2 : Compile all .java files including all the Helper files created using idlj using following command 'javac *.java HelloModule/*.java'
+- Step 2 : Compile all .java files including all the Helper files created using idlj using following command 'javac \*.java HelloModule/\*.java'
 - Step 3 : Start orbd using 'orbd -ORBInitialPort 1050&'
 - Step 4 : Execute the Server code using the orbd port with 'java Server -ORBInitialPort 1050& -ORBInitialHost localhost&'
 - Step 5 : Execute the Client code using the orbd port with 'java ReverseClient -ORBInitialPort 1050 -ORBInitialHost localhost'
