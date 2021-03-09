@@ -7,8 +7,8 @@ import org.omg.PortableServer.*;
 
 public class Server {
     public static void main(String[] args) {
+    
         try {
-
             // create and initialize ORB
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args,null);
 

@@ -14,3 +14,5 @@ This command will generate 6 helper files in one package with the given module n
 - Step 3 : Start orbd using 'orbd -ORBInitialPort 1050&'
 - Step 4 : Execute the Server code using the orbd port with 'java Server -ORBInitialPort 1050& -ORBInitialHost localhost&'
 - Step 5 : Execute the Client code using the orbd port with 'java Client -ORBInitialPort 1050 -ORBInitialHost localhost'
+
+In windows & is not required
