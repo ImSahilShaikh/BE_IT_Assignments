@@ -2,12 +2,14 @@ import java.util.*;
 
 public class Bully{
 
-    boolean processes[];
-    int no_process;
-    int coordinator;
+    boolean processes[]; // processes
+    int no_process; //total number of processes to be created
+    int coordinator; //coordinator process
 
+    //Constructor
     public Bully(int no)
     {
+        // Initializing all the variables
         no_process = no;
         processes = new boolean[no];
         coordinator = no;
@@ -60,13 +62,17 @@ public class Bully{
 
     void startElection(int no)
     {
+        //as we are using array indexing we need to decrement the current number and increment the coordinator to iterate
         no = no - 1;
         coordinator = no + 1;
+
         for(int i=0;i<no_process;i++)
         {
+            //if the current process number is less than i
             if(no < i)
             {
                 System.out.println("Election message is sent from P["+(no+1)+"] to P["+(i+1)+"]");
+                //recursively call election function if process[i] is active
                 if(processes[i])
                 {
                     startElection(i+1);
