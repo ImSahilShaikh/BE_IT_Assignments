@@ -18,10 +18,9 @@
             </div>
         </div>
         <ul>
-            <a class="link" href="index.html">HOME</a>
-            <a class="link" href="about.html">ABOUT</a>
-            <a class="link" href="contactus.html">CONTACT US</a>
-            <a class="link" href="register.html">REGISTER</a>
+            <a class="link" href="index.jsp">HOME</a>
+            <a class="link" href="about.jsp">ABOUT</a>
+            <a class="link" href="contactus.jsp">CONTACT US</a>
             <a class="link" href="logout.jsp">LOGOUT</a>
         </ul>
     </nav>
@@ -30,12 +29,10 @@
             <div class="intro-card-body">
                 <div class="title">
                     <strong class="title-text">Welcome <% out.print(session.getAttribute("user")); %> to the EPIC REVIEW!</strong>
-                    
+
                 </div>
                 <p class="content">
-                    EPIC REVIEW will provide latest unbiased game reviews for the latest releases. Not every critic is
-                    the same. EPIC REVIEW TEAM offers aggregated game reviews from the top critics, and our own EPIC REVIEW
-                    pinpoints at a glance how each game works.
+                    EPIC REVIEW will provide latest unbiased game reviews for the latest releases. Not every critic is the same. EPIC REVIEW TEAM offers aggregated game reviews from the top critics, and our own EPIC REVIEW pinpoints at a glance how each game works.
                 </p>
             </div>
         </div>

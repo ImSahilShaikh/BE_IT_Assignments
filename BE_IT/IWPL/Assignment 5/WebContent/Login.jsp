@@ -38,7 +38,7 @@
 			</div>
 		</div>
 		<ul>
-			<a class="link" href="register.html">REGISTER</a>
+			<a class="link" href="register.jsp">REGISTER</a>
 		</ul>
 	</nav>
 

@@ -6,7 +6,7 @@
     <title>EPIC REVIEW REGISTRATION</title>
     <script src="script.js"></script>
     <link rel="stylesheet" href="register-style.css">
-    
+
 </head>
 
 <body onload="init()">
@@ -17,7 +17,7 @@
                     <strong class="title-text">Register</strong>
                 </div>
                 <p class="content">
-                    <form class="registerform" id="myform" autocomplete="off" action="registered-banner.php" method="POST">
+                    <form class="registerform" id="myform" autocomplete="off" action="register_db.jsp" method="POST">
                         <li class="form-row">
                             <label for="name">Name: </label>
                             <input id="name" name="name" type="text" placeholder="Name" onkeyup="nameValidation()" required>
@@ -32,7 +32,7 @@
                         </li>
                         <li class="form-row">
                             <label for="passwordconfirm">Confirm Password: </label>
-                            <input id="p2" type="password" placeholder="Re-Enter your password" onkeyup="confirmPassword()" required>
+                            <input id="p2" name="p2" type="password" placeholder="Re-Enter your password" onkeyup="confirmPassword()" required>
                         </li>
                         <li class="form-row">
                             <label for="Phone">Contact: </label>
@@ -49,4 +49,5 @@
     </div>
 </body>
 <!--  -->
+
 </html>
