@@ -16,7 +16,7 @@ public class MyAuthenticatorImpl extends MyAuthenticatorPOA{
 
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/epicreview","root","");
 
-            String query = "select password from users where username='"+username+"'";
+            String query = "select password from authenticate where username='"+username+"'";
 		    Statement st = con.createStatement();
 		    ResultSet resultSet = st.executeQuery(query);
 
