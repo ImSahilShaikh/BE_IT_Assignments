@@ -9,7 +9,7 @@ if(!isset($_SESSION["username"]))
 
 <head>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="error.css">
+    
     <title>EPIC REVIEW</title>
 </head>
 
@@ -65,5 +65,5 @@ if(!isset($_SESSION["username"]))
 else{
     header("Location: ./index.php");
 }
-//unset($_SESSION["error"]);
+unset($_SESSION["error"]);
 ?>

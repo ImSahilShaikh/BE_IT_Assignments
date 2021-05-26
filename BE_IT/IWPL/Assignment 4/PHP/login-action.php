@@ -1,13 +1,7 @@
 <?php
-require_once('C:\\xampp\\nusoap\\lib\\nusoap.php');
 session_start();
-unset($_SESSION['error']);
 
 $error = "username/password incorrect";
-
-//Web Services Description Language
-// XML format for describing network services as a set of endpoints operating on messages containing either document-oriented or procedure-oriented information. The operations and messages are described abstractly, and then bound to a concrete network protocol and message format to define an endpoint.
-$wsdl="http://localhost:9080/LoginSoapService/services/Login?wsdl";
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
     function validate($data)
@@ -31,26 +25,42 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         $_SESSION["error"] = $error;
         header("Location: login.php");
         exit();
-    }    
-
-    $param = array('username'=>$username,'password'=>$password);
-
-    //instantiating client with server info
-    $client = new nusoap_client($wsdl,'wsdl');
-
-    //calling check credentials method
-    $result = $client->call('checkCredentials',$param);
-
-    // if the result is true send to main page else print error
-    if(implode($result) == 'true'){
-        $_SESSION['username'] = $username;
-        header('location: index.php');
-    }else{
-        $_SESSION['error'] = "Wrong Username or Password";
-        header('location: login.php');
     }
 
+    $mydbcon = mysqli_connect("localhost", "root", "", "epicreview");
 
+    if (!$mydbcon) {
+        echo "Connection Failed";
+    }
+
+    $sql = "SELECT * FROM users WHERE username='$username' and password='$password'";
+
+    $result = mysqli_query($mydbcon, $sql);
+
+    if (mysqli_num_rows($result) === 1) {
+        $row = mysqli_fetch_assoc($result);
+        
+        if($row['username'] === $username && $row['password'] === $password)
+        {            
+            $_SESSION['username'] = $row['username'];
+            // $_SESSION['id'] = $row['id'];
+            header("Location: index.php");
+            exit();
+        }
+        else
+        {
+            $_SESSION["error"] = $error;
+            header("Location: login.php");
+            exit();
+        }
+    } 
+    else
+    {
+        $_SESSION["error"] = $error;
+        header("Location: login.php");
+        exit();
+    }
+    
 } else {
     $_SESSION["error"] = $error;
     header("Location: login.php");

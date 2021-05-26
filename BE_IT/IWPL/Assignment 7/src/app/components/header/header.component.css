@@ -1,0 +1,37 @@
+header {
+    padding: 20px 0;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav button {
+    width: 120px;
+    padding: 14px;
+    border-radius: 3px;
+    border: none;
+    background-color: #deffdb;
+    color: green;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all .2s;
+}
+
+nav button:hover {
+    background-color: green;
+    color: #fff;
+}
+
+nav button.expense {
+    margin-left: 10px;
+    background-color: rgb(255, 235, 233);
+    color: rgb(201, 90, 77);
+}
+
+nav button.expense:hover {
+    background-color: salmon;
+    color: white;
+}

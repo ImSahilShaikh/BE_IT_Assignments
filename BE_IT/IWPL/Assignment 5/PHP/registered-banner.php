@@ -20,7 +20,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['p1']) && is
         echo "Connection Failed";
     }
 
-    $sql1 = "INSERT INTO users values('$name','$email','$password','$contact')";
+    $sql1 = "INSERT INTO authenticate values('$name','$email','$password','$contact')";
 
     if(mysqli_query($mydbcon, $sql1)){
         
@@ -44,7 +44,7 @@ if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['p1']) && is
 <body>
     <script>
         setTimeout(function() {
-            window.location.href = "index.html";
+            window.location.href = "index.php";
         }, 3000);
     </script>
     <h2>Congratulations your are now registered with us</h2>

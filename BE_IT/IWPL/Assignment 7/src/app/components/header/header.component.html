@@ -1,0 +1,11 @@
+<header>
+    <nav>
+        <a href="/" class="logo">
+            <img src="assets/logo.png" width="127px" alt="">
+        </a>
+        <div class="right">
+            <button (click)="incomeForm.emit(!showIncomeForm)" class="create-btn income">{{ showIncomeForm ? 'Close Form' : 'Add Income' }}</button>
+            <button (click)="expenseForm.emit(!showExpenseForm)" class="create-btn expense">{{ showExpenseForm ? 'Close Form' : 'Add Expense' }}</button>
+        </div>
+    </nav>
+</header>

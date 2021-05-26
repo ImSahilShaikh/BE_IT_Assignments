@@ -3,12 +3,12 @@
   <ns1:parameter name="sendMultiRefs" value="true"/>
   <ns1:parameter name="disablePrettyXML" value="true"/>
   <ns1:parameter name="adminPassword" value="admin"/>
-  <ns1:parameter name="attachments.Directory" value="D:\BE_IT_Assignments\BE_IT\CL-9\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Assignment 5\WEB-INF\attachments"/>
+  <ns1:parameter name="attachments.Directory" value="D:\BE_IT_Assignments\BE_IT\CL-9\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\Assignment 5Client\WEB-INF\attachments"/>
   <ns1:parameter name="dotNetSoapEncFix" value="true"/>
   <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
   <ns1:parameter name="sendXMLDeclaration" value="true"/>
-  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
   <ns1:parameter name="sendXsiTypes" value="true"/>
+  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
   <ns1:requestFlow>
    <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
     <ns1:parameter name="scope" value="session"/>
@@ -32,43 +32,12 @@
   <ns1:parameter name="allowedMethods" value="getVersion"/>
   <ns1:parameter name="className" value="org.apache.axis.Version"/>
  </ns1:service>
- <ns1:service name="Calculator" provider="java:RPC" style="wrapped" use="literal">
-  <ns2:operation name="add" qname="ns1:add" returnQName="ns1:addReturn" returnType="xsd:double" soapAction="" xmlns:ns1="http://DefaultNamespace" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://xml.apache.org/axis/wsdd/">
-   <ns2:parameter qname="ns1:a" type="xsd:double"/>
-   <ns2:parameter qname="ns1:b" type="xsd:double"/>
-  </ns2:operation>
-  <ns1:operation name="divide" qname="ns2:divide" returnQName="ns2:divideReturn" returnType="xsd:double" soapAction="" xmlns:ns2="http://DefaultNamespace" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns2:a" type="xsd:double"/>
-   <ns1:parameter qname="ns2:b" type="xsd:double"/>
-  </ns1:operation>
-  <ns1:operation name="multiply" qname="ns3:multiply" returnQName="ns3:multiplyReturn" returnType="xsd:double" soapAction="" xmlns:ns3="http://DefaultNamespace" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns3:a" type="xsd:double"/>
-   <ns1:parameter qname="ns3:b" type="xsd:double"/>
-  </ns1:operation>
-  <ns1:operation name="subtract" qname="ns4:subtract" returnQName="ns4:subtractReturn" returnType="xsd:double" soapAction="" xmlns:ns4="http://DefaultNamespace" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns4:a" type="xsd:double"/>
-   <ns1:parameter qname="ns4:b" type="xsd:double"/>
-  </ns1:operation>
-  <ns1:parameter name="allowedMethods" value="add subtract divide multiply"/>
-  <ns1:parameter name="wsdlPortType" value="Calculator"/>
-  <ns1:parameter name="typeMappingVersion" value="1.2"/>
-  <ns1:parameter name="schemaQualified" value="http://DefaultNamespace"/>
-  <ns1:parameter name="wsdlServicePort" value="Calculator"/>
-  <ns1:parameter name="className" value="Calculator"/>
-  <ns1:parameter name="wsdlTargetNamespace" value="http://DefaultNamespace"/>
-  <ns1:parameter name="wsdlServiceElement" value="CalculatorService"/>
- </ns1:service>
- <ns1:service name="Authenticator" provider="java:RPC" style="wrapped" use="literal">
-  <ns1:operation name="check" qname="ns5:check" returnQName="ns5:checkReturn" returnType="xsd:string" soapAction="" xmlns:ns5="http://DefaultNamespace" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-   <ns1:parameter qname="ns5:name" type="xsd:string"/>
-   <ns1:parameter qname="ns5:pass" type="xsd:string"/>
-  </ns1:operation>
-  <ns1:parameter name="allowedMethods" value="check"/>
+ <ns1:service name="Authenticator" provider="java:RPC" style="document">
+  <ns1:parameter name="allowedMethods" value="*"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
   <ns1:parameter name="wsdlPortType" value="Authenticator"/>
-  <ns1:parameter name="className" value="Authenticator"/>
+  <ns1:parameter name="className" value="DefaultNamespace.Authenticator"/>
   <ns1:parameter name="wsdlServicePort" value="Authenticator"/>
-  <ns1:parameter name="schemaQualified" value="http://DefaultNamespace"/>
   <ns1:parameter name="wsdlTargetNamespace" value="http://DefaultNamespace"/>
   <ns1:parameter name="wsdlServiceElement" value="AuthenticatorService"/>
  </ns1:service>
