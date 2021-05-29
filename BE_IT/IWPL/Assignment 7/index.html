@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js "></script>
+    <title>Assignment 7</title>
+</head>
+
+<body>
+    <div ng-app="ExpenseApp" ng-controller="myController" ng-init="bal=0;">
+        <div class="container">
+            <div class="register">
+                <div class="register-body">
+                    <div class="title">
+                        <strong class="title-text">Expense Tracker</strong><br><br>
+                        <strong class="subtitle-text">Current Balance: <span ng-model="bal">{{bal}}</span></strong>
+                    </div>
+                    <p class="content">
+                        <form class="registerform">
+                            <li class="form-row">
+                                <input name="ownerName" id="ownerName" ng-model="amt" type="text" placeholder="Amount" required>
+                            </li>
+                            <li class="submit-row ">
+                                <button class="incomebutton" ng-click="add(bal,amt)">Income</button>
+                                <button class="backbutton" ng-click="sub(bal,amt)">Expense</button>
+                            </li>
+                        </form>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<script>
+    var myApp = angular.module('ExpenseApp', []);
+    myApp.controller("myController", function($scope) {
+        $scope.add = function(num1, num2) {
+            $scope.bal = parseInt(num1) + parseInt(num2);
+        }
+        $scope.sub = function(num1, num2) {
+            $scope.bal = parseInt(num1) - parseInt(num2);
+        }
+    });
+</script>
+
+</html>

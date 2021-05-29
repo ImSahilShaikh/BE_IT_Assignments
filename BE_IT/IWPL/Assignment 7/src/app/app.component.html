@@ -1,7 +1,0 @@
-<div class="container">
-  <app-header (incomeForm)="incomeFormApp($event)" (expenseForm)="expenseFormApp($event)" [showExpenseForm]="showExpenseForm" [showIncomeForm]="showIncomeForm" ></app-header>
-  <app-expense-card (clear)="clearStats()" [saving]="saving" [income]="income" [expense]="expense"></app-expense-card>
-  <app-expense-form (updateExpense)="updateExpense($event)" *ngIf="showExpenseForm"></app-expense-form>
-  <app-income-form (updateIncome)="updateIncome($event)" *ngIf="showIncomeForm"></app-income-form>
-  <router-outlet></router-outlet>
-</div>
