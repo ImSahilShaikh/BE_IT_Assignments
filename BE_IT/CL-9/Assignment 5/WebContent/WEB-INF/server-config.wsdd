@@ -7,8 +7,8 @@
   <ns1:parameter name="dotNetSoapEncFix" value="true"/>
   <ns1:parameter name="enableNamespacePrefixOptimization" value="false"/>
   <ns1:parameter name="sendXMLDeclaration" value="true"/>
-  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
   <ns1:parameter name="sendXsiTypes" value="true"/>
+  <ns1:parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
   <ns1:requestFlow>
    <ns1:handler type="java:org.apache.axis.handlers.JWSHandler">
     <ns1:parameter name="scope" value="session"/>
@@ -50,11 +50,11 @@
    <ns1:parameter qname="ns4:b" type="xsd:double"/>
   </ns1:operation>
   <ns1:parameter name="allowedMethods" value="add subtract divide multiply"/>
-  <ns1:parameter name="wsdlPortType" value="Calculator"/>
   <ns1:parameter name="typeMappingVersion" value="1.2"/>
-  <ns1:parameter name="schemaQualified" value="http://DefaultNamespace"/>
-  <ns1:parameter name="wsdlServicePort" value="Calculator"/>
+  <ns1:parameter name="wsdlPortType" value="Calculator"/>
   <ns1:parameter name="className" value="Calculator"/>
+  <ns1:parameter name="wsdlServicePort" value="Calculator"/>
+  <ns1:parameter name="schemaQualified" value="http://DefaultNamespace"/>
   <ns1:parameter name="wsdlTargetNamespace" value="http://DefaultNamespace"/>
   <ns1:parameter name="wsdlServiceElement" value="CalculatorService"/>
  </ns1:service>
